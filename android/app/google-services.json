@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "48971373974",
+    "project_id": "bnacash-77402",
+    "storage_bucket": "bnacash-77402.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48971373974:android:2c18b73f756f55be7891b7",
+        "android_client_info": {
+          "package_name": "com.example.bnacash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48971373974-oc7qccmgif099conrkmgmoqvo446b0s6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bnacash",
+            "certificate_hash": "2a7a2c18f1b2e2e1b59c1327db418fdd34dec90e"
+          }
+        },
+        {
+          "client_id": "48971373974-k86uan148vc70i3cii9ptv0a2ik5fl85.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4Q1Q8WeMLNxNl7TA4OJoX60dSCTPpBIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "48971373974-k86uan148vc70i3cii9ptv0a2ik5fl85.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
