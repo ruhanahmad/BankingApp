@@ -13,7 +13,7 @@ import '../pages/Login/models/code_field.dart';
 
 class PhoneAuth extends GetxController {
   String? verificationCode;
-  String? verify;
+  String verify ="";
   var phoneNumbers;
    var pinCode = "";
   verifyPhone() async {

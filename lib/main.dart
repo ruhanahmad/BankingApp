@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
     var userId = FirebaseAuth.instance.currentUser;
     
     return GetMaterialApp(
-
       title: 'BNA Cash',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -42,7 +41,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: userId !=null ? 
-      const HomePage(): LandingPage()
+      const HomePage():LandingPage()
       // const CountryField(),
       // const ProofPage()
     );

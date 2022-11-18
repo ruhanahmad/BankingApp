@@ -1,4 +1,6 @@
+import 'package:bnacash/Controller/userController.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 class MyRegularButton extends StatelessWidget {
@@ -16,7 +18,9 @@ class MyRegularButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+      UserController userController = Get.put(UserController());
+    return 
+    TextButton(
       style: TextButton.styleFrom(
           backgroundColor: color,
           fixedSize: Size(width, height),
@@ -32,7 +36,10 @@ class MyRegularButton extends StatelessWidget {
             fontWeight: FontWeight.bold
         ),
       ),
-      onPressed: (){},
+      onPressed: (){
+          print("object");
+                  userController.prepaid();
+      },
     );
   }
 }

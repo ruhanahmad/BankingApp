@@ -1,5 +1,6 @@
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/add_money.dart';
+import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:bnacash/pages/second_screen.dart';
 import 'package:bnacash/pages/whom_to_pay.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,19 +11,37 @@ import 'package:google_fonts/google_fonts.dart';
 import 'custom_button.dart';
 import 'package:bnacash/Controller/userController.dart';
 
-class TransactionContainer extends StatelessWidget {
+class TransactionContainer extends StatefulWidget {
   const TransactionContainer({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<TransactionContainer> createState() => _TransactionContainerState();
+}
+
+class _TransactionContainerState extends State<TransactionContainer> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userController.getAccountData();
+  }
+  @override
   Widget build(BuildContext context) {
    UserController userController = Get.put(UserController());
-   userController.onInit();
+   
 
     return 
     
-    GetBuilder<UserController>(builder:( builder)
+    GetBuilder<UserController>
+      
+    (
+
+      init: UserController(),
+      
+      builder:( builder)
     
     {
     return 
@@ -47,13 +66,19 @@ class TransactionContainer extends StatelessWidget {
                     children: [
                       Text(
                         // '0 TND',
-                        builder.accountsList.length > 0 ?
-                        builder.accountsList[0].accountB:"",
+                        builder.balances == null ? "0":builder.balances ,
+                        // builder.accountsList[0].accountB,
+                        // builder.accountsList.length > 0 ?
+                        // builder.accountsList[0].accountB :"",
                         style: GoogleFonts.oxygen(
                           fontSize: 50,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
+                      Text("TND"),
+                      IconButton(onPressed: (){
+                        builder.getAccountData();
+                      }, icon: Icon(Icons.zoom_in))
                     ],
                   ),
                   const Text(

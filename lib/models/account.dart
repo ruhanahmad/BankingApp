@@ -6,9 +6,9 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// Account accountFromJson(String str) => Account.fromJson(json.decode(str));
+Account accountFromJson(String str) => Account.fromJson(json.decode(str));
 
-// String accountToJson(Account data) => json.encode(data.toJson());
+String accountToJson(Account data) => json.encode(data.toJson());
 
 class Account {
     Account({
@@ -18,7 +18,7 @@ class Account {
         this.accountNumber,
         this.status,
         this.username,
-        this.dateTime,
+        // this.dateTime,
     });
 
     String? BIC;
@@ -27,16 +27,16 @@ class Account {
     String? accountNumber;
     bool? status;
     String? username;
-    DateTime? dateTime;
+    // DateTime? dateTime;
 
-    factory Account.fromDocumentSnapshot(DocumentSnapshot json) => Account(
+    factory Account.fromJson(DocumentSnapshot json) => Account(
         BIC: json["BIC"],
         IBAN: json["IBAN"],
         accountB: json["accountB"],
         accountNumber: json["accountNumber"],
         status: json["status"],
         username: json["username"],
-        dateTime: json["dateTime"]
+        // dateTime: json["dateTime"]
     );
 
     Map<String, dynamic> toJson() => {
@@ -46,6 +46,6 @@ class Account {
         "accountNumber": accountNumber,
         "status": status,
         "username": username,
-        "dateTime":dateTime,
+        // "dateTime":dateTime
     };
 }

@@ -69,7 +69,9 @@ class _PhoneFieldState extends State<PhoneField> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: TextFormField(
-                    onChanged: (value) { phoneAuth.phoneNumbers = value;
+                    
+                    onChanged: (value) {
+                       phoneAuth.phoneNumbers = value;
                     phoneAuth.update();
                     },
                     decoration: InputDecoration(

@@ -1,8 +1,11 @@
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/account_detail.dart';
+import 'package:bnacash/pages/bank_transfer.dart';
 import 'package:bnacash/widgets/custom_buttonn.dart';
 import 'package:bnacash/widgets/cutom_heading.dart';
 import 'package:flutter/material.dart';
+
+import '../Controller/userController.dart';
 
 class WhomToPay extends StatefulWidget {
   const WhomToPay({Key? key}) : super(key: key);
@@ -12,6 +15,7 @@ class WhomToPay extends StatefulWidget {
 }
 
 class _WhomToPayState extends State<WhomToPay> {
+  UserController userController = UserController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +28,8 @@ class _WhomToPayState extends State<WhomToPay> {
             top: 16,
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // action bar
               Row(
@@ -33,7 +38,12 @@ class _WhomToPayState extends State<WhomToPay> {
                   const BackButton(color: Color(0xFF27282a)),
                   Row(
                     children: [
-                      const Icon(Icons.search, color: Color(0xFF27282a)),
+                      GestureDetector(
+                        onTap: () {
+                          userController.contactListed();
+                        },
+                        
+                        child: const Icon(Icons.search, color: Color(0xFF27282a))),
                       const SizedBox(
                         width: 20,
                       ),
@@ -77,12 +87,19 @@ class _WhomToPayState extends State<WhomToPay> {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                child: Row(
-                  children: const [
-                    CustomBtn(text: "R"),
-                    CustomBtn(text: "Contacts"),
-                    CustomBtn(text: "Accounts"),
-                  ],
+                child: Container(
+                  height: 50,
+                  width: 300,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+            itemCount: userController.contactListThings.length,
+              itemBuilder: (context, i){
+                  
+                    return 
+ CustomBtn(text: userController.contactListThings[i]["name"]);
+              
+              },
+          ),
                 ),
               ),
               const Align(
@@ -99,20 +116,89 @@ class _WhomToPayState extends State<WhomToPay> {
                 ),
               ),
               // for making contact listTile
-              Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12.0)),
-                  child: const ListTile(
-                    leading: Icon(Icons.person),
-                    title: Text(
-                      "Your contact list is empty. Contacts will appear when you add them.",
-                      style: TextStyle(
-                          color: Color(0xFF83888c),
-                          fontWeight: FontWeight.w500),
+              // Container(
+              //     padding: const EdgeInsets.symmetric(vertical: 10),
+              //     decoration: BoxDecoration(
+              //         color: Colors.white,
+              //         borderRadius: BorderRadius.circular(12.0)),
+              //     child: const ListTile(
+              //       leading: Icon(Icons.person),
+              //       title: Text(
+              //         "Your contact list is empty. Contacts will appear when you add them.",
+              //         style: TextStyle(
+              //             color: Color(0xFF83888c),
+              //             fontWeight: FontWeight.w500),
+              //       ),
+              //     )),
+                            Container(
+                padding: const EdgeInsets.all(12.0),
+                height: 85,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Row(
+                  children: [
+                    // FloatingActionButton(
+                    //   backgroundColor: Colors.blueGrey.withOpacity(0.2),
+                    //   child: const FaIcon(
+                    //     FontAwesomeIcons.solidCreditCard,
+                    //     color: Colors.blue,
+                    //   ),
+                    //   elevation: 0,
+                    //   onPressed: () {},
+                    // ),
+                           const SizedBox(
+                      width: 12.0,
                     ),
-                  )),
+                
+              
+                
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Bank Transfer',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 4.0,
+                        ),
+                        Text(
+                          'Send Money',
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        )
+                      ],
+                    ),
+                    const Spacer(),
+                    TextButton(
+                      child:  Text(
+                        'Change',
+                      ),
+                      style: TextButton.styleFrom(
+                          backgroundColor: Colors.blueGrey.withOpacity(0.2),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          fixedSize: const Size(80, 5)),
+                      onPressed: () {
+                        // Nav.toScreen(context, const MyCard());
+                        Nav.toScreen(context, const BankCard());
+                
+                
+                        
+                      },
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
