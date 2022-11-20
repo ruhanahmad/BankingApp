@@ -1,9 +1,12 @@
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/account_detail.dart';
 import 'package:bnacash/pages/bank_transfer.dart';
+import 'package:bnacash/pages/constant.dart';
+import 'package:bnacash/pages/sendContactMoney.dart';
 import 'package:bnacash/widgets/custom_buttonn.dart';
 import 'package:bnacash/widgets/cutom_heading.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../Controller/userController.dart';
 
@@ -14,11 +17,24 @@ class WhomToPay extends StatefulWidget {
   State<WhomToPay> createState() => _WhomToPayState();
 }
 
+
+
 class _WhomToPayState extends State<WhomToPay> {
   UserController userController = UserController();
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userController.contactListed();
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return 
+    GetBuilder(
+      
+      init: UserController(),
+      builder: (builder){
+       return     Scaffold(
       backgroundColor: const Color(0xFFf3f4f6),
       body: SingleChildScrollView(
         child: Container(
@@ -92,11 +108,35 @@ class _WhomToPayState extends State<WhomToPay> {
                   width: 300,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-            itemCount: userController.contactListThings.length,
+            itemCount: userController.contactListThings!.length,
               itemBuilder: (context, i){
                   
                     return 
- CustomBtn(text: userController.contactListThings[i]["name"]);
+ Container(
+ margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+ child: ElevatedButton(
+   onPressed: () {
+
+           print(userController.contactListThings![i]["name"]);
+
+           userController.sendMoneyContactName = userController.contactListThings![i]["name"];
+       Navigator.push(context,(MaterialPageRoute(builder: (context){
+        return SendMoneyContact();
+       })));
+   },
+   child: Text(
+     userController.contactListThings![i]["name"],
+     style: Constant.btnText,
+   ),
+   style: ElevatedButton.styleFrom(
+     onPrimary: const Color(0xFF335ebd),
+     primary: const Color(0xFFe8f1fa),
+     shape: RoundedRectangleBorder(
+       borderRadius: BorderRadius.circular(12),
+     ),
+   ),
+ ),
+    );
               
               },
           ),
@@ -204,6 +244,8 @@ class _WhomToPayState extends State<WhomToPay> {
         ),
       ),
     );
+    });
+
   }
 }
 

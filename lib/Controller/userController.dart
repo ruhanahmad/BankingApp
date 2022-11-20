@@ -1,6 +1,7 @@
 import 'package:bnacash/models/account.dart';
 import 'package:bnacash/models/external_card.dart';
 import 'package:bnacash/models/firebaseModel.dart';
+import 'package:bnacash/models/virtual_card.dart';
 import 'package:bnacash/pages/home_page.dart';
 import 'package:bnacash/pages/login/reason_for_use.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,11 +19,12 @@ import 'package:camera/camera.dart';
 import 'package:file/file.dart';
 import 'dart:math';
 class UserController extends GetxController {
+  String? sendMoneyContactName;
  
  String? beneIban = "";
  String? beneEmail= "";
 String? beneName  = "";
-
+ String? sendMoneyContact = "";
  ExCard exCard = ExCard();
 String? codeEntered = "";
 String? prepaidBalance = "";
@@ -41,6 +43,28 @@ Contacts contacts = Contacts();
   var rndnumber="";
   var rnd= new Random();
   for (var i = 0; i < 22; i++) {
+  rndnumber = rndnumber + rnd.nextInt(9).toString();
+  }
+  // print(rndnumber);
+  return rndnumber;
+}
+
+
+ String tenNumberGenerated(){
+  var rndnumber="";
+  var rnd= new Random();
+  for (var i = 0; i < 10; i++) {
+  rndnumber = rndnumber + rnd.nextInt(9).toString();
+  }
+  // print(rndnumber);
+  return rndnumber;
+}
+
+
+ String CVVGenerated(){
+  var rndnumber="";
+  var rnd= new Random();
+  for (var i = 0; i < 3; i++) {
   rndnumber = rndnumber + rnd.nextInt(9).toString();
   }
   // print(rndnumber);
@@ -484,10 +508,10 @@ if (documents.length > 0) {
 
 }
  }
+var contactFetch;
 
 
-
-
+List <DocumentSnapshot> contactsGet = [];
 
 
 
@@ -532,7 +556,11 @@ if (documents.length > 0) {
 
    var newVale =  await addTwoStringsAsInt(first: balanc, second:sendMoneyBalance)  ;
      print(newVale);
- 
+      
+
+
+
+
             await FirebaseFirestore.instance.collection("account").doc(ids).update({
                 "accountB":newVale.toString()
            }).then((value) => print(" updated"));
@@ -543,26 +571,54 @@ if (documents.length > 0) {
      contacts.iban = "TN8451100465623861366251";
      contacts.id = firebaseId;
      contacts.name = "vilvo";
-     
 
-   var jjson= FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection(
+         await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid).collection("contacts").where("iban", isEqualTo: beneIban)
+        .get()
+        .then((QuerySnapshot value) {
+                 contactsGet = value.docs;
+                 print(valuess);
+                 if(contactsGet.length > 0){
+                        return null;
+                 }
+                 else{
+                     var jjson= FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection(
     "contacts"
    ).add(
     contacts.toJson()
-    // accountss.toJson()
-   
     );
      jjson.then(( value)async {
           print("complted");
     //  Get.to(ReasonForUse());
     Get.snackbar("title", "Completed yes it is");
      });
+                 }
+                  contactFetch  =  contactsGet.first['accountB'];
+                //  accountsList.add(Account.fromJson(value));
+                 print(contactsGet);
+             update(); 
+        });  
  }
-
-
 }
-List <DocumentSnapshot> contactListThings = [];
+    
+     getContacts() async{
+      
+ var jjson= FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection(
+    "contacts"
+   ).get();
+     jjson.then(( value)async {
+          print(value);
+    //  Get.to(ReasonForUse());
+    // Get.snackbar("title", "Completed yes it is");
+     });
 
+    }
+  
+
+
+List <DocumentSnapshot>? contactListThings = [];
+
+VirtualCard virtualCard = VirtualCard();
 Future  contactListed() async {
     // welcome = Welcome();
     // accountss  = Account();
@@ -572,8 +628,11 @@ Future  contactListed() async {
       contactListThings  =   value.docs;
 
         });
-      print(contactListThings.length);
-      print(contactListThings.first["iban"]);
+        if(contactListThings!.length > 0 ){
+       
+        }
+      print(contactListThings!.length);
+      print(contactListThings!.first["iban"]);
         // .then((DocumentSnapshot value) {
         //          valuess = value.data();
         //          print(valuess);
@@ -583,6 +642,59 @@ Future  contactListed() async {
         //      update(); 
         // });  
   }
+    
+
+
+List <DocumentSnapshot>? checkVirtual = [];
+Future  checkVirtualCard() async {
+    // welcome = Welcome();
+    // accountss  = Account();
+    var kilo =    await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid).collection("virtualCard")
+        .get().then((QuerySnapshot value) {
+      checkVirtual  =   value.docs;
+
+        });
+        if(checkVirtual!.length > 0 ){
+        
+      Get.snackbar("Already Exsist", "Card Already Exsist / Order for Virtual card already done");
+
+        }
+   else {
+  await   orderVirtualCard();
+   }
+      // print(contactListThings!.length);
+      // print(contactListThings!.first["iban"]);
+        // .then((DocumentSnapshot value) {
+        //          valuess = value.data();
+        //          print(valuess);
+        //           balances  =  valuess['accountB'];
+        //          accountsList.add(Account.fromJson(value));
+        //          print(valuess);
+        //      update(); 
+        // });  
+  }
+
+
+
+  Future   orderVirtualCard() async {
+                    var tenNumber    = "abc123" +  await tenNumberGenerated();
+                    virtualCard.accountNumber = tenNumber;
+                    virtualCard.cvv = await  CVVGenerated();
+                    virtualCard.color = "red";
+                    virtualCard.freeze = false;
+
+             var jjson= FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection(
+    "virtualCard"
+   ).add(
+    virtualCard.toJson()
+    );
+     jjson.then(( value)async {
+          print("complted");
+    //  Get.to(ReasonForUse());
+    Get.snackbar("title", "Completed yes it is");
+     });
+     }
 
 
 
