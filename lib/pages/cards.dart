@@ -1,9 +1,12 @@
+import 'package:bnacash/Controller/userController.dart';
+import 'package:bnacash/card_design.dart';
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/shared/settings_page.dart';
 import 'package:bnacash/widgets/cutom_heading.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
+import 'package:get/get.dart';
+import 'package:bnacash/Controller/userController.dart';
 class Cards extends StatefulWidget {
   const Cards({Key? key}) : super(key: key);
 
@@ -12,8 +15,10 @@ class Cards extends StatefulWidget {
 }
 
 class _CardsState extends State<Cards> {
+   
   @override
   Widget build(BuildContext context) {
+   final userController = Get.put(UserController());
     return Scaffold(
       backgroundColor: const Color(0xFFf3f4f6),
       body: SingleChildScrollView(
@@ -31,7 +36,9 @@ class _CardsState extends State<Cards> {
                       size: 26,
                     ),
                     MaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                      Get.to(CardDesign());
+                      },
                       color: const Color(0xFF006ee8),
                       textColor: Colors.white,
                       child: const Icon(
@@ -52,7 +59,10 @@ class _CardsState extends State<Cards> {
                 ),
               ),
               //  for display CarouselSlider
-              CarouselSlider(
+
+             userController.isChecked  == false ?
+              Container(child: Column(children: [
+             CarouselSlider(
                   options: CarouselOptions(
                     // height: 180.0,
                     enlargeCenterPage: true,
@@ -85,7 +95,8 @@ class _CardsState extends State<Cards> {
                     //   child: Image.network('assets/images/index.jpg'),
                     // ),
                   ]),
-              Container(
+
+                        Container(
                 margin: const EdgeInsets.only(top: 20),
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -165,6 +176,12 @@ class _CardsState extends State<Cards> {
               const SizedBox(
                 height: 50,
               )
+              ],
+              ),
+              ):Text("Add Card")
+ 
+        
+              
             ],
           ),
         ),

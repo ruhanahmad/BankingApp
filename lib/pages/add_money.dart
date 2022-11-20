@@ -54,7 +54,7 @@ class AddMoney extends StatelessWidget {
                   Icon(
                     Icons.security,
                     size: 20,
-                    color: Colors.blue,
+                    color: Color.fromARGB(255, 25, 25, 26),
                   ),
                   SizedBox(
                     width: 15.0,

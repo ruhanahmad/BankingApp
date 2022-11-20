@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () => Nav.toScreen(context, const WhomToPay()),
+                  onTap: () => Nav.toScreen(context, WhomToPay()),
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Icon(

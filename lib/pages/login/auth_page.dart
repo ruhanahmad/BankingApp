@@ -50,7 +50,7 @@ class _AuthPageState extends State<AuthPage> {
             PrimaryButton(
               text: "Enable Face Id",
               onPressed: () {
-                Navigator.push(
+                Navigator.push( 
                     context,
                     PageRouteBuilder(
                         transitionDuration: const Duration(milliseconds: 1000),

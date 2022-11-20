@@ -18,7 +18,7 @@ class VirtualCard {
     });
 
     String? accountNumber;
-    String? expiryDate;
+    DateTime? expiryDate;
     String? cvv;
     String? color;
     bool? freeze;

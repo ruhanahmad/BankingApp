@@ -10,31 +10,17 @@ import 'package:get/get.dart';
 
 import '../Controller/userController.dart';
 
-class WhomToPay extends StatefulWidget {
-  const WhomToPay({Key? key}) : super(key: key);
+class WhomToPay extends StatelessWidget {
+
+
+// @override
 
   @override
-  State<WhomToPay> createState() => _WhomToPayState();
-}
-
-
-
-class _WhomToPayState extends State<WhomToPay> {
-  UserController userController = UserController();
-@override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    userController.contactListed();
-  }
-  @override
+  
   Widget build(BuildContext context) {
+     final userController = Get.put(UserController());
     return 
-    GetBuilder(
-      
-      init: UserController(),
-      builder: (builder){
-       return     Scaffold(
+   Scaffold(
       backgroundColor: const Color(0xFFf3f4f6),
       body: SingleChildScrollView(
         child: Container(
@@ -116,13 +102,16 @@ class _WhomToPayState extends State<WhomToPay> {
  margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 3),
  child: ElevatedButton(
    onPressed: () {
-
+                    
            print(userController.contactListThings![i]["name"]);
-
+var name =userController.contactListThings![i]["name"];
+var email = userController.contactListThings![i]["Email"];
+var iban = userController.contactListThings![i]["iban"];
            userController.sendMoneyContactName = userController.contactListThings![i]["name"];
-       Navigator.push(context,(MaterialPageRoute(builder: (context){
-        return SendMoneyContact();
-       })));
+           Get.to(SendMoneyContact(name: name,email:email,iban:iban));
+      //  Navigator.push(context,(MaterialPageRoute(builder: (context){
+      //   return SendMoneyContact(name: userController.contactListThings![i]["name"]);
+      //  })));
    },
    child: Text(
      userController.contactListThings![i]["name"],
@@ -244,10 +233,11 @@ class _WhomToPayState extends State<WhomToPay> {
         ),
       ),
     );
-    });
-
+   
   }
 }
+
+
 
 // For modal bottom sheet display screen
 Widget sheet() => Column(children: [

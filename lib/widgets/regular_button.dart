@@ -28,7 +28,8 @@ class MyRegularButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(15.0),
           )
       ),
-      child: Text(
+      child:
+       Text(
         label,
         style: TextStyle(
             color: labelColor,

@@ -1,4 +1,5 @@
 import 'package:bnacash/constants/constants.dart';
+import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:bnacash/widgets/regular_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -31,112 +32,146 @@ class _CardDesignState extends State<CardDesign> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Text(
-                    'Select Card Design',
-                  style: TextStyle(
-                    fontSize: kTitleSize,
-                    fontWeight: FontWeight.bold
-                  ),
-                )
-              ],
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 30.0),
-              height: 300,
-              child: Center(
-                child: FaIcon(
-                  FontAwesomeIcons.solidCreditCard,
-                  size: MediaQuery.of(context).size.width * 0.60,
-                  color: cardColor,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              Row(
                 children: [
-                  GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        mColor = Colors.black;
-                        cColor = Colors.grey;
-                      });
-                      },
-                    child: Text(
-                      'Material',
-                      style: TextStyle(
-                        color: mColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 20.0,),
-                  GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        cColor = Colors.black;
-                        mColor = Colors.grey;
-                      });
-                      },
-                    child: Text(
-                      'Color',
-                      style: TextStyle(
-                        color: cColor,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  Text(
+                      'Select Card Design',
+                    style: TextStyle(
+                      fontSize: kTitleSize,
+                      fontWeight: FontWeight.bold
                     ),
                   )
                 ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 0.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: List.generate(colorList.length, (index) =>
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 30.0),
+                height: 300,
+                child: Center(
+                  child: FaIcon(
+                    FontAwesomeIcons.solidCreditCard,
+                    size: MediaQuery.of(context).size.width * 0.60,
+                    color: cardColor,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     GestureDetector(
                       onTap: (){
                         setState(() {
-                          cardColor = colorList[index].color;
+                          mColor = Colors.black;
+                          cColor = Colors.grey;
                         });
-                      },
-                      child: CircleAvatar(
-                  backgroundColor: colorList[index].color,
-                  radius: 30,
-                ),
+                        },
+                      child: Text(
+                        'Material',
+                        style: TextStyle(
+                          color: mColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
+                    const SizedBox(width: 20.0,),
+                    GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          cColor = Colors.black;
+                          mColor = Colors.grey;
+                        });
+                        },
+                      child: Text(
+                        'Color',
+                        style: TextStyle(
+                          color: cColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Column(
-                children: const [
-                  Text(
-                    'Premium plan required',
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 0.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: List.generate(colorList.length, (index) =>
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            cardColor = colorList[index].color;
+                          });
+                        },
+                        child: CircleAvatar(
+                    backgroundColor: colorList[index].color,
+                    radius: 30,
                   ),
-                  SizedBox(height: 15.0,),
-                  MyRegularButton(
-                    label: 'Get space gray premium card for FREE',
-                    color: Colors.black,
-                    width: 350,
-                    height: 50,
-                    labelColor: Colors.white,
-                  )
-                ],
+                      ),
+                  ),
+                ),
               ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Column(
+                  children:  [
+                    Text(
+                      'Premium plan required',
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    SizedBox(height: 15.0,),
+        //             InkWell(
+        //    onTap:   () async{
+        // await    userController.orderVirtualCard();
+        //    },
+        //               child: Text(
+        //                 'Get Order',
+        //                 style: TextStyle(
+        //                   color: Colors.grey,
+        //                 ),
+        //               ),
+        //             ),
+                        TextButton(
+      style: TextButton.styleFrom(
+          backgroundColor: Colors.black,
+          fixedSize: Size(400, 50),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          )
+      ),
+      child:
+       Text(
+        "Color labeled",
+        style: TextStyle(
+            color: Colors.red,
+            fontSize: 15,
+            fontWeight: FontWeight.bold
+        ),
+      ),
+      onPressed: () async{
+           await    userController.checkVirtualCard();
+      },
+    )
+                    // MyRegularButton(
+                    //   label: 'Get space gray premium card for FREE',
+                    //   color: Colors.black,
+                    //   width: 350,
+                    //   height: 50,
+                    //   labelColor: Colors.white,
+                    // )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

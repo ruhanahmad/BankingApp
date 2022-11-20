@@ -22,6 +22,7 @@ class UserController extends GetxController {
   String? sendMoneyContactName;
  
  String? beneIban = "";
+
  String? beneEmail= "";
 String? beneName  = "";
  String? sendMoneyContact = "";
@@ -35,7 +36,10 @@ Contacts contacts = Contacts();
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-  //  getAccountData();
+  //  getAccountData(jis );
+
+// contactListed();// aysy 
+// update();
   }
 
 
@@ -303,8 +307,14 @@ if (documents.length > 0) {
         var ids = documents.first.id;
       balance  = documents.first["balance"];
         await  getAccountData();
-        var newValeTwo = await subTwoStringsAsInt(first: balance, second: prepaidBalance)  ;
-   var newVale =  await addTwoStringsAsInt(first: balances, second:newValeTwo.toString())  ;
+        var newValeTwo;
+        if(int.parse(balance) > 0){
+       newValeTwo = await subTwoStringsAsInt(first: balance, second: balance)  ;
+        // }
+//         else{
+//  Get.snackbar("Error", "Value must b greater than in account");
+//         }
+   var newVale =  await addTwoStringsAsInt(first: balances, second:balance)  ;
      print(newVale);
       
      await FirebaseFirestore.instance.collection("account").doc(userId!.uid).update({
@@ -314,21 +324,27 @@ if (documents.length > 0) {
                 await FirebaseFirestore.instance.collection("prepaidcode").doc(ids).update({
                 "balance":newValeTwo.toString()
            }).then((value) => print(" updated two"));
+
+
+                         await FirebaseFirestore.instance.collection("prepaidcode").doc(ids).update({
+                "status":"used"
+           }).then((value) => print(" updated two"));
+
+
+
            
 
-    //  accountsList[0].accountB = int.tryParse(accountsList[0].accountB)+  int.tryParse(finalB!) ;
-  //  var abcd = int.tryParse(accountsList[0].accountB);
-  // var anbv = int.tryParse(finalB!);
+Get.snackbar("Success","Money added");
   
-  // are wah samsung traqiiii oh nh samsun ya emulator h kry ka???
-  //test kry na ya dyky mai code lgau gi
-  //jb es confirm ko click krtty h tb ya vala function chla h
-  // int? fi   =abcd + anbv;
-  //  print("akjsdhkajs" + "${anbv}");
+ 
       print("asas"+accountsList[0].accountB);
       // getAccountData();
       errorMsg = false;
       update();
+      }
+      else{
+        Get.snackbar("title", "Number must be greater");
+      }
       }
       else if(documents.first["status"] == "used"){
         errorMsg = true;
@@ -364,8 +380,10 @@ int addTwoStringsAsInt({required var first,required var second})
   }
 int subTwoStringsAsInt({required var first,required var second})
   {
+    
+
     try{
-     
+      
     return (int.parse(first)-int.parse(second));
 
     }
@@ -472,6 +490,31 @@ if (documents.length > 0) {
       if(documents.first["status"] == "unused"){
 
        exCardB =  documents.first["balance"];
+        var id = documents.first.id;
+        await  getAccountData();
+     var   newValeTwo;
+       if(int.parse(exCardB.toString()) > int.parse(prepaidBalance.toString())){
+  var newValeTwo = await subTwoStringsAsInt(first: exCardB, second: prepaidBalance)  ;
+       
+      //  else{
+      //   Get.snackbar("Error", "Must be less value than in account");
+      //  }
+   var newVale =  await addTwoStringsAsInt(first: balances, second:prepaidBalance)  ;
+     print(newVale);
+      
+     await FirebaseFirestore.instance.collection("account").doc(userId!.uid).update({
+                "accountB":newVale.toString()
+           }).then((value) => print(" updated"));
+
+                await FirebaseFirestore.instance.collection("exCard").doc(id).update({
+                "balance":newValeTwo.toString()
+           }).then((value) => print(" updated two"));
+           
+
+
+  
+ 
+
        Get.snackbar(
               "Success",
               "Money Added Successfully ${exCardB}",
@@ -494,9 +537,14 @@ if (documents.length > 0) {
       // getAccountData();
       // errorMsgEx = false;
       update();
+        }
+        else{
+          Get.snackbar("Number must be Greater than zero", "message");
+        }
       }
       else if(documents.first["status"] == "used"){
         errorMsgEx = true;
+        Get.snackbar("title","CArd is already in used");
         update();
       }
   // documents[0].status == "unused";
@@ -625,14 +673,17 @@ Future  contactListed() async {
     var kilo =    await FirebaseFirestore.instance
         .collection("account").doc(userId!.uid).collection("contacts")
         .get().then((QuerySnapshot value) {
-      contactListThings  =   value.docs;
+          contactListThings  =   value.docs;
+           
+                
+              update();
+       
+    
 
         });
-        if(contactListThings!.length > 0 ){
-       
-        }
+    
       print(contactListThings!.length);
-      print(contactListThings!.first["iban"]);
+      // print(contactListThings!.first["iban"]);
         // .then((DocumentSnapshot value) {
         //          valuess = value.data();
         //          print(valuess);
@@ -663,26 +714,49 @@ Future  checkVirtualCard() async {
    else {
   await   orderVirtualCard();
    }
-      // print(contactListThings!.length);
-      // print(contactListThings!.first["iban"]);
-        // .then((DocumentSnapshot value) {
-        //          valuess = value.data();
-        //          print(valuess);
-        //           balances  =  valuess['accountB'];
-        //          accountsList.add(Account.fromJson(value));
-        //          print(valuess);
-        //      update(); 
-        // });  
+     
+  }
+List <DocumentSnapshot>? doublecheckVirtual = [];
+bool? isChecked ;
+  Future  doublecheckVirtualCard() async {
+    // welcome = Welcome();
+    // accountss  = Account();
+    var kilo =    await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid).collection("virtualCard")
+        .get().then((QuerySnapshot value) {
+      doublecheckVirtual  =   value.docs;
+      print(doublecheckVirtual!.length);
+
+        });
+        if(checkVirtual!.length > 0 ){
+      isChecked  = true;
+      update();
+         print("true");
+      return true;
+
+        }
+else{
+        isChecked  = false;
+      update();
+  print("false");
+  return false;
+}
+     
   }
 
 
 
   Future   orderVirtualCard() async {
+
+      var _selectedDate = DateTime.now();
+      _selectedDate = DateTime(_selectedDate.year +5,
+                        _selectedDate.month );
                     var tenNumber    = "abc123" +  await tenNumberGenerated();
                     virtualCard.accountNumber = tenNumber;
                     virtualCard.cvv = await  CVVGenerated();
                     virtualCard.color = "red";
                     virtualCard.freeze = false;
+                    virtualCard.expiryDate = _selectedDate;
 
              var jjson= FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection(
     "virtualCard"

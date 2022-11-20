@@ -7,28 +7,24 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 
-class SendMoneyContact extends StatefulWidget {
-  // String? name;
-  // String? email;
-  SendMoneyContact({Key? key,}) : super(key: key);
+class SendMoneyContact extends StatelessWidget {
+  String name;
 
+  String email;
+  String iban;
+  SendMoneyContact({Key? key,required this.name,required this.email, required this.iban}) : super(key: key);
 
-  @override
-  State<SendMoneyContact> createState() => _SendMoneyContactState();
-}
-
-class _SendMoneyContactState extends State<SendMoneyContact> {
 
   @override
   Widget build(BuildContext context) {
-    UserController userController = UserController();
+   final userController =Get.put(UserController());
     final _formKey = GlobalKey<FormState>();
+   
     return Scaffold(
-      appBar: AppBar(title: Text("Contact name"),backgroundColor: Colors.blue,),
-      body:   GetBuilder(
-        init: UserController(),
-        builder: (builder){
-          return 
+      appBar: AppBar(title: Text(userController.sendMoneyContactName.toString()),backgroundColor: Colors.blue,),
+      body:  
+       
+        
                  Form(
           key: _formKey,
         child: SafeArea(
@@ -66,13 +62,14 @@ class _SendMoneyContactState extends State<SendMoneyContact> {
                       width: 15.0,
                     ),
                     Text(
-                      'Balance:--->',
+                      email.toString(),
                       style: TextStyle(
                         color: Colors.blue,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    SizedBox(width: 20,),
                                         Text(
                                           // "asa",
                                           userController.balances == null ?"0":userController.balances,
@@ -97,6 +94,14 @@ class _SendMoneyContactState extends State<SendMoneyContact> {
                 const SizedBox(
                   height: 30.0,
                 ),
+                  Text(
+                      iban.toString(),
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
   
 
           
@@ -108,7 +113,7 @@ class _SendMoneyContactState extends State<SendMoneyContact> {
                  
                   },
                   onChanged: (value) {
-                    userController.sendMoneyContact = value;
+                    userController.beneIban = value;
                     userController.update();
                   },
                   textAlign: TextAlign.left,
@@ -308,9 +313,9 @@ class _SendMoneyContactState extends State<SendMoneyContact> {
             ),
           ),
         ),
-      );
-        })
-      ,
+      )
+       
+      
     );
   }
 }

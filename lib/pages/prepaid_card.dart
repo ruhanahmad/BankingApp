@@ -104,35 +104,35 @@ class PrepaidCard extends StatelessWidget {
                   height: 30.0,
                 ),
           
-                          TextFormField(
-                                 validator: (value) {
-                  if (value == null  ) {
-                   return "Value must not be null and range between 0 to ${userController.balances}";
-                  }
+                //           TextFormField(
+                //                  validator: (value) {
+                //   if (value == null  ) {
+                //    return "Value must not be null and range between 0 to ${userController.balances}";
+                //   }
                  
-                  },
-                  onChanged: (value) {
-                    userController.prepaidBalance = value;
-                    userController.update();
-                  },
-                  textAlign: TextAlign.left,
-                  decoration: InputDecoration(
-                    hintText: 'Enter Balance',
-                    hintStyle: const TextStyle(color: Colors.grey),
-                    suffix: IconButton(
-                      icon: const FaIcon(
-                        FontAwesomeIcons.camera,
-                        color: Colors.blue,
-                        size: 20,
-                      ),
-                      onPressed: () {},
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 5.0, horizontal: 8.0),
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                ),
+                //   },
+                //   onChanged: (value) {
+                //     userController.prepaidBalance = value;
+                //     userController.update();
+                //   },
+                //   textAlign: TextAlign.left,
+                //   decoration: InputDecoration(
+                //     hintText: 'Enter Balance',
+                //     hintStyle: const TextStyle(color: Colors.grey),
+                //     suffix: IconButton(
+                //       icon: const FaIcon(
+                //         FontAwesomeIcons.camera,
+                //         color: Colors.blue,
+                //         size: 20,
+                //       ),
+                //       onPressed: () {},
+                //     ),
+                //     contentPadding: const EdgeInsets.symmetric(
+                //         vertical: 5.0, horizontal: 8.0),
+                //     filled: true,
+                //     fillColor: Colors.white,
+                //   ),
+                // ),
                 //            TextFormField(
                 //                            validator: (value) {
                 //   if (value == null && value!.length > userController.balances ) {

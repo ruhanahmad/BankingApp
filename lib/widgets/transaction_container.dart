@@ -118,8 +118,9 @@ class _TransactionContainerState extends State<TransactionContainer> {
                 width: 90,
                 height: 5,
                 icon: Icons.arrow_forward,
-                pressed: () {
-                  Nav.toScreen(context, const WhomToPay());
+                pressed: ()async {
+               await  userController.contactListed();
+                  Nav.toScreen(context, WhomToPay());
                 },
               ),
               Padding(
