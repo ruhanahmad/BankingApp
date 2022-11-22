@@ -1,8 +1,10 @@
 import 'package:bnacash/constants/constants.dart';
+import 'package:bnacash/pages/hi.dart';
 import 'package:bnacash/pages/shared/analytics_page.dart';
 import 'package:bnacash/pages/shared/inbox_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 AppBar buildAppBar(context) => AppBar(
       backgroundColor: Colors.transparent,
@@ -32,7 +34,10 @@ AppBar buildAppBar(context) => AppBar(
                 minWidth: 0,
                 //color: Colors.transparent,
                 child: const FaIcon(FontAwesomeIcons.solidStar),
-                onPressed: () {},
+                onPressed: () {
+                  Nav.toScreen(context,  ExampleHomePage());
+                  // Get.put(ExampleHomePage());
+                },
               ),
               MaterialButton(
                 minWidth: 0,

@@ -1,9 +1,11 @@
 import 'package:bnacash/models/account.dart';
 import 'package:bnacash/models/external_card.dart';
 import 'package:bnacash/models/firebaseModel.dart';
+import 'package:bnacash/models/notifiction.dart';
 import 'package:bnacash/models/virtual_card.dart';
 import 'package:bnacash/pages/home_page.dart';
 import 'package:bnacash/pages/login/reason_for_use.dart';
+import 'package:bnacash/pages/whom_to_pay.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -22,7 +24,7 @@ class UserController extends GetxController {
   String? sendMoneyContactName;
  
  String? beneIban = "";
-
+ String? beneBalance;
  String? beneEmail= "";
 String? beneName  = "";
  String? sendMoneyContact = "";
@@ -31,6 +33,8 @@ String? codeEntered = "";
 String? prepaidBalance = "";
 String sendMoneyBalance = "";
 Contacts contacts = Contacts();
+
+Notifications notifications = Notifications();
    
      @override
   void onInit() {
@@ -556,6 +560,161 @@ if (documents.length > 0) {
 
 }
  }
+
+//------------------------------------------------CheckPassCode------------------------------------------->
+   var  passs ;
+   bool? checked;
+ Future checkPass( String passcode)async{
+
+               await FirebaseFirestore.instance
+        .collection("users").doc(userId!.uid)
+        .get()
+        .then((DocumentSnapshot value) {
+
+                 valuess = value.data();
+                 print(valuess);
+                passs  =  valuess[' passcode'];
+                update();
+                  if(passs == passcode){
+                    checked = true;
+                    update();
+                    
+                  }
+                  else {
+                    checked = false;
+                      update();
+                  }
+                //actual amount sending acount
+                // username = valuess["username"];
+                //  accountsList.add(Account.fromJson(value));
+                      
+                update();
+            //      print(valuess);
+            //  update(); 
+        }); 
+   
+ }
+
+
+//-------------------------------------------------Send Money Contact=------------------------------------>
+
+
+  Future<dynamic> accSendMoneyCheck(String iban) async{
+   
+  //  await checkPass();
+
+  //  if (passs == )
+
+    var bal ="";
+    var username= "";
+  balance = "";
+  documents.clear();
+final QuerySnapshot result =
+    await FirebaseFirestore.instance.collection('account').where('IBAN', isEqualTo: 
+    iban).get();
+ documents = result.docs;
+ update();
+print(documents.length);
+print(userId!.uid);
+if (documents.length > 0) { 
+
+       var ids = documents.first.id;
+    var  balanc  = documents.first["accountB"];// balance amount receivig account
+        // await  getAccountData();
+             await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid)
+        .get()
+        .then((DocumentSnapshot value) {
+
+                 valuess = value.data();
+                 print(valuess);
+                bal  =  valuess['accountB'];
+                //actual amount sending acount
+                username = valuess["username"];
+                //  accountsList.add(Account.fromJson(value));
+                      
+                update();
+            //      print(valuess);
+            //  update(); 
+        });  
+         if(int.parse(bal.toString()) > int.parse(beneBalance.toString())){
+                    var newValeTwo = await subTwoStringsAsInt(first: bal, second: beneBalance)  ;
+          
+            await FirebaseFirestore.instance.collection("account").doc(userId!.uid).update({
+                "accountB":newValeTwo.toString()
+           }).then((value) => print(" updated"));
+
+   var newVale =  await addTwoStringsAsInt(first: balanc, second:beneBalance.toString())  ;
+
+     print(newVale);
+      
+            await FirebaseFirestore.instance.collection("account").doc(ids).update({
+                "accountB":newVale.toString()
+           }).then((value) => print(" updated"));
+
+   Get.snackbar("Success", "Money added Successfully");
+   Get.to(WhomToPay());
+
+
+   notifications.dateTime =  DateTime.now()  ;
+   notifications.balance = beneBalance;
+   notifications.username = username;
+
+      var jjson= FirebaseFirestore.instance.collection("account").doc(ids).collection("notifications").add(
+        notifications.toJson()
+      //   {
+      //   "username":username,
+      //   "balance":beneBalance,
+      //   "DateTime":DateTime.now(),
+
+      // }
+      );
+     jjson.then(( value)async {
+              Get.snackbar("title","Value added successfully");
+
+           update()  ;  
+    //  Get.to(ReasonForUse());
+     });
+
+         }
+         else {
+           Get.snackbar("Error", "Balance must be greater");
+         }
+  
+
+       var firebaseId = userId!.uid.toString();
+    
+
+        
+ }
+ else{
+  Get.snackbar("Error", "no document found");
+ }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var contactFetch;
 
 
@@ -595,8 +754,8 @@ if (documents.length > 0) {
   
             //  update(); 
         });  
-
-        var newValeTwo = await subTwoStringsAsInt(first: bal, second: sendMoneyBalance)  ;
+          
+        var newValeTwo = await subTwoStringsAsInt(first: bal, second: beneIban)  ;
           
             await FirebaseFirestore.instance.collection("account").doc(userId!.uid).update({
                 "accountB":newValeTwo.toString()
@@ -772,4 +931,50 @@ else{
 
 
 
+
+// ---------------------------------------------Get notification-------------------------------
+ List <DocumentSnapshot>? notificationList = [];
+
+   Future getNotification()async {
+
+    var kilo =    await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid).collection("notifications")
+        .get()
+        .then((QuerySnapshot value) {
+          
+             notificationList = value.docs;
+             
+             update();
+             print(notificationList);
+ 
+          } 
+
+        );
+        
+       
+      
+
+        
+   }
+
+//===================================Update passcode=======================================
+
+String? updatedPasscode;
+
+
+ Future updatePasscode(String pass) async{
+    try{
+   var passcodes =      await   FirebaseFirestore.instance.collection("users").doc(userId!.uid).update({
+                " passcode":pass,
+           }).then((value) {
+            Get.snackbar("Updated", "Passcode updated successfully");
+           });
+    }
+    catch(e){
+       Get.snackbar("Error", "There is an error !");
+    }     
+        Get.to(HomePage());
+
+
+ }
 }

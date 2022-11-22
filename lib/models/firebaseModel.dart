@@ -26,9 +26,10 @@ class Welcome {
        this.Passport,
        this.AccountDetail,
        this.accountBalance,
+       this.passcode,
 
     });
-
+    String? passcode;
     String? firebaseId;
     String? fullName;
     String? country;
@@ -42,6 +43,7 @@ class Welcome {
     String? accountBalance ;
 
     factory Welcome.fromJson(DocumentSnapshot json) => Welcome(
+        passcode: json["passcode"],
         firebaseId: json["firebaseID"],
         fullName: json["name"],
         country: json["country"],
@@ -69,5 +71,6 @@ class Welcome {
         "Passport":Passport,
         "AccountDetail":AccountDetail,
         "AccountBalance":accountBalance,
+        "passcode":passcode,
     };
 }

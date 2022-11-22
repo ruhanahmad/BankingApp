@@ -1,5 +1,6 @@
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/models/primary_button.dart';
+import 'package:bnacash/pages/hi.dart';
 import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -78,8 +79,8 @@ class _OccupationFieldState extends State<OccupationField> {
                                     ),
                   onPressed: () async{
                      print(userController.occupation);
-                    //  Get.to(DobField());
-                    await userController.uploadData();
+                     Get.to(ExampleHomePage());
+                    // await userController.uploadData();
                    }, child: Text("Next"))
           ],
         ),

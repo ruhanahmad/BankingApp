@@ -47,6 +47,7 @@ dependencies:
   pinput: ^2.2.16
   flutter_camera_overlay: ^0.1.1
   firebase_storage: ^11.0.4
+  passcode_screen: ^2.0.1
   
 
 

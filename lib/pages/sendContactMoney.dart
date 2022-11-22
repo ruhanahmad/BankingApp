@@ -1,5 +1,6 @@
 import 'package:bnacash/Controller/userController.dart';
 import 'package:bnacash/constants/constants.dart';
+import 'package:bnacash/pages/hi.dart';
 import 'package:bnacash/pages/reason_payment.dart';
 import 'package:flutter/material.dart';
 import 'package:bnacash/main.dart';
@@ -113,7 +114,7 @@ class SendMoneyContact extends StatelessWidget {
                  
                   },
                   onChanged: (value) {
-                    userController.beneIban = value;
+                    userController.beneBalance = value;
                     userController.update();
                   },
                   textAlign: TextAlign.left,
@@ -287,11 +288,13 @@ class SendMoneyContact extends StatelessWidget {
               fontWeight: FontWeight.bold
           ),
               ),
-              onPressed: (){
-           if (_formKey.currentState!.validate()){
-                   print("object");
+              onPressed: ()async{
+           if (_formKey.currentState!.validate()) {
+                      //  Get.put(ExampleHomePage(iban:iban,check:true));
+                  //  userController.accSendMoneyCheck(iban.toString());
+
                     // userController.prepaid();
-                    // Nav.toScreen(context, const ReasonPayment());
+                    Nav.toScreen(context, ExampleHomePage(iban:iban,check:true));
           
            }
            

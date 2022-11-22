@@ -1,5 +1,7 @@
+import 'package:bnacash/Controller/userController.dart';
 import 'package:bnacash/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class InboxPage extends StatefulWidget {
   const InboxPage({Key? key}) : super(key: key);
@@ -9,6 +11,7 @@ class InboxPage extends StatefulWidget {
 }
 
 class _InboxPageState extends State<InboxPage> {
+  final userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,13 +37,14 @@ class _InboxPageState extends State<InboxPage> {
                 style: kContentTextStyle,
               ),
               notificationField(
-                  text: "Best used daily",
+                  text: userController.notificationList![0]["username"],
                   icon: "assets/images/tunisia.png",
                   subtitle:
-                      "Save up faster without lifting a finger when you use BNACash"),
-              const SizedBox(height: 10),
-              const Text(
-                "October 3",
+                      userController.notificationList![0]["balance"]),
+             SizedBox(height: 10),
+             Text(
+                userController.notificationList![0]["dateTime"]
+                ,
                 style: kContentTextStyle,
               ),
               notificationField(
