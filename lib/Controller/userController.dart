@@ -4,6 +4,7 @@ import 'package:bnacash/models/firebaseModel.dart';
 import 'package:bnacash/models/notifiction.dart';
 import 'package:bnacash/models/virtual_card.dart';
 import 'package:bnacash/pages/home_page.dart';
+import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:bnacash/pages/login/reason_for_use.dart';
 import 'package:bnacash/pages/whom_to_pay.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bnacash/models/contacts.dart';
 import 'package:firebase_core/firebase_core.dart';
+// import 'package:kommunicate_flutter/kommunicate_flutter.dart';
 import 'dart:io' as io;
 import '../pages/login/find_friends.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -21,8 +23,23 @@ import 'package:camera/camera.dart';
 import 'package:file/file.dart';
 import 'dart:math';
 class UserController extends GetxController {
+        
+
+
+    //               Future  chatbotss()async {
+    //         try {
+    //  dynamic conversationObject = {
+    //      'appId': '14d6d7c9b42546cee0cfa5159ae789db3' // The [APP_ID](https://dashboard.kommunicate.io/settings/install) obtained from kommunicate dashboard.
+    //  };
+    //   dynamic result = await KommunicateFlutterPlugin.buildConversation(conversationObject);
+    //   print("Conversation builder success : " + result.toString());
+    // } on Exception catch (e) {
+    //   print("Conversation builder error occurred : " + e.toString());
+    // }
+    //         }
+
   String? sendMoneyContactName;
- 
+  String? dropDownValue;
  String? beneIban = "";
  String? beneBalance;
  String? beneEmail= "";
@@ -273,6 +290,8 @@ String? accB ="";
    accountss.username = fullName;
    accountss.status = true;
    accountss.IBAN = "TN"+rand;
+   accountss.limit = "500";
+   accountss.plan = "Standard";
   //  accountss.dateTime = DateTime.now();
   
 
@@ -933,23 +952,56 @@ else{
 
 
 // ---------------------------------------------Get notification-------------------------------
- List <DocumentSnapshot>? notificationList = [];
 
-   Future getNotification()async {
+ List notificationList = [];
 
-    var kilo =    await FirebaseFirestore.instance
-        .collection("account").doc(userId!.uid).collection("notifications")
-        .get()
-        .then((QuerySnapshot value) {
+List bala = [];
+   Future<List<Notifications>?> getNotification() async{
+
+    QuerySnapshot  kilo =    await FirebaseFirestore.instance
+        .collection("account").doc("yeHVxipYrhVTaT4P2AtkL6WxRrv2").collection("notifications")
+        .get();
+
+      notificationList.clear();
+
+
+   bala.clear();
+
+
+   kilo.docs.forEach((element) {
+    // print(element.docs[0]["username"]) ;
+    print(element["username"]) ;
+    notificationList.add(element["username"]);
+    bala.add(element["balance"]);
+    
+
+    // print("lllll" + notificationList);
+    // print(notificationList.add(element));
+    // notificationList.add();
+  //  Notifications.fromJson(element);
+    // print( Notifications.fromJson(element));
+      print(element);
+print(element);
+
+   });
+  
+        // kilo.docs.forEach((element) { 
+        //   result.add();
+        // }); 
+       
+  //       .then((QuerySnapshot value) {
           
-             notificationList = value.docs;
-             
-             update();
-             print(notificationList);
- 
-          } 
+  //             // value.docs.map((e) {
+  //             //   notificationList.add(e);
+  //             //   print(e);
+  //             // });
+  //            return 
+  //            update();
+  //            print(notificationList);
+  // print("object");
+  //         } 
 
-        );
+  
         
        
       
@@ -977,4 +1029,95 @@ String? updatedPasscode;
 
 
  }
+
+
+ //--------------------------------------------------update PAckage=-------------------
+
+    Future  updatePackage() async{
+
+          // var bal ="";
+    dynamic valuex= "";
+ var balance ;
+ await FirebaseFirestore.instance.collection("account").doc(userId!.uid).update({
+                "plan":dropDownValue,
+                "limit":dropDownValue == "Premium" ? "3000" : "6000",
+
+
+           });
+List <DocumentSnapshot> documents = [];
+
+  // documents.clear();
+var  result =
+    await FirebaseFirestore.instance.collection('account').doc(userId!.uid).get().then((DocumentSnapshot value) {
+      valuex = value.data();
+      
+
+      });
+    //  balance   = result.accountB;
+ update();
+print(valuex.length);
+print(userId!.uid);
+
+
+           if (valuex.length > 0) { 
+       balance = valuex["accountB"];
+       print(news);
+      print(balance.runtimeType);
+         
+         
+        // accountsList[0].accountB = "";
+        // var ids = documents.first.id;
+   
+        var newValeTwo;
+        if(int.parse(balance) > 0){
+       newValeTwo = await subTwoStringsAsInt(first: balance, second:dropDownValue == "Premium" ? 7.toString():12.toString())  ;
+        // }
+//         else{
+//  Get.snackbar("Error", "Value must b greater than in account");
+//         }
+  //  var newVale =  await addTwoStringsAsInt(first: balances, second:balance)  ;
+  //    print(newVale);
+      
+     await FirebaseFirestore.instance.collection("account").doc(userId!.uid).update({
+                "accountB":newValeTwo.toString()
+           }).then((value) => print(" updated"));
+
+          //       await FirebaseFirestore.instance.collection("prepaidcode").doc(ids).update({
+          //       "balance":newValeTwo.toString()
+          //  }).then((value) => print(" updated two"));
+
+
+          //                await FirebaseFirestore.instance.collection("prepaidcode").doc(ids).update({
+          //       "status":"used"
+          //  }).then((value) => print(" updated two"));
+
+
+
+           
+
+Get.snackbar("Success","Changed plan to Premium");
+  
+ 
+      // print("asas"+accountsList[0].accountB);
+      // // getAccountData();
+      // errorMsg = false;
+      // update();
+      }
+      else{
+        Get.snackbar("Account", "account balance should be greatar than zero");
+      }
+   
+  // documents[0].status == "unused";
+
+} else {  
+     errorMsgTwo = true;
+     update();
+     //karo ki sochi jarai ho ya dykho n
+  //not exists
+
+}
+
+
+
+      }
 }

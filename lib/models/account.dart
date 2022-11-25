@@ -18,6 +18,8 @@ class Account {
         this.accountNumber,
         this.status,
         this.username,
+        this.plan,
+        this.limit,
         // this.dateTime,
     });
 
@@ -27,7 +29,9 @@ class Account {
     String? accountNumber;
     bool? status;
     String? username;
-    // DateTime? dateTime;
+    String? plan;
+    String? limit;
+   
 
     factory Account.fromJson(DocumentSnapshot json) => Account(
         BIC: json["BIC"],
@@ -36,6 +40,9 @@ class Account {
         accountNumber: json["accountNumber"],
         status: json["status"],
         username: json["username"],
+        plan:json["plan"],
+        limit:json["limit"],
+     
         // dateTime: json["dateTime"]
     );
 
@@ -46,6 +53,9 @@ class Account {
         "accountNumber": accountNumber,
         "status": status,
         "username": username,
+        "plan":plan,
+        "limit":limit,
+ 
         // "dateTime":dateTime
     };
 }

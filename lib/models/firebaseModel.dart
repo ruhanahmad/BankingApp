@@ -41,7 +41,7 @@ class Welcome {
     String? Passport;
     String? AccountDetail;
     String? accountBalance ;
-
+    
     factory Welcome.fromJson(DocumentSnapshot json) => Welcome(
         passcode: json["passcode"],
         firebaseId: json["firebaseID"],

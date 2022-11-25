@@ -289,7 +289,8 @@ class _SecondscreenState extends State<Secondscreen> {
                               // This  widget created to  1- add name   2- add value   you can find it in side *widget file*
                               SwiftWidget(
                                 name: "Name",
-                                copyValue: builder.accountsList.length > 0 ?
+                                copyValue: 
+                                builder.accountsList.length > 0 ?
                         userController.accountsList[0].username:"",
                               ),
                               SizedBox(

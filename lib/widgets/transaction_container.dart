@@ -21,6 +21,7 @@ class TransactionContainer extends StatefulWidget {
 }
 
 class _TransactionContainerState extends State<TransactionContainer> {
+    String? _dropDownValue;
 
   @override
   void initState() {
@@ -81,10 +82,18 @@ class _TransactionContainerState extends State<TransactionContainer> {
                       }, icon: Icon(Icons.zoom_in))
                     ],
                   ),
-                  const Text(
-                    'Dinar',
-                    style: TextStyle(fontSize: 15),
+                  InkWell(
+                    onTap: (){
+
+                                        
+                    },
+                    child: const Text(
+                      'Dinar',
+                      style: TextStyle(fontSize: 15),
+                    ),
                   ),
+
+
                 ],
               ),
               const Spacer(),
@@ -137,14 +146,17 @@ class _TransactionContainerState extends State<TransactionContainer> {
                     FontAwesomeIcons.ellipsisH,
                     size: 15,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                 ),
               ),
             ],
           ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 25.0),
-            child: Text(
+            child: 
+            Text(
               'Transactions',
               style: TextStyle(
                   color: Colors.grey,

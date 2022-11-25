@@ -1,11 +1,14 @@
+import 'package:bnacash/Controller/userController.dart';
 import 'package:bnacash/constants/constants.dart';
+import 'package:bnacash/pages/Settings.dart';
+import 'package:bnacash/pages/chatbot.dart';
 import 'package:bnacash/pages/hi.dart';
 import 'package:bnacash/pages/shared/analytics_page.dart';
 import 'package:bnacash/pages/shared/inbox_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-
+UserController userController = Get.put(UserController());
 AppBar buildAppBar(context) => AppBar(
       backgroundColor: Colors.transparent,
       iconTheme: const IconThemeData(color: Colors.black),
@@ -17,11 +20,23 @@ AppBar buildAppBar(context) => AppBar(
         foregroundColor: Colors.white,
       ),
       actions: [
+
+
         SizedBox(
           width: 300,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+             MaterialButton(
+                minWidth: 0,
+                //color: Colors.transparent,
+                child: const FaIcon(FontAwesomeIcons.addressBook),
+                onPressed: ()async {
+                  // Nav.toScreen(context,   ChatBot());
+               await  userController.getNotification();
+                },
+              ),
+            
               MaterialButton(
                 minWidth: 0,
                 //color: Colors.transparent,
@@ -35,7 +50,7 @@ AppBar buildAppBar(context) => AppBar(
                 //color: Colors.transparent,
                 child: const FaIcon(FontAwesomeIcons.solidStar),
                 onPressed: () {
-                  Nav.toScreen(context,  ExampleHomePage());
+                  Nav.toScreen(context,  Settingss());
                   // Get.put(ExampleHomePage());
                 },
               ),
@@ -43,7 +58,8 @@ AppBar buildAppBar(context) => AppBar(
                 minWidth: 0,
                 //color: Colors.transparent,
                 child: const FaIcon(FontAwesomeIcons.solidBell),
-                onPressed: () {
+                onPressed: ()async {
+               await   userController.getNotification();
                   Nav.toScreen(context, const InboxPage());
                 },
               ),

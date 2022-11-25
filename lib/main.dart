@@ -1,11 +1,12 @@
 import 'package:bnacash/constants/constants.dart';
+import 'package:bnacash/pages/dialog_flutter.dart';
 import 'package:bnacash/pages/home_page.dart';
 import 'package:bnacash/pages/login/models/country.dart';
 import 'package:bnacash/pages/login/proof_of_residency.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
+import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:bnacash/pages/premium.dart';
 import 'package:bnacash/card_design.dart';
 import 'package:bnacash/pages/login/landing_page.dart';

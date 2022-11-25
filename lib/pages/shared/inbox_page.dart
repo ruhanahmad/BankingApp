@@ -36,14 +36,25 @@ class _InboxPageState extends State<InboxPage> {
                 "Yesterday",
                 style: kContentTextStyle,
               ),
-              notificationField(
-                  text: userController.notificationList![0]["username"],
+             Container(
+              height: 500,
+              width: Get.width,
+              child: ListView.builder(
+                itemCount: userController.notificationList.length,
+                itemBuilder: (context,i){
+return   notificationField(
+                  text: userController.notificationList[i].toString(),
                   icon: "assets/images/tunisia.png",
                   subtitle:
-                      userController.notificationList![0]["balance"]),
+                     userController.bala[i].toString() + "amount received"
+                      );
+              })),
+        
+              
+    
              SizedBox(height: 10),
              Text(
-                userController.notificationList![0]["dateTime"]
+                "userController.notificationList[0].DateTime.toString()"
                 ,
                 style: kContentTextStyle,
               ),

@@ -127,6 +127,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
     await userController.checkPass( enteredPasscode);
                if(userController.checked == true) {
                 Get.snackbar("Password Matched", "Successfull");
+                widget.iban  == "iban"? await userController.accIbanCheck():
              await  userController.accSendMoneyCheck(widget.iban.toString());
                
                }

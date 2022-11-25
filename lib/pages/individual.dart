@@ -1,4 +1,5 @@
 import 'package:bnacash/Controller/userController.dart';
+import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/constant.dart';
 import 'package:bnacash/widgets/custom_textfeild.dart';
 import 'package:country_currency_pickers/country.dart';
@@ -7,6 +8,8 @@ import 'package:country_currency_pickers/currency_picker_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:get/get.dart';
+
+import 'hi.dart';
 
 class Individual extends StatefulWidget {
   const Individual({Key? key}) : super(key: key);
@@ -163,7 +166,8 @@ class _IndividualState extends State<Individual> {
                 )),
             GestureDetector(
               onTap: () {
-                userController.accIbanCheck();
+                  Nav.toScreen(context, ExampleHomePage(iban:"iban",check:true));
+                // userController.accIbanCheck();
               },
               child: Container(
                 decoration: BoxDecoration(

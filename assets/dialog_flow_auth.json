@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "bnacash-t9no",
+  "private_key_id": "5c169294da3a94ab32682539b5b98dfda307f9a7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEugIBADANBgkqhkiG9w0BAQEFAASCBKQwggSgAgEAAoIBAQC1yaYY99B26JMJ\nfqEzxjHCp8TOHUtAicxh5jsFUWaA6pKQCfl6yUFuwJavsSNmMF/+6swvNjwDxXL9\niFQVLx4Y8B1CyPmAip2J+WSjYLVIVfrRm366D0RoDrbCYgXPsgoMAV5yANVnraVl\nNyYsHVNrNGx3aZsJtRT4S8US7G/OlZVH5fj8pg2ZG+zgbXIPlbIxj0zvCsbe7CjG\nE7pKLrbU90iWDXuXbPLjo6LcRViY0TCbQg4zknZH+K8rDalPbtB7VHFTH1nbAA9E\nKUPcq4N6J0WdDbdbamdthZ3O1DmC8h1+fLR9yANHOlAuJ9Z+znY69gzI9dOf8r3y\nybVhWHE1AgMBAAECggEABNfn8RuSmHxye+G9pY/iTeAQ7i59+1FlI5tR++MubhM7\nBhOkPhlbHHpoVM/NSy6aRU0zZ2ov0zqcsocUcG0NM0VAfAsAre1RPts7b99Y7SHZ\nmSrc9UGazkyDfUCzjEsNGbC2pZRwUf8XbrRS2ID58tJx7KlFQOFHeyTLFyUW4jrg\nelTkkX1oBPAZnZ4BmuUoie1nskHSTzlynT/BF8ncDnto2Y4cCS9kUW7j6pk4hQL8\nMnCaYVu0NbwiS+EV28MvB3rf/72ehbpMJ/HK/ZoT/HMZ0OBmzPJo151ZrHIotbgY\n0+0I9f15Yz2mAYSu6ygJ3h12zXwWsb1S7AOqBuJVSQKBgQD7WGjGi7QpbRpY3tTB\nOb3PwOv7S+Wu+Vyx223Sla+ipBkJtDhzCclIxdsLO6b1arJtApEXVw9Za6VaL79m\nLm4ilt67HjveLDX4gLbES+qF9piywS2vuR5dWIYeS0f41x7O5NNeUs4Y55zT7LNy\nJA8FhVMMMGACBMGwuvoi7lYO/QKBgQC5J3oiAv1eGOXQQ2WVu1iyrdiez1R918Mb\nI+CcEsD7j/dza+eTsnRobFjxeIAQN1RwxZFutjaSROCeis8VXyZAv1Af5ZNAzHUk\n9w04T9IoO0JhXscwlkqKlXGVK0J76ObgyNvzMiocc6oOzRsqwRmCP75bhMLtk6DB\ntIiRuY4smQKBgEn6+cwG7t6KqIij/gdp0X7HEC6FZnOcHjaTmb20JWA/4MbEbyEd\nLkvnQNQLmNb/ssj3SnGORIxTbPYgu7t9yxkPQzvcaE66wKAGcsVQexU3QjbLOYFR\ngaiEF+Xuzp5l40GOhNBsmxElizmtoBvmlS1Q0uLxkjDF6aT1RA7oDBiZAn9+kX3r\nwh9xM5PlyiynLmpzumNaLGCVpei5pMzl4+wIC2IchKbJUDRDLc2fQ8BHVYtji6rf\nA7BKTMs/laP5+BEuMZmUNFt08E8j9b4TwHzpA5lc9m0zyYkrMv1x+yB3k74/6w5w\nMNqYmHinpY3srBPD9c8qwJZ/0WsS/1ZcR3vpAoGANXh85+/lhqyzfDsCxzfXmHgW\nqPNJDavAEGbzmLivBlCzuwYpFhvNJX0W7hTvC4XQyvg5oldoYYQzVgNw2wg8apFZ\nxq9nqP2T3HGvoCpfngffCG9ld+zOrChHuGES59dkd2+ph4/eSdh2kdvoZTZkAcrO\n7rWjOodEFTrPUNgfUD0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "bnacash-t9no@bnacash-t9no.iam.gserviceaccount.com",
+  "client_id": "108564984817351828441",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bnacash-t9no%40bnacash-t9no.iam.gserviceaccount.com"
+}
