@@ -79,8 +79,9 @@ class _OccupationFieldState extends State<OccupationField> {
                                     ),
                   onPressed: () async{
                      print(userController.occupation);
-                     Get.to(ExampleHomePage());
-                    // await userController.uploadData();
+                   
+                    await userController.uploadData();
+                      Get.to(ExampleHomePage());
                    }, child: Text("Next"))
           ],
         ),

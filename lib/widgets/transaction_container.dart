@@ -40,7 +40,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
       
     (
 
-      init: UserController(),
+      // init: UserController(),
       
       builder:( builder)
     

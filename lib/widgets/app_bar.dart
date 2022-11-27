@@ -33,7 +33,8 @@ AppBar buildAppBar(context) => AppBar(
                 child: const FaIcon(FontAwesomeIcons.addressBook),
                 onPressed: ()async {
                   // Nav.toScreen(context,   ChatBot());
-               await  userController.getNotification();
+              //  await  userController.getNotification();
+              await userController.getVirtualCard();
                 },
               ),
             
@@ -60,6 +61,7 @@ AppBar buildAppBar(context) => AppBar(
                 child: const FaIcon(FontAwesomeIcons.solidBell),
                 onPressed: ()async {
                await   userController.getNotification();
+               
                   Nav.toScreen(context, const InboxPage());
                 },
               ),

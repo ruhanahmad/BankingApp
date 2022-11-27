@@ -2,9 +2,12 @@ import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/account_detail.dart';
 import 'package:bnacash/pages/bank_transfer.dart';
 import 'package:bnacash/pages/constant.dart';
+import 'package:bnacash/pages/hi.dart';
+import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:bnacash/pages/sendContactMoney.dart';
 import 'package:bnacash/widgets/custom_buttonn.dart';
 import 'package:bnacash/widgets/cutom_heading.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +23,76 @@ class Settingss extends StatefulWidget {
 class _SettingssState extends State<Settingss> {
 // @override
   @override
+ final _formKey = GlobalKey<FormState>();
+
+
+ Future<void>? alerts(){
+    showDialog(context: context, builder: (context){
+      return     AlertDialog(
+        content: new
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(
+              children: [
+                Icon(Icons.camera),
+                SizedBox(width: 5),
+                Text('Change passcode '),
+              ],
+            ),
+            SizedBox(height: 30,),
+            TextFormField(
+                    
+                    onChanged: (value) {
+             userController.reset = value;
+                    },
+                    decoration: InputDecoration(
+               contentPadding:
+                   const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+               filled: true,
+               fillColor: kPrimaryColor.withOpacity(0.3),
+               labelText: 'Enter code you want to reset',
+               labelStyle: kFormTextStyle,
+               border: InputBorder.none,
+               enabledBorder: OutlineInputBorder(
+                 borderRadius: BorderRadius.circular(15.0),
+                 borderSide: const BorderSide(color: Colors.white),
+               ),
+               focusedBorder: OutlineInputBorder(
+                 borderRadius: BorderRadius.circular(15.0),
+                 borderSide: const BorderSide(color: kPrimaryColor),
+               )),
+                    keyboardType: TextInputType.number,
+                    obscureText: false,
+                    validator: (String? value) {
+             if (value!.length < 6 || value!.length > 6) {
+               return 'Please Enter only  digits';
+             }
+             return null;
+                    },
+                  ),
+
+                  GestureDetector(
+                    onTap:   () async{
+
+                      
+                  await userController.resetPasscode(userController.reset!);
+                    },
+                    child: Container(
+                      height: 30,
+                      width: 50,
+                      decoration: BoxDecoration(color: Colors.blue,),
+                      child: Text("Submit"),),
+                  )
+          ],
+        ),
+      );
+    });
+  }
+
+
+
+
   
   Widget build(BuildContext context) {
      String? _dropDownValue;
@@ -28,7 +101,13 @@ class _SettingssState extends State<Settingss> {
    Scaffold(
       backgroundColor: const Color(0xFFf3f4f6),
       body: SingleChildScrollView(
-        child: Container(
+        child:
+        
+        GetBuilder<UserController>(
+          init:UserController(),
+          
+          builder:(_){
+          return        Container(
           padding: const EdgeInsets.only(
             left: 5,
             right: 10,
@@ -43,43 +122,7 @@ class _SettingssState extends State<Settingss> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const BackButton(color: Color(0xFF27282a)),
-                  // Row(
-                  //   children: [
-                  //     GestureDetector(
-                  //       onTap: () {
-                  //         userController.contactListed();
-                  //       },
-                        
-                  //       child: const Icon(Icons.search, color: Color(0xFF27282a))),
-                  //     const SizedBox(
-                  //       width: 20,
-                  //     ),
-                  //     const Icon(Icons.person, color: Color(0xFF27282a)),
-                  //     const SizedBox(
-                  //       width: 20,
-                  //     ),
-                  //     ElevatedButton.icon(
-                  //       onPressed: () {
-                  //         Nav.toScreen(context, const AccountDetail());
-                  //         // showModalBottomSheet(
-                  //         //     shape: RoundedRectangleBorder(
-                  //         //       borderRadius: BorderRadius.circular(12.0),
-                  //         //     ),
-                  //         //     context: context,
-                  //         //     builder: (context) => sheet());
-                  //       },
-                  //       icon: const Icon(Icons.add),
-                  //       label: const Text("New"),
-                  //       style: ElevatedButton.styleFrom(
-                  //         onPrimary: const Color(0xFFffffff),
-                  //         primary: const Color(0xFF095fd8),
-                  //         shape: RoundedRectangleBorder(
-                  //           borderRadius: BorderRadius.circular(20),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
+
                 ],
               ),
 
@@ -87,7 +130,7 @@ class _SettingssState extends State<Settingss> {
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 20),
                 child: TopHeading(
-                  heading: "Whom to Pay",
+                  heading: "Settings",
                 ),
               ),
               // For buttons
@@ -149,21 +192,7 @@ class _SettingssState extends State<Settingss> {
                   ),
                 ),
               ),
-              // for making contact listTile
-              // Container(
-              //     padding: const EdgeInsets.symmetric(vertical: 10),
-              //     decoration: BoxDecoration(
-              //         color: Colors.white,
-              //         borderRadius: BorderRadius.circular(12.0)),
-              //     child: const ListTile(
-              //       leading: Icon(Icons.person),
-              //       title: Text(
-              //         "Your contact list is empty. Contacts will appear when you add them.",
-              //         style: TextStyle(
-              //             color: Color(0xFF83888c),
-              //             fontWeight: FontWeight.w500),
-              //       ),
-              //     )),
+  
                             Container(
                 padding: const EdgeInsets.all(12.0),
                 height: 85,
@@ -174,9 +203,9 @@ class _SettingssState extends State<Settingss> {
                 child: 
                 DropdownButton(
       hint: _dropDownValue == null
-          ? Text(userController.dropDownValue.toString())
+          ? Text(_.dropDownValue.toString())
           : Text(
-              _dropDownValue!,
+              _dropDownValue,
               style: TextStyle(color: Colors.blue),
             ),
       isExpanded: true,
@@ -193,79 +222,18 @@ class _SettingssState extends State<Settingss> {
       onChanged: (val) {
            print(val);
      
-            userController.dropDownValue = val.toString();
-            userController.update();
+            _.dropDownValue = val.toString();
+            _.update();
         
       },
     ),
 
 
-    
-                // Row(
-                //   children: [
-                //     // FloatingActionButton(
-                //     //   backgroundColor: Colors.blueGrey.withOpacity(0.2),
-                //     //   child: const FaIcon(
-                //     //     FontAwesomeIcons.solidCreditCard,
-                //     //     color: Colors.blue,
-                //     //   ),
-                //     //   elevation: 0,
-                //     //   onPressed: () {},
-                //     // ),
-                //            const SizedBox(
-                //       width: 12.0,
-                //     ),
-                
-              
-                
-                //     Column(
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       mainAxisAlignment: MainAxisAlignment.center,
-                //       children: [
-                //         Text(
-                //           'Bank Transfer',
-                //           style: TextStyle(
-                //             color: Colors.black,
-                //             fontSize: 18,
-                //             fontWeight: FontWeight.bold,
-                //           ),
-                //         ),
-                //         SizedBox(
-                //           height: 4.0,
-                //         ),
-                //         Text(
-                //           'Send Money',
-                //           style: TextStyle(
-                //             color: Colors.grey,
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //     const Spacer(),
-                //     TextButton(
-                //       child:  Text(
-                //         'Change',
-                //       ),
-                //       style: TextButton.styleFrom(
-                //           backgroundColor: Colors.blueGrey.withOpacity(0.2),
-                //           shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(10.0),
-                //           ),
-                //           fixedSize: const Size(80, 5)),
-                //       onPressed: () {
-                //         // Nav.toScreen(context, const MyCard());
-                //         Nav.toScreen(context, const BankCard());
-                
-                
-                        
-                //       },
-                //     )
-                //   ],
-                // ),
+ 
               ),
                ElevatedButton.icon(
                         onPressed: () async{
-                        await  userController.updatePackage();
+                        await  _.updatePackage();
                           // showModalBottomSheet(
                           //     shape: RoundedRectangleBorder(
                           //       borderRadius: BorderRadius.circular(12.0),
@@ -283,9 +251,86 @@ class _SettingssState extends State<Settingss> {
                           ),
                         ),
                       ),
+
+   SizedBox(height: 12,),
+
+                           Container(
+                padding: const EdgeInsets.all(12.0),
+                height: 85,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: 
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                Text("Change Passcode"),
+               ElevatedButton.icon(
+                        onPressed: () async{
+
+                          await alerts();
+                        // await  _.updatePackage();
+                        // Get.to(ExampleHomePage());
+                        
+                          // showModalBottomSheet(
+                          //     shape: RoundedRectangleBorder(
+                          //       borderRadius: BorderRadius.circular(12.0),
+                          //     ),
+                          //     context: context,
+                          //     builder: (context) => sheet());
+                        },
+                        icon: const Icon(Icons.add),
+                        label: const Text("Change Passcode"),
+                        style: ElevatedButton.styleFrom(
+                          onPrimary: const Color(0xFFffffff),
+                          primary: const Color(0xFF095fd8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+
+                ],)
+    //             DropdownButton(
+    //   hint: _dropDownValue == null
+    //       ? Text(_.dropDownValue.toString())
+    //       : Text(
+    //           _dropDownValue,
+    //           style: TextStyle(color: Colors.blue),
+    //         ),
+    //   isExpanded: true,
+    //   iconSize: 30.0,
+    //   style: TextStyle(color: Colors.blue),
+    //   items: ['Premium', 'Topaz'].map(
+    //     (val) {
+    //       return DropdownMenuItem<String>(
+    //         value: val,
+    //         child: Text(val),
+    //       );
+    //     },
+    //   ).toList(),
+    //   onChanged: (val) {
+    //        print(val);
+     
+    //         _.dropDownValue = val.toString();
+    //         _.update();
+        
+    //   },
+    // ),
+
+
+ 
+              ),
+
+
+
             ],
           ),
-        ),
+        );
+        })
+        
+  
       ),
     );
    

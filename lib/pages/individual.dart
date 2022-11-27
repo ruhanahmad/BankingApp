@@ -166,7 +166,7 @@ class _IndividualState extends State<Individual> {
                 )),
             GestureDetector(
               onTap: () {
-                  Nav.toScreen(context, ExampleHomePage(iban:"iban",check:true));
+                  Nav.toScreen(context, ExampleHomePage(iban:"iban",check: true,));
                 // userController.accIbanCheck();
               },
               child: Container(

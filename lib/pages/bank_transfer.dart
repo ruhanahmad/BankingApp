@@ -294,13 +294,22 @@ class _BankCardState extends State<BankCard> {
               fontWeight: FontWeight.bold
           ),
               ),
-              onPressed: (){
-           if (_formKey.currentState!.validate()){
+              onPressed: () async{
+          //  if (_formKey.currentState!.validate()){
+
                    print("object");
+                  if ( int.parse(userController.sendMoneyBalance) < int.parse(userController.balances)){
+                      print("object");
+                        print("object");
+ Nav.toScreen(context, const ReasonPayment());
+                   }
+                   else {
+ Get.snackbar("Account balance insuffucent", "Account balance is lesses than written amount");
+                   }
                     // userController.prepaid();
-                    Nav.toScreen(context, const ReasonPayment());
+                   
           
-           }
+          //  }
            
             // userController.getAccountData();
               },

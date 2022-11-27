@@ -14,11 +14,11 @@ import '../pages/Login/models/code_field.dart';
 class PhoneAuth extends GetxController {
   String? verificationCode;
   String verify ="";
-  var phoneNumbers;
+  String? phoneNumbers;
    var pinCode = "";
   verifyPhone() async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-  phoneNumber: '+923059604250',
+  phoneNumber:"+971"+phoneNumbers!,
   verificationCompleted: (PhoneAuthCredential credential) {},
   verificationFailed: (FirebaseAuthException e) {},
   codeSent: (String verificationId, int? resendToken) {

@@ -4,20 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../Controller/controller.dart';
 
-class PhoneField extends StatefulWidget {PhoneField({Key? key }) : super(key: key);
+class PhoneField extends StatelessWidget {
+  PhoneField({Key? key }) : super(key: key);
   // final VoidCallback moveToNext;
 
   // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
-  _PhoneFieldState createState() => _PhoneFieldState();
-}
-
-PhoneAuth phoneAuth = Get.put(PhoneAuth());
-class _PhoneFieldState extends State<PhoneField> {
-  @override
   Widget build(BuildContext context) {
-    return Padding(
+
+    
+    return 
+    
+    Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -56,7 +55,7 @@ class _PhoneFieldState extends State<PhoneField> {
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 4.0),
                         child: Text(
-                          "+216",
+                          "+971",
                           style: kContentTextStyle,
                         ),
                       ),
@@ -68,7 +67,8 @@ class _PhoneFieldState extends State<PhoneField> {
                 flex: 5,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: TextFormField(
+                  child: 
+                  TextFormField(
                     
                     onChanged: (value) {
                        phoneAuth.phoneNumbers = value;
@@ -139,5 +139,7 @@ class _PhoneFieldState extends State<PhoneField> {
     );
   }
 }
+
+PhoneAuth phoneAuth = Get.put(PhoneAuth());
 
 

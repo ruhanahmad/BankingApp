@@ -57,6 +57,7 @@ Notifications notifications = Notifications();
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    //  userController.getVirtualCard();
   //  getAccountData(jis );
 
 // contactListed();// aysy 
@@ -268,7 +269,7 @@ String acc(){
    welcome.idCard = "";
    welcome.AccountDetail = "";
    welcome.Passport = "";
-
+   welcome.passcode ="" ;
    var jjson= FirebaseFirestore.instance.collection("users").doc(userId!.uid).set(welcome.toJson());
      jjson.then(( value)async {
         String rand = await jnab();
@@ -485,6 +486,61 @@ Get.snackbar(
 
 
 
+ //-------------------------------Order physical Card ----------------------------------------------//
+   String? physicalAddress;
+    Future orderPhysicalCard() async{
+         var accNo = await tenNumberGenerated();
+       var cvv = await CVVGenerated();
+    // welcome = Welcome();
+    // accountss  = Account();
+       await FirebaseFirestore.instance
+        .collection("physicalCard").doc(userId!.uid)
+        .get()
+        .then((DocumentSnapshot value) async {
+          if(value.exists ){
+             Get.snackbar("Error", "Card Error");
+            // valuess = value.data();
+            //      print(valuess);
+            //       balances  =  valuess['accountB'];
+            //     //  accountsList.add(Account.fromJson(value));
+            //      print(valuess);
+            //  update(); 
+
+          }
+          else  {
+            Get.snackbar("Creating a Card", "No order for physical card before");
+         
+             
+   var jjson=  await FirebaseFirestore.instance.collection("physicalCard").doc(userId!.uid).set({"address":physicalAddress,"firebaseId":userId!.uid,
+   "CardNum":accNo,"CVV":cvv,"Date":DateTime.now()});
+ 
+         
+      
+Get.snackbar(
+              "Card Added",
+               "Successfully",
+               icon: Icon(Icons.person, color: Colors.white),
+               snackPosition: SnackPosition.BOTTOM,
+               backgroundColor: Colors.blue,
+               );
+
+    
+
+          }
+                 
+        });  
+ 
+
+      
+    }
+
+
+
+
+
+
+
+
 List <DocumentSnapshot> documentsEx = [];
 List  cardEx = [];
 String  balanceEx  = "";
@@ -619,10 +675,7 @@ if (documents.length > 0) {
 
 
   Future<dynamic> accSendMoneyCheck(String iban) async{
-   
-  //  await checkPass();
 
-  //  if (passs == )
 
     var bal ="";
     var username= "";
@@ -638,7 +691,7 @@ print(userId!.uid);
 if (documents.length > 0) { 
 
        var ids = documents.first.id;
-    var  balanc  = documents.first["accountB"];// balance amount receivig account
+    var  balanc  = documents.first["accountB"];
         // await  getAccountData();
              await FirebaseFirestore.instance
         .collection("account").doc(userId!.uid)
@@ -675,7 +728,7 @@ if (documents.length > 0) {
    Get.to(WhomToPay());
 
 
-   notifications.dateTime =  DateTime.now()  ;
+   notifications.dateTime =  DateTime.now();
    notifications.balance = beneBalance;
    notifications.username = username;
 
@@ -772,9 +825,10 @@ if (documents.length > 0) {
 
   
             //  update(); 
+            
         });  
           
-        var newValeTwo = await subTwoStringsAsInt(first: bal, second: beneIban)  ;
+        var newValeTwo = await subTwoStringsAsInt(first: bal, second:sendMoneyBalance)  ;
           
             await FirebaseFirestore.instance.collection("account").doc(userId!.uid).update({
                 "accountB":newValeTwo.toString()
@@ -793,19 +847,20 @@ if (documents.length > 0) {
 
        var firebaseId = userId!.uid.toString();
        
-     contacts.email = "ranaruhan123@gmail.com";
-     contacts.iban = "TN8451100465623861366251";
+     contacts.email = beneEmail;
+     contacts.iban = beneIban;
      contacts.id = firebaseId;
-     contacts.name = "vilvo";
+     contacts.name = beneName;
 
          await FirebaseFirestore.instance
         .collection("account").doc(userId!.uid).collection("contacts").where("iban", isEqualTo: beneIban)
         .get()
+
         .then((QuerySnapshot value) {
                  contactsGet = value.docs;
                  print(valuess);
                  if(contactsGet.length > 0){
-                        return null;
+                        Get.snackbar("Contacts alreat", "contacts already in list");
                  }
                  else{
                      var jjson= FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection(
@@ -959,7 +1014,7 @@ List bala = [];
    Future<List<Notifications>?> getNotification() async{
 
     QuerySnapshot  kilo =    await FirebaseFirestore.instance
-        .collection("account").doc("yeHVxipYrhVTaT4P2AtkL6WxRrv2").collection("notifications")
+        .collection("account").doc(userId!.uid).collection("notifications")
         .get();
 
       notificationList.clear();
@@ -973,46 +1028,21 @@ List bala = [];
     print(element["username"]) ;
     notificationList.add(element["username"]);
     bala.add(element["balance"]);
-    
 
-    // print("lllll" + notificationList);
-    // print(notificationList.add(element));
-    // notificationList.add();
-  //  Notifications.fromJson(element);
-    // print( Notifications.fromJson(element));
+
+
       print(element);
 print(element);
 
    });
   
-        // kilo.docs.forEach((element) { 
-        //   result.add();
-        // }); 
-       
-  //       .then((QuerySnapshot value) {
-          
-  //             // value.docs.map((e) {
-  //             //   notificationList.add(e);
-  //             //   print(e);
-  //             // });
-  //            return 
-  //            update();
-  //            print(notificationList);
-  // print("object");
-  //         } 
-
   
-        
-       
-      
-
-        
    }
 
 //===================================Update passcode=======================================
 
 String? updatedPasscode;
-
+String? reset;
 
  Future updatePasscode(String pass) async{
     try{
@@ -1024,11 +1054,37 @@ String? updatedPasscode;
     }
     catch(e){
        Get.snackbar("Error", "There is an error !");
-    }     
+    }   
+      // await uploadData();  
         Get.to(HomePage());
+      
 
 
  }
+  Future resetPasscode(String pass) async{
+    try{
+      if( pass.length == 6) {
+   var passcodes =      await   FirebaseFirestore.instance.collection("users").doc(userId!.uid).update({
+                " passcode":pass,
+           }).then((value) {
+            Get.snackbar("Updated", "Passcode updated successfully");
+           });
+    }
+    else{
+      Get.snackbar("Error", "Number must b 6,No lesser,Np Greater");
+    }
+    }
+    catch(e){
+       Get.snackbar("Error", "There is an error !");
+    }   
+      // await uploadData();  
+        // Get.to(HomePage());
+      
+
+
+ }
+
+
 
 
  //--------------------------------------------------update PAckage=-------------------
@@ -1120,4 +1176,113 @@ Get.snackbar("Success","Changed plan to Premium");
 
 
       }
+
+
+
+
+      //----------------------------------------------GetVirtualCard -------------------------------
+     
+     VirtualCard virtualCardss = VirtualCard();
+
+   List virtualCardAcc = [];
+   List virtualCardCvv = []; 
+   List virtualCardStatus = [];
+   Future<List<VirtualCard>?> getVirtualCard() async{
+
+    QuerySnapshot  kilo =    await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid).collection("virtualCard")
+        .get();
+
+      virtualCardAcc.clear();
+      virtualCardCvv.clear();
+      virtualCardStatus.clear();
+
+   print(kilo.docs);
+          //  virtualCardGet  = kilo.docs;
+
+   
+   kilo.docs.forEach((element) {
+    // print(element.docs[0]["username"]) ;
+    print(element["accountNumber"]) ;
+    virtualCardAcc.add(element["accountNumber"]);
+    virtualCardCvv.add(element["cvv"]);
+    virtualCardStatus.add(element["freeze"]);
+    
+    
+
+    // bala.add(element["balance"]);
+
+
+
+      print(element);
+print(element);
+
+   });
+  
+  
+   }
+   
+
+   // ---------------------------------freezeCArd------------------------------//
+   List freezeUpdated = [];
+   List <DocumentSnapshot> docu = [];
+   String? freezeText = "Unfreezed";
+   var freezeCheck;
+  Future<List<VirtualCard>?>  FreezeCardUpdated() async{
+      
+     QuerySnapshot  kilo =    await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid).collection("virtualCard")
+        .get();
+
+    freezeUpdated.clear();
+                   
+   print(kilo.docs);
+          //  virtualCardGet  = kilo.docs;
+docu = kilo.docs;
+   var ids = docu.first.id;
+   kilo.docs.forEach((element) {
+
+    freezeUpdated.add(element["cvv"]);
+
+      print(element);
+print(element);
+
+   });
+if(docu.first["freeze"] == false)
+{
+ freezeText = "Unfreezed";
+ update();
+   await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("virtualCard").doc(ids).update({
+                "freeze":true
+           }).then((value) => 
+           
+           freezeCheck  = true
+          //  freezeText = "freeze"
+           
+           
+           );
+// freezeUpdated[0] = "true";
+update();
+Get.snackbar("Message Success", "UnFreezed");
+
+}
+else if(docu.first["freeze"] == true){
+
+   freezeText = "Freezed";
+ update();
+   
+   await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("virtualCard").doc(ids).update({
+                "freeze":false
+           }).then((value) => 
+           
+             freezeCheck  = false
+                      
+         
+           
+           );
+update();
+Get.snackbar("Message Success", "Freezed");
+
+}
+  }
 }

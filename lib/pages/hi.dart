@@ -1,11 +1,15 @@
 import 'dart:async';
 
 import 'package:bnacash/Controller/userController.dart';
+import 'package:bnacash/pages/home_page.dart';
+import 'package:bnacash/pages/whom_to_pay.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:passcode_screen/circle.dart';
 import 'package:passcode_screen/keyboard.dart';
 import 'package:passcode_screen/passcode_screen.dart';
+
+import '../constants/constants.dart';
 
 
 
@@ -14,7 +18,7 @@ import 'package:passcode_screen/passcode_screen.dart';
 class ExampleHomePage extends StatefulWidget {
   ExampleHomePage({Key? key,this.iban,this.check}) : super(key: key);
   String? iban;
-  bool? check;
+  bool? check = false ;
 
   @override
   State<StatefulWidget> createState() => _ExampleHomePageState();
@@ -27,11 +31,28 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
 
   bool isAuthenticated = false;
   var storedPasscode = '123456';
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   
 
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return 
+    
+    Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+      onTap: () { 
+        Nav.toScreen(context,HomePage() );
+        
+         },
+      child: Icon(
+        Icons.menu,color: Colors.black,  // add custom icons also
+      ),
+  ),
         title: Text("widget.title"),
       ),
       body: Center(
@@ -106,7 +127,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
             ),
             circleUIConfig: circleUIConfig,
             keyboardUIConfig: keyboardUIConfig,
-            passwordEnteredCallback:widget.check! ?_onPasscodeEnteredForCheck :  _onPasscodeEntered,
+            passwordEnteredCallback: widget.check == true ?_onPasscodeEnteredForCheck :  _onPasscodeEntered,
             cancelButton: cancelButton,
             deleteButton: Text(
               'Delete',
@@ -128,10 +149,9 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
                if(userController.checked == true) {
                 Get.snackbar("Password Matched", "Successfull");
                 widget.iban  == "iban"? await userController.accIbanCheck():
-             await  userController.accSendMoneyCheck(widget.iban.toString());
-               
+             await  userController.accSendMoneyCheck(widget.iban.toString()); 
+                
                }
-
                else {
                  Get.snackbar("Password Dnt Match", "Write Correct Password");
                }

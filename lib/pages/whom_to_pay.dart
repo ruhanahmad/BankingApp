@@ -37,7 +37,11 @@ class WhomToPay extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const BackButton(color: Color(0xFF27282a)),
+                  GestureDetector(
+                    onTap:  (){
+                      
+                    },
+                    child: const BackButton(color: Color(0xFF27282a))),
                   Row(
                     children: [
                       GestureDetector(

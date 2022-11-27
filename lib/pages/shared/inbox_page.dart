@@ -1,3 +1,5 @@
+
+
 import 'package:bnacash/Controller/userController.dart';
 import 'package:bnacash/constants/constants.dart';
 import 'package:flutter/material.dart';
@@ -36,19 +38,25 @@ class _InboxPageState extends State<InboxPage> {
                 "Yesterday",
                 style: kContentTextStyle,
               ),
+
+             
              Container(
               height: 500,
               width: Get.width,
-              child: ListView.builder(
+              child:
+             
+               ListView.builder(
                 itemCount: userController.notificationList.length,
                 itemBuilder: (context,i){
 return   notificationField(
-                  text: userController.notificationList[i].toString(),
+                  text: userController.notificationList.length != null ? userController.notificationList[i].toString() :"hi how are you",
                   icon: "assets/images/tunisia.png",
                   subtitle:
                      userController.bala[i].toString() + "amount received"
                       );
-              })),
+              })
+              
+              ),
         
               
     

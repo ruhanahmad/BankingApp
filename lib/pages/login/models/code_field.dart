@@ -224,7 +224,7 @@ class _CodeFieldState extends State<CodeField> {
               onPressed: () async {
 
                      try {
-                 PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: phoneAuth.verify, smsCode:"201056");
+                 PhoneAuthCredential credential = await PhoneAuthProvider.credential(verificationId: phoneAuth.verify, smsCode:_pinPutController.text);
     
       // Sign the user in (or link) with the credential
       await auth.signInWithCredential(credential);

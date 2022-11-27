@@ -14,10 +14,20 @@ class SendMoneyContact extends StatelessWidget {
   String email;
   String iban;
   SendMoneyContact({Key? key,required this.name,required this.email, required this.iban}) : super(key: key);
+// @override
+// void initState() {
+//   super.initState();
+  
+// }
 
 
   @override
   Widget build(BuildContext context) {
+    // @override
+    // void initState() {
+    //   super.initState();
+      
+    // }
    final userController =Get.put(UserController());
     final _formKey = GlobalKey<FormState>();
    
@@ -294,7 +304,7 @@ class SendMoneyContact extends StatelessWidget {
                   //  userController.accSendMoneyCheck(iban.toString());
 
                     // userController.prepaid();
-                    Nav.toScreen(context, ExampleHomePage(iban:iban,check:true));
+                    Nav.toScreen(context, ExampleHomePage(iban:iban,check: true,));
           
            }
            
