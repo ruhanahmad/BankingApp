@@ -50,7 +50,8 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
         
          },
       child: Icon(
-        Icons.menu,color: Colors.black,  // add custom icons also
+        Icons.menu,color: Colors.black, 
+
       ),
   ),
         title: Text("widget.title"),
@@ -67,8 +68,12 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
       ),
     );
   }
+     
 
-  _defaultLockScreenButton(BuildContext context) => MaterialButton(
+  
+
+  _defaultLockScreenButton(BuildContext context) => 
+  MaterialButton(
         color: Theme.of(context).primaryColor,
         child: Text('Write Password'),
         onPressed: () {
@@ -84,27 +89,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
         },
       );
 
-  // _customColorsLockScreenButton(BuildContext context) {
-  //   return MaterialButton(
-  //     color: Theme.of(context).primaryColor,
-  //     child: Text('Open Custom Lock Screen'),
-  //     onPressed: () {
-  //       _showLockScreen(context,
-  //           opaque: false,
-  //           circleUIConfig: CircleUIConfig(
-  //               borderColor: Colors.blue,
-  //               fillColor: Colors.blue,
-  //               circleSize: 30),
-  //           keyboardUIConfig: KeyboardUIConfig(
-  //               digitBorderWidth: 2, primaryColor: Colors.blue),
-  //           cancelButton: Icon(
-  //             Icons.arrow_back,
-  //             color: Colors.blue,
-  //           ),
-  //           digits: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '零']);
-  //     },
-  //   );
-  // }
+
 
   _showLockScreen(
     BuildContext context, {
@@ -113,7 +98,8 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
     KeyboardUIConfig? keyboardUIConfig,
     required Widget cancelButton,
     List<String>? digits,
-  }) {
+  }) 
+  {
     Navigator.push(
         context,
         PageRouteBuilder(
@@ -155,40 +141,15 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
                else {
                  Get.snackbar("Password Dnt Match", "Write Correct Password");
                }
-          // await userController.updatePasscode(enteredPasscode);
-          //  _defaultLockScreenButton(context);
-    // bool isValid = storedPasscode == enteredPasscode;
-    // _verificationNotifier.add(isValid);
-    // if (isValid) {
-    //   setState(() {
-    //     this.isAuthenticated = isValid;
-    //   });
-    // }
+
   }
 
   _onPasscodeEntered(String enteredPasscode)async {
           await userController.updatePasscode(enteredPasscode);
-          //  _defaultLockScreenButton(context);
-    // bool isValid = storedPasscode == enteredPasscode;
-    // _verificationNotifier.add(isValid);
-    // if (isValid) {
-    //   setState(() {
-    //     this.isAuthenticated = isValid;
-    //   });
-    // }
+ 
   }
 
-  // for passcode entering--------------------------------------------------
 
-  //   _onPasscodeEntered(String enteredPasscode) {
-  //   bool isValid = storedPasscode == enteredPasscode;
-  //   _verificationNotifier.add(isValid);
-  //   if (isValid) {
-  //     setState(() {
-  //       this.isAuthenticated = isValid;
-  //     });
-  //   }
-  // }
 
   _onPasscodeCancelled() {
     Navigator.maybePop(context);
@@ -214,9 +175,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
                   fontWeight: FontWeight.w300),
             ),
             onPressed: _resetAppPassword,
-            // splashColor: Colors.white.withOpacity(0.4),
-            // highlightColor: Colors.white.withOpacity(0.2),
-            // ),
+
           ),
         ),
       );

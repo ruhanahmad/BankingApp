@@ -16,8 +16,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 // }
 
 class ExampleCameraOverlay extends StatefulWidget {
-  const ExampleCameraOverlay({Key? key}) : super(key: key);
-
+  ExampleCameraOverlay({Key? key,this.title}) : super(key: key);
+String? title = "";
   @override
   _ExampleCameraOverlayState createState() => _ExampleCameraOverlayState();
 }
@@ -105,11 +105,13 @@ class _ExampleCameraOverlayState extends State<ExampleCameraOverlay> {
                                       onPressed: ()
                                       async
                                        {
-                                        
-                                         await userController.uploadFiless(userController.files,context);
+                                         widget.title == "driving" ?
+                                         await userController.uploadFiless(userController.files,context):
+                                         await userController.uploadFilesPassport(userController.files,context)
+                                         ;
                                          
                                          },
-                                      child: const Icon(Icons.abc)),
+                                      child: const Icon(Icons.upload)),
                                   
                                   OutlinedButton(
                                       onPressed: () => Get.off(ProofPage()),

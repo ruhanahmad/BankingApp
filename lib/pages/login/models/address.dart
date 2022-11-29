@@ -43,10 +43,10 @@ class _HomeAddressState extends State<HomeAddress> {
                         const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
                     filled: true,
                     fillColor: kPrimaryColor.withOpacity(0.3),
-                    labelText: 'Search Address',
+                    labelText: 'Street',
                     labelStyle: kFormTextStyle,
                     border: InputBorder.none,
-                    prefixIcon: const Icon(Icons.search_rounded),
+                    // prefixIcon: const Icon(Icons.search_rounded),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0),
                       borderSide: const BorderSide(color: Colors.white),
@@ -59,19 +59,132 @@ class _HomeAddressState extends State<HomeAddress> {
                 obscureText: false,
                 validator: (String? value) {
                   if (value!.isEmpty) {
-                    return 'Please Enter an address';
+                    return 'Please Enter an street';
                   }
                   return null;
                 },
                 onChanged: (address) {
                  
-                    userController.address= address;
+                    userController.street= address;
                     userController.update();
                  
                 },
               ),
             ),
-            const SizedBox(height: 20),
+                 const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TextFormField(
+                decoration: InputDecoration(
+              
+                    contentPadding:
+                        const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+                    filled: true,
+                    fillColor: kPrimaryColor.withOpacity(0.3),
+                    labelText: 'City',
+                    labelStyle: kFormTextStyle,
+                    border: InputBorder.none,
+                    // prefixIcon: const Icon(Icons.search_rounded),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      borderSide: const BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      borderSide: const BorderSide(color: kPrimaryColor),
+                    )),
+                keyboardType: TextInputType.text,
+                obscureText: false,
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'Please Enter an City';
+                  }
+                  return null;
+                },
+                onChanged: (address) {
+                 
+                    userController.city= address;
+                    userController.update();
+                 
+                },
+              ),
+            ),
+                  const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TextFormField(
+                decoration: InputDecoration(
+              
+                    contentPadding:
+                        const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+                    filled: true,
+                    fillColor: kPrimaryColor.withOpacity(0.3),
+                    labelText: 'Region',
+                    labelStyle: kFormTextStyle,
+                    border: InputBorder.none,
+                    // prefixIcon: const Icon(Icons.search_rounded),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      borderSide: const BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      borderSide: const BorderSide(color: kPrimaryColor),
+                    )),
+                keyboardType: TextInputType.text,
+                obscureText: false,
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'Region';
+                  }
+                  return null;
+                },
+                onChanged: (address) {
+                 
+                    userController.region= address;
+                    userController.update();
+                 
+                },
+              ),
+            ),
+                  const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TextFormField(
+                decoration: InputDecoration(
+              
+                    contentPadding:
+                        const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+                    filled: true,
+                    fillColor: kPrimaryColor.withOpacity(0.3),
+                    labelText: 'Zip code',
+                    labelStyle: kFormTextStyle,
+                    border: InputBorder.none,
+                    // prefixIcon: const Icon(Icons.search_rounded),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      borderSide: const BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      borderSide: const BorderSide(color: kPrimaryColor),
+                    )),
+                keyboardType: TextInputType.text,
+                obscureText: false,
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'Zip Code';
+                  }
+                  return null;
+                },
+                onChanged: (address) {
+                 
+                    userController.zipcode= address;
+                    userController.update();
+                 
+                },
+              ),
+            ),
             // isSearching
             //     ? Container(
             //         padding: const EdgeInsets.all(8.0),

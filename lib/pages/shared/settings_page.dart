@@ -1,5 +1,9 @@
 import 'package:bnacash/constants/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../Controller/userController.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -9,6 +13,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  UserController userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,10 +77,16 @@ class _SettingsPageState extends State<SettingsPage> {
                   text: "Name you card",
                   icon: "assets/images/edit.png",
                   subtitle: "Add a custom name(optional)"),
-              choiceField(
-                  text: "Terminate card",
-                  icon: "assets/images/delete.png",
-                  subtitle: " The card will be be permanently terminated"),
+              GestureDetector(
+                onTap: ()async {
+                  
+                  await userController.terminatedCard();
+                },
+                child: choiceField(
+                    text: "Terminate card",
+                    icon: "assets/images/delete.png",
+                    subtitle: " The card will be be permanently terminated"),
+              ),
             ],
           ),
         ),

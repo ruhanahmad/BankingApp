@@ -1,13 +1,12 @@
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/models/primary_button.dart';
-import 'package:bnacash/pages/login/models/dob.dart';
-import 'package:bnacash/pages/login/models/login.dart';
+import 'package:bnacash/pages/login/models/phone_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../Controller/controller.dart';
 
-class PhoneField extends StatelessWidget {
-  PhoneField({Key? key }) : super(key: key);
+class loginFeild extends StatelessWidget {
+  loginFeild({Key? key }) : super(key: key);
   // final VoidCallback moveToNext;
 
   // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -26,7 +25,7 @@ class PhoneField extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                "Sign up to BNA Cash",
+                "Login to BNA Cash",
                 style: kAppBarTextStyle.copyWith(fontSize: 25),
               ),
               const SizedBox(height: 10),
@@ -107,24 +106,22 @@ class PhoneField extends StatelessWidget {
                   ),
                 ],
               ),
-          
-                GestureDetector(
-                  onTap: (){
-                    Get.to(loginFeild());
-                  } ,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Text("Need to Login?"),
-                  ),
-                ),
-          
+
+                         GestureDetector(
+              onTap: (){
+                Get.to(PhoneField());
+              } ,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text("Need to SignUp?"),
+              ),
+            ),
               const SizedBox(height: 20),
               const Spacer(),
               PrimaryButton(
                 text: "Send Code",
-                onPressed: () async{
-                await  userController.checksIFSignUp();
-                // phoneAuth.verifyPhone();
+                onPressed: () {
+                phoneAuth.verifyPhone();
               // widget.moveToNext();
           
           

@@ -1,11 +1,16 @@
+import 'package:bnacash/Controller/controller.dart';
 import 'package:bnacash/models/account.dart';
 import 'package:bnacash/models/external_card.dart';
 import 'package:bnacash/models/firebaseModel.dart';
 import 'package:bnacash/models/notifiction.dart';
 import 'package:bnacash/models/virtual_card.dart';
 import 'package:bnacash/pages/home_page.dart';
+import 'package:bnacash/pages/login/models/country.dart';
 import 'package:bnacash/pages/login/models/dob.dart';
+import 'package:bnacash/pages/login/models/login.dart';
+import 'package:bnacash/pages/login/proof_of_residency.dart';
 import 'package:bnacash/pages/login/reason_for_use.dart';
+import 'package:bnacash/pages/verificationFailed.dart';
 import 'package:bnacash/pages/whom_to_pay.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -22,10 +27,138 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:camera/camera.dart';
 import 'package:file/file.dart';
 import 'dart:math';
+
+import '../pages/Login/models/code_field.dart';
+import '../pages/login/models/phone_field.dart';
 class UserController extends GetxController {
-        
+PhoneAuth phoneAuth = Get.put(PhoneAuth());
+
+//--------------------------------------------verificationCheck-------------------------//
+
+       List <DocumentSnapshot> verificationss = [];
+   var checkss;
+Future  verificationChec() async {
+    // welcome = Welcome();
+    // accountss  = Account();
+       await FirebaseFirestore.instance
+        .collection("user").doc(userId!.uid)
+        .get()
+        .then((DocumentSnapshot value) {
+                 valuess = value.data();
+                 print(valuess);
+                  checkss  =  valuess['verified'];
+                //  accountsList.add(Account.fromJson(value));
+                      if(checkss == false){
+                          Get.to(VerificationFailed());
+                      }
+                      else{
+                       Get.to(HomePage());
+                      }
+                 print(valuess);
+            //  update(); 
+        });  
+  }
 
 
+
+
+
+
+
+
+
+//---------------------------------------------checksif for signup------------------------//
+
+           List <DocumentSnapshot> checksIFSign = [];
+
+  Future  checksIFSignUp() async{
+        var kilo =    await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid).get().then((DocumentSnapshot value) {
+     var checksIFSign  = value.data();
+      //  var id = whistle.first.id;
+        if(checksIFSign == null) {
+           phoneAuth.verifyPhone();
+                // Get.to(CodeField());
+    
+        }
+
+        else{
+          Get.snackbar("User Already Signed up", "Moving to login page and Try loggin in",duration: Duration(seconds: 5));
+           Get.to( loginFeild());
+        }
+    
+        });
+   
+
+
+}
+
+
+  //----------------------------------------------checks if --------------------------------//
+         
+
+         List <DocumentSnapshot> whistle = [];
+
+  Future  checksIF() async{
+        var kilo =    await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid).get().then((DocumentSnapshot value) {
+     var whistle  = value.data();
+      //  var id = whistle.first.id;
+        if(whistle == null) {
+                Get.to( CountryField());
+    
+        }
+
+        else{
+           Get.to( HomePage());
+        }
+    
+        });
+   
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+//--------------------------------------------Terminate CArd ----------------------//
+
+
+         List <DocumentSnapshot> vis = [];
+
+  Future  terminatedCard() async{
+        var kilo =    await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid).collection("virtualCard")
+        .get().then((QuerySnapshot value) {
+      vis  =   value.docs;
+       var id = vis.first.id;
+        if(vis.length > 0) {
+           var jjson= FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("virtualCard").doc(id).delete();
+     jjson.then(( value)async {
+      
+     Get.snackbar("Deleted Successfully", "Message Deleted");
+     });
+        }
+
+        else{
+           Get.snackbar("Not Found", "Deleted Record not Found");
+        }
+    
+        });
+   
+
+
+}
     //               Future  chatbotss()async {
     //         try {
     //  dynamic conversationObject = {
@@ -50,6 +183,10 @@ String? codeEntered = "";
 String? prepaidBalance = "";
 String sendMoneyBalance = "";
 Contacts contacts = Contacts();
+String? region = "";
+String? city = "";
+String? street = "";
+String? zipcode = "";
 
 Notifications notifications = Notifications();
    
@@ -108,7 +245,7 @@ Notifications notifications = Notifications();
   String? email = "";
    XFile? files;
   String? accountBalance = "";
-  
+  String? lastNamess = "";
   
 
 User? userId = FirebaseAuth.instance.currentUser;
@@ -120,7 +257,57 @@ User? userId = FirebaseAuth.instance.currentUser;
   
 Welcome welcome =Welcome();
 Account accountss = Account();
+//---------------------------------upload passport----------------------------------//
 
+  Future<UploadTask?> uploadFilesPassport(XFile? files,context) async {
+ var uniqueKeys = firebaseRef.collection("users");
+    var uniqueKey = firebaseRef.collection("users");
+    if (files == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No file was selected'),
+        ),
+      );
+
+      return null;
+    }
+
+    UploadTask uploadTask;
+
+    // Create a Reference to the file
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child('passport') 
+        .child('/some-image.jpg');
+
+    final metadata = SettableMetadata(
+      contentType: 'image/jpeg',
+      customMetadata: {'picked-file-path': files.path},
+    );
+
+    if (kIsWeb) {
+      uploadTask = ref.putData(await files.readAsBytes(), metadata);
+    } else {
+      uploadTask = ref.putFile(io.File(files.path), metadata);
+
+    await  uploadTask.whenComplete(() async {
+        var uploadpaths = await uploadTask.snapshot.ref.getDownloadURL();
+           FirebaseFirestore.instance.collection("users").doc(userId!.uid).update({
+                " passport":uploadpaths
+           });
+
+           Get.snackbar("Uploaded", "Upload successfully");
+
+        Get.to(HomePage());
+      });
+
+
+    }
+    
+    // await ref.getDownloadURL().then((value) => updataIdCard(value));
+
+    return Future.value(uploadTask);
+  }
 
  List<UploadTask> _uploadTasks = [];
    
@@ -163,7 +350,10 @@ Account accountss = Account();
            FirebaseFirestore.instance.collection("users").doc(userId!.uid).update({
                 " idCard":uploadpaths
            });
-        Get.to(HomePage());
+
+           Get.snackbar("Uploaded", "Upload successfully");
+
+        Get.to(ProofPage());
       });
 
 
@@ -260,8 +450,12 @@ String acc(){
  Future uploadData()async  {
 
    welcome.firebaseId = userId!.uid.toString();
+   welcome.lastName = lastNamess;
    welcome.fullName = fullName;
-   welcome.address = address;
+   welcome.street = address;
+   welcome.city = city;
+   welcome.region = region;
+   welcome.zipcode = zipcode;
    welcome.country = country;
    welcome.occupation = occupation;
    welcome.dob = dob;
@@ -270,6 +464,7 @@ String acc(){
    welcome.AccountDetail = "";
    welcome.Passport = "";
    welcome.passcode ="" ;
+   welcome.verified = false;
    var jjson= FirebaseFirestore.instance.collection("users").doc(userId!.uid).set(welcome.toJson());
      jjson.then(( value)async {
         String rand = await jnab();
@@ -300,7 +495,7 @@ String? accB ="";
      jjson.then(( value)async {
            accB = accountss.accountB;   
            update()  ;  
-     Get.to(ReasonForUse());
+    //  Get.to(ReasonForUse());
      });
   }
 
@@ -1050,13 +1245,14 @@ String? reset;
                 " passcode":pass,
            }).then((value) {
             Get.snackbar("Updated", "Passcode updated successfully");
+            Get.to(HomePage());
            });
     }
     catch(e){
        Get.snackbar("Error", "There is an error !");
     }   
       // await uploadData();  
-        Get.to(HomePage());
+        
       
 
 

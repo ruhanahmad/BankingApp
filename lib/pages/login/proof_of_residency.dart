@@ -87,10 +87,15 @@ class _ProofPageState extends State<ProofPage> {
             const SizedBox(height: 20),
             GestureDetector(
               onTap: ( ) {
-                Get.to(ExampleCameraOverlay());
+                Get.to(ExampleCameraOverlay(title:"driving"));
               },
               child: choiceField(text: "Driving license", icon: Icons.car_rental)),
-            choiceField(text: "Passport", icon: Icons.perm_identity),
+            GestureDetector(
+                 onTap: ( ) {
+                Get.to(ExampleCameraOverlay(title:"passport"));
+              },
+              
+              child: choiceField(text: "Passport", icon: Icons.perm_identity)),
             choiceField(
                 text: "Identity card", icon: Icons.person_add_alt_outlined),
           ],

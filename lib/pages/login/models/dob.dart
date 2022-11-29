@@ -47,7 +47,7 @@ class _DobFieldState extends State<DobField> {
                     labelText: 'DD/MM/YYYY',
                     labelStyle: kFormTextStyle,
                     border: InputBorder.none,
-                    prefixIcon: const Icon(Icons.search_rounded),
+                    // prefixIcon: const Icon(Icons.search_rounded),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0),
                       borderSide: const BorderSide(color: Colors.white),

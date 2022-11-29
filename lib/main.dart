@@ -1,5 +1,6 @@
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/dialog_flutter.dart';
+import 'package:bnacash/pages/hi.dart';
 import 'package:bnacash/pages/home_page.dart';
 import 'package:bnacash/pages/login/models/country.dart';
 import 'package:bnacash/pages/login/proof_of_residency.dart';
@@ -41,8 +42,13 @@ class MyApp extends StatelessWidget {
             .apply(fontFamily: 'Montserrat', bodyColor: kTextColor),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: userId !=null ? 
-      const HomePage():LandingPage()
+      home: 
+      // userId !=null ? 
+      // HomePage() 
+      // :
+      // LandingPage() 
+
+      ExampleHomePage()
       // const CountryField(),
       // const ProofPage()
     );

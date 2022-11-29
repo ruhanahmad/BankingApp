@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bnacash/main.dart';
+import 'package:bnacash/pages/login/models/phone_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,15 +18,37 @@ class PhoneAuth extends GetxController {
   String? phoneNumbers;
    var pinCode = "";
   verifyPhone() async {
+    Get.snackbar("Code sent","Code Sent Successfully");
     await FirebaseAuth.instance.verifyPhoneNumber(
-  phoneNumber:"+971"+phoneNumbers!,
+  phoneNumber:"+" +phoneNumbers!,
+  verificationCompleted: (PhoneAuthCredential credential) {},
+  verificationFailed: (FirebaseAuthException e) {
+    Get.snackbar("Error", "Verificqtion Failed");
+    // Get.to(PhoneField());
+  },
+  codeSent: (String verificationId, int? resendToken) {
+     verify = verificationId;
+     update();
+
+    Get.to(CodeField());
+
+  },
+  codeAutoRetrievalTimeout: (String verificationId) {});
+  }
+
+
+    verifyPhoneAgain() async {
+
+      Get.snackbar("Code sent","Code Sent Successfully");
+    await FirebaseAuth.instance.verifyPhoneNumber(
+  phoneNumber:"+" +phoneNumbers!,
   verificationCompleted: (PhoneAuthCredential credential) {},
   verificationFailed: (FirebaseAuthException e) {},
   codeSent: (String verificationId, int? resendToken) {
      verify = verificationId;
      update();
 
-    Get.to(CodeField());
+  
 
   },
   codeAutoRetrievalTimeout: (String verificationId) {});

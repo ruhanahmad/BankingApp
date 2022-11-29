@@ -19,7 +19,10 @@ class Welcome {
       this.firebaseId,
         this.fullName,
         this.country,
-       this.address,
+       this.street,
+       this.city,
+       this.region,
+       this.zipcode,
        this.email,this.occupation,
        this.dob,
        this.idCard,
@@ -27,13 +30,17 @@ class Welcome {
        this.AccountDetail,
        this.accountBalance,
        this.passcode,
+       this.lastName,
+       this.verified,
 
     });
+    bool? verified;
+    String? lastName;
     String? passcode;
     String? firebaseId;
     String? fullName;
     String? country;
-    String? address;
+    String? street;
     String? occupation;
     String? email;
     String? dob;
@@ -41,13 +48,19 @@ class Welcome {
     String? Passport;
     String? AccountDetail;
     String? accountBalance ;
+    String? city;
+    String? region;
+    String? zipcode;
     
     factory Welcome.fromJson(DocumentSnapshot json) => Welcome(
         passcode: json["passcode"],
         firebaseId: json["firebaseID"],
         fullName: json["name"],
         country: json["country"],
-        address: json["address"],
+        street: json["street"],
+        city: json["city"],
+        region: json["region"],
+        zipcode: json["zipcode"],
         email:json["email"],
         occupation: json["occupation"],
         dob: json["dob"],
@@ -55,6 +68,8 @@ class Welcome {
         Passport: json["Passport"],
         AccountDetail: json["AccountDetail"],
         accountBalance: json["accountBalance"],
+        lastName: json["lastName"],
+        verified:json["verified"]
 
 
    );
@@ -63,7 +78,10 @@ class Welcome {
         "firebaseID": firebaseId,
         "name": fullName,
         "country": country,
-        "address": address,
+        "street": street,
+        "city":city,
+        "region":region,
+        "zipcode":zipcode,
         "email":email,
         "occupation":occupation,
         "dob":dob,
@@ -72,5 +90,7 @@ class Welcome {
         "AccountDetail":AccountDetail,
         "AccountBalance":accountBalance,
         "passcode":passcode,
+        "lastName":lastName,
+        "verified":verified,
     };
 }

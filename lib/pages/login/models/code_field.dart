@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:bnacash/Controller/controller.dart';
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/models/primary_button.dart';
+import 'package:bnacash/pages/home_page.dart';
 import 'package:bnacash/pages/login/models/country.dart';
 import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:bnacash/pages/login/personal_info.dart';
@@ -210,25 +211,32 @@ class _CodeFieldState extends State<CodeField> {
             const SizedBox(height: 20),
             textField(),
             const SizedBox(height: 20),
-            Text(
-              _start > 9
-                  ? "Resend the Code in 00 : $_start"
-                  : _start != 0
-                      ? "Resend the Code in 00 : 0$_start"
-                      : "Resend the Code",
-              style: kContentTextStyle.copyWith(color: kPrimaryColor),
+            GestureDetector(
+              onTap: () {
+phoneAuth.verifyPhoneAgain();
+              },
+              child: Text(
+                _start > 9
+                    ? "Resend the Code in 00 : $_start"
+                    : _start != 0
+                        ? "Resend the Code in 00 : 0$_start"
+                        : "Resend the Code",
+                style: kContentTextStyle.copyWith(color: kPrimaryColor),
+              ),
             ),
             const Spacer(),
             PrimaryButton(
               text: "Confirm",
               onPressed: () async {
-
+              // phoneAuth.verifyPhone();
                      try {
                  PhoneAuthCredential credential = await PhoneAuthProvider.credential(verificationId: phoneAuth.verify, smsCode:_pinPutController.text);
     
       // Sign the user in (or link) with the credential
       await auth.signInWithCredential(credential);
-      Get.to( CountryField());
+      Get.to(HomePage());
+      // await userController.checksIF();
+     
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
       
