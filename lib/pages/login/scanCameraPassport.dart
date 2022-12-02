@@ -15,14 +15,14 @@ import 'package:firebase_storage/firebase_storage.dart';
 //   );
 // }
 
-class ExampleCameraOverlay extends StatefulWidget {
-    ExampleCameraOverlay({Key? key,this.title}) : super(key: key);
-String? title = "";
+class ExampleCameraOverlayPassport extends StatefulWidget {
+    ExampleCameraOverlayPassport({Key? key}) : super(key: key);
+
   @override
-  _ExampleCameraOverlayState createState() => _ExampleCameraOverlayState();
+  _ExampleCameraOverlayPassportState createState() => _ExampleCameraOverlayPassportState();
 }
 
-class _ExampleCameraOverlayState extends State<ExampleCameraOverlay> {
+class _ExampleCameraOverlayPassportState extends State<ExampleCameraOverlayPassport> {
   OverlayFormat format = OverlayFormat.cardID1;
   UserController userController = Get.put(UserController());
   int tab = 0;
@@ -87,7 +87,7 @@ class _ExampleCameraOverlayState extends State<ExampleCameraOverlay> {
                       barrierColor: Colors.black,
                       builder: (context) {
                        
-                            userController.files   =   file;
+                            userController.filesPassport   =   file;
                             // userController.update();
                        
                 
@@ -105,9 +105,9 @@ class _ExampleCameraOverlayState extends State<ExampleCameraOverlay> {
                                       onPressed: ()
                                       async
                                        {
-                                       
-                                         await userController.uploadFiless(userController.files,context)
                                          
+                                        
+                                         await userController.uploadFilesPassport(userController.filesPassport,context)
                                          ;
                                          
                                          },

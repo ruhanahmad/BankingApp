@@ -54,6 +54,9 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
 
       ),
   ),
+  actions: [IconButton(onPressed: ()async{
+   await  userController.SendMailss();
+  }, icon:Icon(Icons.abc_sharp,color: Colors.black,))],
         title: Text("widget.title"),
       ),
       body: Center(

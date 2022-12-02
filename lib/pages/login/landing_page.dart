@@ -1,8 +1,10 @@
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/Login/models/code_field.dart';
 import 'package:bnacash/pages/login/models/phone_field.dart';
+import 'package:bnacash/pages/login/proof_of_residency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -28,6 +30,11 @@ class _LandingPageState extends State<LandingPage> {
           //         curve: Curves.ease);
           //   },
           // ),
+          actions: [IconButton(onPressed: (){
+                 Get.to(ProofPage());
+                                        
+                    
+          }, icon: Icon(Icons.abc),color: Colors.black,)],
           elevation: 0.0,
         ),
         body:

@@ -3,6 +3,7 @@ import 'package:bnacash/pages/dialog_flutter.dart';
 import 'package:bnacash/pages/hi.dart';
 import 'package:bnacash/pages/home_page.dart';
 import 'package:bnacash/pages/login/models/country.dart';
+import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:bnacash/pages/login/proof_of_residency.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,6 +12,7 @@ import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:bnacash/pages/premium.dart';
 import 'package:bnacash/card_design.dart';
 import 'package:bnacash/pages/login/landing_page.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 void main() async{
@@ -43,14 +45,15 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: 
-      // userId !=null ? 
-      // HomePage() 
-      // :
-      // LandingPage() 
+      userController.userId !=null ? 
+      HomePage() 
+      :
+      LandingPage() ,
 
-      ExampleHomePage()
+      // ExampleHomePage()
       // const CountryField(),
       // const ProofPage()
+      builder: EasyLoading.init(),
     );
   }
 }

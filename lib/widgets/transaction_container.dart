@@ -1,6 +1,7 @@
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/add_money.dart';
 import 'package:bnacash/pages/login/models/dob.dart';
+import 'package:bnacash/pages/login/proof_of_residency.dart';
 import 'package:bnacash/pages/second_screen.dart';
 import 'package:bnacash/pages/whom_to_pay.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -79,18 +80,13 @@ class _TransactionContainerState extends State<TransactionContainer> {
                       Text("TND"),
                       IconButton(onPressed: (){
                         builder.getAccountData();
+                        // builder.SendMailss();
                       }, icon: Icon(Icons.zoom_in))
                     ],
                   ),
-                  InkWell(
-                    onTap: (){
-
-                                        
-                    },
-                    child: const Text(
-                      'Dinar',
-                      style: TextStyle(fontSize: 15),
-                    ),
+                  const Text(
+                    'Dinar',
+                    style: TextStyle(fontSize: 15),
                   ),
 
 

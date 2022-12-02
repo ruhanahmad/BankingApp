@@ -17,8 +17,8 @@ import 'package:get/get_core/src/get_main.dart';
 // import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pinput/pinput.dart';
 class CodeField extends StatefulWidget {
-  const CodeField({Key? key}) : super(key: key);
-
+   CodeField({Key? key,}) : super(key: key);
+ 
   @override
   _CodeFieldState createState() => _CodeFieldState();
 }
@@ -234,7 +234,8 @@ phoneAuth.verifyPhoneAgain();
     
       // Sign the user in (or link) with the credential
       await auth.signInWithCredential(credential);
-      Get.to(HomePage());
+           userController.signUps == true?  
+   Get.to(CountryField())  :Get.to(HomePage()) ;
       // await userController.checksIF();
      
                 } catch (e) {

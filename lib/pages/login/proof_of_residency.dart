@@ -1,5 +1,6 @@
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/login/scanCamera.dart';
+import 'package:bnacash/pages/login/scanCameraPassport.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -87,12 +88,12 @@ class _ProofPageState extends State<ProofPage> {
             const SizedBox(height: 20),
             GestureDetector(
               onTap: ( ) {
-                Get.to(ExampleCameraOverlay(title:"driving"));
+                Get.to(ExampleCameraOverlay());
               },
               child: choiceField(text: "Driving license", icon: Icons.car_rental)),
             GestureDetector(
                  onTap: ( ) {
-                Get.to(ExampleCameraOverlay(title:"passport"));
+                Get.to(ExampleCameraOverlayPassport());
               },
               
               child: choiceField(text: "Passport", icon: Icons.perm_identity)),

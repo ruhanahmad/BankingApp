@@ -54,7 +54,7 @@ class Welcome {
     
     factory Welcome.fromJson(DocumentSnapshot json) => Welcome(
         passcode: json["passcode"],
-        firebaseId: json["firebaseID"],
+        firebaseId: json["firebaseId"],
         fullName: json["name"],
         country: json["country"],
         street: json["street"],
@@ -75,7 +75,7 @@ class Welcome {
    );
 
     Map<String, dynamic> toJson() => {
-        "firebaseID": firebaseId,
+        "firebaseId": firebaseId,
         "name": fullName,
         "country": country,
         "street": street,

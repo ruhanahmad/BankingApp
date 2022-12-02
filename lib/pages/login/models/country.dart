@@ -3,6 +3,8 @@ import 'package:bnacash/pages/login/models/address.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import  'package:bnacash/Controller/userController.dart';
+
+import '../../../models/primary_button.dart';
 class CountryField extends StatefulWidget {
   const CountryField({Key? key}) : super(key: key);
 
@@ -88,6 +90,67 @@ class _CountryFieldState extends State<CountryField>
               ]),
             ),
              const Spacer(),
+              //             ElevatedButton
+                
+              // (
+                
+              //                     style: ElevatedButton.styleFrom(
+              //                       padding: const EdgeInsets.symmetric(
+              //                           vertical: 10.0, horizontal: 8.0),
+              //                       elevation: 5.0,
+              //                       primary: kPrimaryColor,
+              //                       shape: RoundedRectangleBorder(
+              //                           borderRadius:
+              //                               BorderRadius.circular(50.0)),
+              //                     ),
+              //   onPressed: () async{
+              //      print(userController.address);
+              //     //  Get.to(NameField());
+              //     // await userController.uploadData();
+              //    }, child: Text("Next")),
+  //               PrimaryButton(
+  //             text: "Confirm",
+  //             onPressed: () async {
+  //             // phoneAuth.verifyPhone();
+  // //                    try {
+  // //                PhoneAuthCredential credential = await PhoneAuthProvider.credential(verificationId: phoneAuth.verify, smsCode:_pinPutController.text);
+    
+  // //     // Sign the user in (or link) with the credential
+  // //     await auth.signInWithCredential(credential);
+  // //          userController.signUps == true?  
+  // //  Get.to(CountryField())  :Get.to(HomePage()) ;
+  // //     // await userController.checksIF();
+     
+  // //               } catch (e) {
+  // //                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      
+  // //               }
+              
+  //               // Navigator.push(
+  //               //     context,
+  //               //     PageRouteBuilder(
+  //               //         transitionDuration: const Duration(milliseconds: 1000),
+  //               //         transitionsBuilder: (BuildContext context,
+  //               //             Animation<double> animation,
+  //               //             Animation<double> secondaryAnimation,
+  //               //             Widget child) {
+  //               //           animation = CurvedAnimation(
+  //               //               parent: animation, curve: Curves.elasticInOut);
+  //               //           return ScaleTransition(
+  //               //             alignment: Alignment.center,
+  //               //             scale: animation,
+  //               //             child: child,
+  //               //           );
+  //               //         },
+  //               //         pageBuilder: (BuildContext context,
+  //               //             Animation<double> animation,
+  //               //             Animation<double> secondaryAnimation) {
+  //               //           return const PersonalInfo();
+  //               //         }));
+  //             },
+  //           ),
+               
+               
                 ElevatedButton
                 
               (

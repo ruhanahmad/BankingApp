@@ -49,6 +49,9 @@ dependencies:
   flutter_camera_overlay: ^0.1.1
   firebase_storage: ^11.0.4
   passcode_screen: ^2.0.1
+  mailer: ^5.2.0
+  google_sign_in: ^5.4.2
+  flutter_easyloading: ^3.0.5
   
 
 

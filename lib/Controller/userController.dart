@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+
 import 'package:bnacash/Controller/controller.dart';
+import 'package:bnacash/Controller/google_auth.dart';
 import 'package:bnacash/models/account.dart';
 import 'package:bnacash/models/external_card.dart';
 import 'package:bnacash/models/firebaseModel.dart';
@@ -21,7 +25,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bnacash/models/contacts.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:kommunicate_flutter/kommunicate_flutter.dart';
-import 'dart:io' as io;
+import 'dart:io' as io; 
 import '../pages/login/find_friends.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:camera/camera.dart';
@@ -30,11 +34,105 @@ import 'dart:math';
 
 import '../pages/Login/models/code_field.dart';
 import '../pages/login/models/phone_field.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 class UserController extends GetxController {
+   XFile? filesPassport;
+   XFile? files;
+//  static final _googleSignIn =
+//   GoogleSignIn(scopes: ['https://mail.google.com/']);
+//  static Future<GoogleSignInAccount?> signIn() async {
+//   if (await _googleSignIn.isSignedIn()) {
+//   return _googleSignIn.currentUser;
+//    } else {
+//    return await _googleSignIn.signIn();
+//  }
+// } 
+
+  User? userpi;
+  User? userId ;
 PhoneAuth phoneAuth = Get.put(PhoneAuth());
+  bool? signUps =false;
+
+//------------------------------SendMailOkay---------------------------------//
+
+// String? img64;
+// Future? converting(){
+// final bytes = io.File(files!.path).readAsBytesSync();
+
+// img64 = base64Encode(bytes);
+// }
+
+final emailu = "ranaruhan123@gmail.com";
+final accessToken = "";
+
+Future SendMailss()async{
+  
+  var _file=io.File(files!.path);// 
+  var _filePassport=io.File(filesPassport!.path);
+
+  final emauser = await GoogleAuthApi.signIn();
+  if (emauser ==  null) return ;
+  final emailu = emauser.email;
+  final auth = await emauser.authentication;
+  final accessToken = auth.accessToken;
+  final smptServer = gmailSaslXoauth2(emailu, accessToken!);
+  var attachment ;
+  final message =  await Message()
+  ..from = Address(emailu,"Admin")
+  ..recipients = ["ranaruhan123@gmail.com"]
+  ..subject="This email is for verification"
+   ..attachments = [FileAttachment(_file),FileAttachment(_filePassport)]//acha mjy logic b btao na kia kis ki logic
+
+  ..text = "Hi kindly check the user id ${userId!.uid} for verification of passport and photos";
+ 
+
+   try {
+     await send(message, smptServer);
+    //  showSnackBar('sent successfully');
+    Get.snackbar("Email Sent", "SucessFully Email Sent");
+   } on MailerException catch (erorr) {
+     Get.snackbar("Email No Sent", "Email not send");
+     print(erorr);
+   }
+
+}
+
+//-------------------------------------------------------------//
+
+// Future sendEmail() async {
+//    final user = await _googleSignIn.signIn();
+//    if (user == null) return;
+//    final email = 'ranaruhan123@gmail.com';
+//    final auth = await user.authentication;
+//    final accessToken = '';
+//    final smptServer = gmailSaslXoauth2(email, accessToken);
+//    final message = Message()
+//      ..from = Address(emailu 'Khaled')
+//      ..recipients = ['ranaruhan123@gmail.com']
+//      ..subject = 'Hello'
+//      ..text = 'this is atext email';
+//    try {
+//      await send(message, smptServer);
+//     //  showSnackBar('sent successfully');
+//     Get.snackbar("Email Sent", "SucessFully Email Sent");
+//    } on MailerException catch (erorr) {
+//      print(erorr);
+//    }
+//  }
+
+
+
+
+
+
+
+
 
 //--------------------------------------------verificationCheck-------------------------//
-
+  
        List <DocumentSnapshot> verificationss = [];
    var checkss;
 Future  verificationChec() async {
@@ -71,8 +169,9 @@ Future  verificationChec() async {
 
            List <DocumentSnapshot> checksIFSign = [];
 
-  Future  checksIFSignUp() async{
-        var kilo =    await FirebaseFirestore.instance
+  Future  checksIFSignUp( )async{
+              if(userId != null){
+                        var kilo =    await FirebaseFirestore.instance
         .collection("account").doc(userId!.uid).get().then((DocumentSnapshot value) {
      var checksIFSign  = value.data();
       //  var id = whistle.first.id;
@@ -88,6 +187,14 @@ Future  verificationChec() async {
         }
     
         });
+              }
+
+
+
+              else {
+                  phoneAuth.verifyPhone();
+              }
+
    
 
 
@@ -243,12 +350,12 @@ Notifications notifications = Notifications();
   String? occupation = "";
   String? dob = "";
   String? email = "";
-   XFile? files;
+   
   String? accountBalance = "";
   String? lastNamess = "";
   
 
-User? userId = FirebaseAuth.instance.currentUser;
+
 
     
 // final User user = auth.currentUser;
@@ -260,6 +367,7 @@ Account accountss = Account();
 //---------------------------------upload passport----------------------------------//
 
   Future<UploadTask?> uploadFilesPassport(XFile? files,context) async {
+    await getIDo();
  var uniqueKeys = firebaseRef.collection("users");
     var uniqueKey = firebaseRef.collection("users");
     if (files == null) {
@@ -284,6 +392,7 @@ Account accountss = Account();
       contentType: 'image/jpeg',
       customMetadata: {'picked-file-path': files.path},
     );
+    EasyLoading.show();
 
     if (kIsWeb) {
       uploadTask = ref.putData(await files.readAsBytes(), metadata);
@@ -295,10 +404,13 @@ Account accountss = Account();
            FirebaseFirestore.instance.collection("users").doc(userId!.uid).update({
                 " passport":uploadpaths
            });
-
+               await SendMailss();
            Get.snackbar("Uploaded", "Upload successfully");
-
-        Get.to(HomePage());
+           Get.to(HomePage());
+          // await   sendEmail();
+          EasyLoading.dismiss();
+        // Get.to(HomePage());
+        
       });
 
 
@@ -315,6 +427,7 @@ Account accountss = Account();
   /// The user selects a file, and the task is added to the list.
 
   Future<UploadTask?> uploadFiless(XFile? files,context) async {
+    
  var uniqueKeys = firebaseRef.collection("users");
     var uniqueKey = firebaseRef.collection("users");
     if (files == null) {
@@ -339,13 +452,14 @@ Account accountss = Account();
       contentType: 'image/jpeg',
       customMetadata: {'picked-file-path': files.path},
     );
-
+ EasyLoading.show();
     if (kIsWeb) {
       uploadTask = ref.putData(await files.readAsBytes(), metadata);
     } else {
       uploadTask = ref.putFile(io.File(files.path), metadata);
 
     await  uploadTask.whenComplete(() async {
+      await getIDo();
         var uploadpaths = await uploadTask.snapshot.ref.getDownloadURL();
            FirebaseFirestore.instance.collection("users").doc(userId!.uid).update({
                 " idCard":uploadpaths
@@ -354,6 +468,7 @@ Account accountss = Account();
            Get.snackbar("Uploaded", "Upload successfully");
 
         Get.to(ProofPage());
+        EasyLoading.dismiss();
       });
 
 
@@ -409,8 +524,8 @@ Account accountss = Account();
 
     await  uploadTask.whenComplete(() async {
         var uploadpaths = await uploadTask.snapshot.ref.getDownloadURL();
-           FirebaseFirestore.instance.collection("users").doc("5R9dKyvnIAZBz66RL8DA").update({
-                " idCard":uploadpaths
+           FirebaseFirestore.instance.collection("users").doc(userId!.uid).update({
+                "Passport":uploadpaths
            });
       });
 
@@ -446,10 +561,19 @@ String acc(){
   return rndnumber;
 }
 
+getIDo()async{
+  userId = await FirebaseAuth.instance.currentUser;
+  update();
+ print(userId);
+}
 
  Future uploadData()async  {
-
+  await getIDo();
+  //  print(userId!.uid);
    welcome.firebaseId = userId!.uid.toString();
+  //  userId!.uid == null ? "null":
+   
+  //  userId!.uid.toString();
    welcome.lastName = lastNamess;
    welcome.fullName = fullName;
    welcome.street = address;
@@ -614,6 +738,8 @@ int subTwoStringsAsInt({required var first,required var second})
   }
   var balances;
 Future  getAccountData() async {
+   await getIDo();
+  EasyLoading.show();
     // welcome = Welcome();
     // accountss  = Account();
        await FirebaseFirestore.instance
@@ -627,6 +753,7 @@ Future  getAccountData() async {
                  print(valuess);
              update(); 
         });  
+        EasyLoading.dismiss();
   }
 
   //============================================================================//
@@ -1245,7 +1372,7 @@ String? reset;
                 " passcode":pass,
            }).then((value) {
             Get.snackbar("Updated", "Passcode updated successfully");
-            Get.to(HomePage());
+            Get.to(ProofPage());
            });
     }
     catch(e){
