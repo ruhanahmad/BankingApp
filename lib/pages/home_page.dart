@@ -1,19 +1,43 @@
+import 'package:bnacash/Controller/userController.dart';
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/cards.dart';
 import 'package:bnacash/pages/home_screens/crypto_screen.dart';
 import 'package:bnacash/pages/home_screens/stocks_screen.dart';
 import 'package:bnacash/pages/home_screens/vaults_screen.dart';
+import 'package:bnacash/pages/verificationFailed.dart';
 import 'package:bnacash/pages/whom_to_pay.dart';
 import 'package:bnacash/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'home_screens/acoounts_screen.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    super.initState();
+    superVerify();
+   
+  }
+
+  superVerify()async{
+await  userController.verificationChec();
+  }
+  @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    
+    UserController userController = UserController();
+
+    return 
+      
+    userController.checkss == true ?
+    DefaultTabController(
       length: 5,
       child: Scaffold(
         backgroundColor: scaffoldColor,
@@ -80,6 +104,6 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ):VerificationFailed();
   }
 }

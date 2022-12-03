@@ -2,6 +2,7 @@ import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/dialog_flutter.dart';
 import 'package:bnacash/pages/hi.dart';
 import 'package:bnacash/pages/home_page.dart';
+import 'package:bnacash/pages/login/dialog.dart';
 import 'package:bnacash/pages/login/models/country.dart';
 import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:bnacash/pages/login/proof_of_residency.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
       ),
       home: 
       userController.userId !=null ? 
+      // DialogFlows(),
       HomePage() 
       :
       LandingPage() ,

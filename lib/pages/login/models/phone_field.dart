@@ -123,6 +123,7 @@ class PhoneField extends StatelessWidget {
               PrimaryButton(
                 text: "Send Code",
                 onPressed: () async{
+                 
                   userController.signUps = true;
                 await  userController.checksIFSignUp();
                 // phoneAuth.verifyPhone();

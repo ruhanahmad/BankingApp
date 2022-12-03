@@ -136,22 +136,23 @@ Future SendMailss()async{
        List <DocumentSnapshot> verificationss = [];
    var checkss;
 Future  verificationChec() async {
+  await getIDo();
     // welcome = Welcome();
     // accountss  = Account();
        await FirebaseFirestore.instance
-        .collection("user").doc(userId!.uid)
+        .collection("users").doc(userId!.uid)
         .get()
         .then((DocumentSnapshot value) {
                  valuess = value.data();
                  print(valuess);
                   checkss  =  valuess['verified'];
                 //  accountsList.add(Account.fromJson(value));
-                      if(checkss == false){
-                          Get.to(VerificationFailed());
-                      }
-                      else{
-                       Get.to(HomePage());
-                      }
+                      // if(checkss == false){
+                      //     Get.to(VerificationFailed());
+                      // }
+                      // else{
+                      //  Get.to(HomePage());
+                      // }
                  print(valuess);
             //  update(); 
         });  
@@ -176,7 +177,7 @@ Future  verificationChec() async {
      var checksIFSign  = value.data();
       //  var id = whistle.first.id;
         if(checksIFSign == null) {
-           phoneAuth.verifyPhone();
+         phoneAuth.verifyPhone();
                 // Get.to(CodeField());
     
         }
@@ -570,10 +571,12 @@ getIDo()async{
  Future uploadData()async  {
   await getIDo();
   //  print(userId!.uid);
+  try{
    welcome.firebaseId = userId!.uid.toString();
   //  userId!.uid == null ? "null":
    
   //  userId!.uid.toString();
+  // welcome.AccountDetail
    welcome.lastName = lastNamess;
    welcome.fullName = fullName;
    welcome.street = address;
@@ -589,6 +592,7 @@ getIDo()async{
    welcome.Passport = "";
    welcome.passcode ="" ;
    welcome.verified = false;
+   try{
    var jjson= FirebaseFirestore.instance.collection("users").doc(userId!.uid).set(welcome.toJson());
      jjson.then(( value)async {
         String rand = await jnab();
@@ -596,6 +600,16 @@ getIDo()async{
       await accountAdd(rand,fullName,accountN);
     //  Get.to(ReasonForUse());
      });
+   }
+   catch(e){
+    Get.snackbar("Error", "Error encolopedia");
+   }
+  }
+  catch(e){
+    Get.snackbar("Error", " Get Snack Barmessage");
+  }
+
+
   }
 
 

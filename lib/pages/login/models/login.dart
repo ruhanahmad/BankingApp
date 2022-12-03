@@ -120,8 +120,9 @@ class loginFeild extends StatelessWidget {
               const Spacer(),
               PrimaryButton(
                 text: "Send Code",
-                onPressed: () {
-                phoneAuth.verifyPhone();
+                onPressed: () async{
+              await  
+              phoneAuth.verifyPhone();
               // widget.moveToNext();
           
           

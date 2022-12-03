@@ -5,9 +5,14 @@ import 'package:flutter/material.dart';
 
 
 
-class VerificationFailed extends StatelessWidget {
+class VerificationFailed extends StatefulWidget {
   const VerificationFailed({Key? key}) : super(key: key);
 
+  @override
+  State<VerificationFailed> createState() => _VerificationFailedState();
+}
+
+class _VerificationFailedState extends State<VerificationFailed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

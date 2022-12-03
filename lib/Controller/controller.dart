@@ -17,13 +17,13 @@ class PhoneAuth extends GetxController {
   String verify ="";
   String? phoneNumbers;
    var pinCode = "";
-  verifyPhone() async {
+Future  verifyPhone() async {
     Get.snackbar("Code sent","Code Sent Successfully");
     await FirebaseAuth.instance.verifyPhoneNumber(
   phoneNumber:"+" +phoneNumbers!,
   verificationCompleted: (PhoneAuthCredential credential) {},
   verificationFailed: (FirebaseAuthException e) {
-    Get.snackbar("Error", "Verificqtion Failed");
+    Get.snackbar("Error", "Verification Failed");
     // Get.to(PhoneField());
   },
   codeSent: (String verificationId, int? resendToken) {
