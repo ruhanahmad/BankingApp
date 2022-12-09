@@ -1,7 +1,12 @@
 
 
 import 'package:bnacash/main.dart';
+import 'package:bnacash/pages/home_page.dart';
+import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../constants/constants.dart';
 
 
 
@@ -22,7 +27,18 @@ class _VerificationFailedState extends State<VerificationFailed> {
       ),
       
       body: Center(child: Container(
-      child: Text("It need to be verified first"),
+      child: Column(
+        children: [
+          Text("It need to be verified first"),
+          GestureDetector(
+            onTap: () async{
+              print("object");
+   bool? newone = await userController.verificationChec();
+         Nav.toScreen(context, const HomePage());
+            },
+            child: Text("Check again"))
+        ],
+      ),
     )));
   }
 }

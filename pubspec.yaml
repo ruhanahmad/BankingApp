@@ -52,6 +52,7 @@ dependencies:
   mailer: ^5.2.0
   google_sign_in: ^5.4.2
   flutter_easyloading: ^3.0.5
+  shared_preferences: ^2.0.15
   
 
 

@@ -1,5 +1,6 @@
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/models/primary_button.dart';
+import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:bnacash/pages/login/models/phone_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -121,6 +122,8 @@ class loginFeild extends StatelessWidget {
               PrimaryButton(
                 text: "Send Code",
                 onPressed: () async{
+                userController.signUps =  false;
+                userController.update();
               await  
               phoneAuth.verifyPhone();
               // widget.moveToNext();

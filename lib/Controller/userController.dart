@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:bnacash/Controller/controller.dart';
 import 'package:bnacash/Controller/google_auth.dart';
@@ -54,7 +54,7 @@ class UserController extends GetxController {
   User? userpi;
   User? userId ;
 PhoneAuth phoneAuth = Get.put(PhoneAuth());
-  bool? signUps =false;
+  bool? signUps;
 
 //------------------------------SendMailOkay---------------------------------//
 
@@ -134,7 +134,7 @@ Future SendMailss()async{
 //--------------------------------------------verificationCheck-------------------------//
   
        List <DocumentSnapshot> verificationss = [];
-   var checkss;
+   bool? checkssss ;
 Future  verificationChec() async {
   await getIDo();
     // welcome = Welcome();
@@ -144,8 +144,18 @@ Future  verificationChec() async {
         .get()
         .then((DocumentSnapshot value) {
                  valuess = value.data();
-                 print(valuess);
-                  checkss  =  valuess['verified'];
+                //  print(valuess);
+                 checkssss  =  valuess['verified'];
+ update();
+                 if(checkssss ==  true){
+                   return true;  
+                 }
+                  else{
+                    return false;
+                  }
+               
+                  
+                  //  print(checkss);
                 //  accountsList.add(Account.fromJson(value));
                       // if(checkss == false){
                       //     Get.to(VerificationFailed());
@@ -153,9 +163,11 @@ Future  verificationChec() async {
                       // else{
                       //  Get.to(HomePage());
                       // }
+                      // return true;
                  print(valuess);
             //  update(); 
         });  
+
   }
 
 
@@ -635,6 +647,13 @@ String? accB ="";
            update()  ;  
     //  Get.to(ReasonForUse());
      });
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+   
+   
+   
+         await prefs.setBool("LoginInfo",true);
+     
   }
 
 List <DocumentSnapshot> documents = [];
@@ -901,8 +920,8 @@ print(documents.length);
 if (documents.length > 0) { 
        cardEx.add(result.docs);
        print(news);
-      print(documents.first["status"]);
-      if(documents.first["status"] == "unused"){
+      // print(documents.first["status"]);
+      // if(documents.first["status"] == "unused"){
 
        exCardB =  documents.first["balance"];
         var id = documents.first.id;
@@ -956,12 +975,12 @@ if (documents.length > 0) {
         else{
           Get.snackbar("Number must be Greater than zero", "message");
         }
-      }
-      else if(documents.first["status"] == "used"){
-        errorMsgEx = true;
-        Get.snackbar("title","CArd is already in used");
-        update();
-      }
+      // }
+      // else if(documents.first["status"] == "used"){
+      //   errorMsgEx = true;
+      //   Get.snackbar("title","CArd is already in used");
+      //   update();
+      // }
   // documents[0].status == "unused";
 
 } else {  

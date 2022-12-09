@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:bnacash/main.dart';
+import 'package:bnacash/pages/home_page.dart';
+import 'package:bnacash/pages/login/models/code_feild_login.dart';
+import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:bnacash/pages/login/models/phone_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +23,7 @@ class PhoneAuth extends GetxController {
 Future  verifyPhone() async {
     Get.snackbar("Code sent","Code Sent Successfully");
     await FirebaseAuth.instance.verifyPhoneNumber(
-  phoneNumber:"+" +phoneNumbers!,
+  phoneNumber:phoneNumbers!,
   verificationCompleted: (PhoneAuthCredential credential) {},
   verificationFailed: (FirebaseAuthException e) {
     Get.snackbar("Error", "Verification Failed");
@@ -29,8 +32,9 @@ Future  verifyPhone() async {
   codeSent: (String verificationId, int? resendToken) {
      verify = verificationId;
      update();
-
-    Get.to(CodeField());
+   userController.signUps == true?
+    Get.to(CodeField()) 
+    :Get.to(CodeFieldLogin());
 
   },
   codeAutoRetrievalTimeout: (String verificationId) {});

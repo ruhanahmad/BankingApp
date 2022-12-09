@@ -15,16 +15,26 @@ import 'package:bnacash/card_design.dart';
 import 'package:bnacash/pages/login/landing_page.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async{
     WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+   WidgetsFlutterBinding.ensureInitialized();
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+      var saved = await prefs.getBool('LoginInfo');
+      // var lisIDS = await prefs.getString("Id");
+        
+   
+   
+   
+       
+  runApp( MyApp(saved:saved));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+   MyApp({Key? key,this.saved}) : super(key: key);
+  bool? saved;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -46,7 +56,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: 
-      userController.userId !=null ? 
+      saved  == true ? 
       // DialogFlows(),
       HomePage() 
       :

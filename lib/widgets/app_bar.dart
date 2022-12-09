@@ -8,6 +8,7 @@ import 'package:bnacash/pages/shared/inbox_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 UserController userController = Get.put(UserController());
 AppBar buildAppBar(context) => AppBar(
       backgroundColor: Colors.transparent,
@@ -37,7 +38,16 @@ AppBar buildAppBar(context) => AppBar(
               await userController.getVirtualCard();
                 },
               ),
-            
+              MaterialButton(
+                minWidth: 0,
+                //color: Colors.transparent,
+                child: const FaIcon(FontAwesomeIcons.solidChartBar),
+                onPressed: () async{
+                   SharedPreferences prefs = await SharedPreferences.getInstance();
+ 
+ await prefs.remove('LoginInfo');
+                },
+              ),           
               MaterialButton(
                 minWidth: 0,
                 //color: Colors.transparent,

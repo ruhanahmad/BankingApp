@@ -8,6 +8,7 @@ import 'package:bnacash/pages/verificationFailed.dart';
 import 'package:bnacash/pages/whom_to_pay.dart';
 import 'package:bnacash/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'home_screens/acoounts_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,24 +20,28 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  @override
-  void initState() {
-    super.initState();
-    superVerify();
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   superVerify();
    
-  }
+  // }
 
-  superVerify()async{
-await  userController.verificationChec();
-  }
+//   superVerify()async{
+// await  userController.verificationChec();
+//   }
   @override
   Widget build(BuildContext context) {
     
     UserController userController = UserController();
-
-    return 
-      
-    userController.checkss == true ?
+return
+   Scaffold(body: GetBuilder<UserController>(
+    init: UserController(),
+    builder: (hj){
+  return 
+  
+          
+    hj.checkssss == true ?
     DefaultTabController(
       length: 5,
       child: Scaffold(
@@ -105,5 +110,8 @@ await  userController.verificationChec();
         ),
       ),
     ):VerificationFailed();
+   },));
+    
+
   }
 }
