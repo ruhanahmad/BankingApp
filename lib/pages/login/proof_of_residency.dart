@@ -1,6 +1,7 @@
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/login/scanCamera.dart';
 import 'package:bnacash/pages/login/scanCameraPassport.dart';
+import 'package:bnacash/pages/verificationFailed.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +17,16 @@ class _ProofPageState extends State<ProofPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          GestureDetector(
+            onTap: (){
+              Get.to(VerificationFailed());
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(right:8.0),
+              child: Text("Skip",style: TextStyle(color: Colors.black),),
+            ))
+        ],
         leading: const BackButton(
           color: kPrimaryColor,
         ),
@@ -32,60 +43,60 @@ class _ProofPageState extends State<ProofPage> {
             ),
             const SizedBox(height: 10),
             const Text(
-              "Prove you live in Tunisia",
+              "Docuemnt to submit securely",
               style: kContentTextStyle,
             ),
-            const SizedBox(height: 20),
-            const Text(
-              "Nationality",
-              style: kContentTextStyle,
-            ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: kPrimaryColor.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(15.0)),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListTile(
-                      leading: Container(
-                        height: 30,
-                        width: 30,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image:
-                                    AssetImage("assets/images/tunisia.png"))),
-                      ),
-                      title: const Text(
-                        "Tunisian",
-                        style: kContentTextStyle,
-                      ),
-                      trailing: Container(
-                          decoration: BoxDecoration(
-                              color: kSecondaryColor.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(10.0)),
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 4.0),
-                            child: Text(
-                              "Change",
-                              style: kContentTextStyle,
-                            ),
-                          ))),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              "Document to submit securely",
-              style: kContentTextStyle,
-            ),
-            const SizedBox(height: 20),
+            // const SizedBox(height: 20),
+            // const Text(
+            //   "Nationality",
+            //   style: kContentTextStyle,
+            // ),
+            // const SizedBox(height: 20),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //         color: kPrimaryColor.withOpacity(0.5),
+            //         borderRadius: BorderRadius.circular(15.0)),
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: ListTile(
+            //           leading: Container(
+            //             height: 30,
+            //             width: 30,
+            //             clipBehavior: Clip.antiAlias,
+            //             decoration: const BoxDecoration(
+            //                 shape: BoxShape.circle,
+            //                 image: DecorationImage(
+            //                     fit: BoxFit.cover,
+            //                     image:
+            //                         AssetImage("assets/images/tunisia.png"))),
+            //           ),
+            //           title: const Text(
+            //             "Tunisian",
+            //             style: kContentTextStyle,
+            //           ),
+            //           trailing: Container(
+            //               decoration: BoxDecoration(
+            //                   color: kSecondaryColor.withOpacity(0.5),
+            //                   borderRadius: BorderRadius.circular(10.0)),
+            //               child: const Padding(
+            //                 padding: EdgeInsets.symmetric(
+            //                     vertical: 8.0, horizontal: 4.0),
+            //                 child: Text(
+            //                   "Change",
+            //                   style: kContentTextStyle,
+            //                 ),
+            //               ))),
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(height: 20),
+            // const Text(
+            //   "Document to submit securely",
+            //   style: kContentTextStyle,
+            // ),
+            // const SizedBox(height: 20),
             GestureDetector(
               onTap: ( ) {
                 Get.to(ExampleCameraOverlay());
@@ -96,9 +107,15 @@ class _ProofPageState extends State<ProofPage> {
                 Get.to(ExampleCameraOverlayPassport());
               },
               
-              child: choiceField(text: "Passport", icon: Icons.perm_identity)),
-            choiceField(
-                text: "Identity card", icon: Icons.person_add_alt_outlined),
+              child: choiceField(text: "Identity Card", icon: Icons.perm_identity)),
+            // GestureDetector(
+            //            onTap: ( ) {
+            //     Get.to(ExampleCameraOverlayPassport());
+            //   },
+
+            //   child: choiceField(
+            //       text: "Identity card", icon: Icons.person_add_alt_outlined),
+            // ),
           ],
         ),
       ),

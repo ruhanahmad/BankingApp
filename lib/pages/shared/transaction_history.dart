@@ -5,15 +5,16 @@ import 'package:bnacash/Controller/userController.dart';
 import 'package:bnacash/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pdf/pdf.dart';
 
-class InboxPage extends StatefulWidget {
-  const InboxPage({Key? key}) : super(key: key);
+class TransactionHistory extends StatefulWidget {
+  const TransactionHistory({Key? key}) : super(key: key);
 
   @override
-  _InboxPageState createState() => _InboxPageState();
+  _TransactionHistoryState createState() => _TransactionHistoryState();
 }
 
-class _InboxPageState extends State<InboxPage> {
+class _TransactionHistoryState extends State<TransactionHistory> {
   final userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
@@ -31,18 +32,18 @@ class _InboxPageState extends State<InboxPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                "Inbox",
+                "Transaction History",
                 style: kAppBarTextStyle.copyWith(fontSize: 25),
               ),
               const SizedBox(height: 20),
-              const Text(
-                "Yesterday",
-                style: kContentTextStyle,
-              ),
+              // const Text(
+              //   "Yesterday",
+              //   style: kContentTextStyle,
+              // ),
 
              
              Container(
-              height: 10000,
+              height: 1000,
               width: Get.width,
               child:
              
@@ -58,49 +59,54 @@ return   Column(
 
         userController.type[i] == "prepaidCode" ?
         notificationField(
-                      text: "Money Added",
+                      text: "Money Added via ${userController.notificationList[i].toString()}",
     
                       icon: "assets/images/prepaidcode.png",
     
                       subtitle:
     
-                        "You just added the amount of ${userController.bala[i].toString()} with a prepaid code"
+                        "${formatTransactionDate(userController.dateTimess[i].toDate())}",
+                        trailings:"To " + userController.bala[i].toString(),
     
                           ):
                             userController.type[i] == "sending" ?
                           notificationField(
     
-                      text: "Money Sent",
+                      text: "To ${userController.notificationList[i].toString()}",
     
                       icon: "assets/images/send.png",
     
                       subtitle:
     
-                         "You just sent the amount of ${userController.bala[i]} to ${userController.notificationList[i].toString()}"
+                         "${formatTransactionDate(userController.dateTimess[i].toDate())}",
+                         trailings: "To " + userController.bala[i].toString(),
     
                           ):
                            userController.type[i] == "receiving" ?
                           notificationField(
     
-                      text: "Money Received",
+                      text: "From ${userController.notificationList[i].toString()}",
     
                       icon: "assets/images/send.png",
     
                       subtitle:
     
-                        "You just received the amount of ${userController.bala[i]} from ${userController.notificationList[i]})"
+                       "${formatTransactionDate(userController.dateTimess[i].toDate())}",
+
+                        trailings: "To " + userController.bala[i].toString(),
     
                           ): 
                            userController.type[i] == "CreditCard" ?
                           notificationField(
     
-                      text: "Money Added Through Credit Card",
+                      text: "Money Added via ${userController.notificationList[i].toString()}",
     
                       icon: "assets/images/debitcard.png",
     
                       subtitle:
     
-                         "You just add the amount of s with the debit card ending with ${userController.notificationList[i].toString()})"
+                        "${formatTransactionDate(userController.dateTimess[i].toDate())}",
+                         trailings: "To " + userController.bala[i].toString(),
     
                           ):
         
@@ -113,7 +119,9 @@ return   Column(
     
                       subtitle:
     
-                         userController.bala[i].toString() + "amount received"
+                     "${formatTransactionDate(userController.dateTimess[i].toDate())}",
+
+                        trailings: "To " + userController.bala[i].toString(),
     
                           ),
 
@@ -191,8 +199,9 @@ return   Column(
 }
 
 
-  Widget notificationField({String? text, String? icon, String? subtitle}) {
-    return Padding(
+  Widget notificationField({String? text, String? icon, String? subtitle,String? trailings}) {
+    return 
+    Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
@@ -200,13 +209,19 @@ return   Column(
             borderRadius: BorderRadius.circular(15.0)),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-          child: ListTile(
-            leading: CircleAvatar(
+          child: 
+          ListTile(
+
+            leading: 
+            CircleAvatar(
               radius: 25,
               backgroundImage: AssetImage(
                 icon!,
               ),
             ),
+            trailing: Text("trailings!",
+              style: kContentTextStyle,),
+
             title: Text(
               text!,
               style: kContentTextStyle,
@@ -215,7 +230,9 @@ return   Column(
               subtitle!,
               style: kContentTextStyle.copyWith(fontSize: 11),
             ),
+            
           ),
+         
         ),
       ),
     );

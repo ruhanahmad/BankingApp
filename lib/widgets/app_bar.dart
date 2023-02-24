@@ -5,11 +5,16 @@ import 'package:bnacash/pages/chatbot.dart';
 import 'package:bnacash/pages/hi.dart';
 import 'package:bnacash/pages/shared/analytics_page.dart';
 import 'package:bnacash/pages/shared/inbox_page.dart';
+import 'package:bnacash/pages/shared/transaction_history.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:scroll_date_picker/scroll_date_picker.dart';
 UserController userController = Get.put(UserController());
+DateTime _selectedDate = DateTime.now();
 AppBar buildAppBar(context) => AppBar(
       backgroundColor: Colors.transparent,
       iconTheme: const IconThemeData(color: Colors.black),
@@ -21,33 +26,63 @@ AppBar buildAppBar(context) => AppBar(
         foregroundColor: Colors.white,
       ),
       actions: [
-
-
+        
         SizedBox(
           width: 300,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-             MaterialButton(
+               MaterialButton(
+                minWidth: 0,
+                //color: Colors.transparent,
+                child: const FaIcon(FontAwesomeIcons.airbnb),
+                onPressed: () async {
+                 SizedBox(
+            height: 250,
+            child: ScrollDatePicker(
+              selectedDate: _selectedDate,
+              locale: Locale('en'),
+              onDateTimeChanged: (DateTime value) {
+               
+                  _selectedDate = value;
+                  userController.update();
+              
+              },
+            ),
+          );
+              //  await userController.hanodi();
+                },
+              ),              
+               MaterialButton(
+                minWidth: 0,
+                //color: Colors.transparent,
+                child: const FaIcon(FontAwesomeIcons.gasPump),
+                onPressed: () async {
+               await userController.hanodi();
+                },
+              ),
+              MaterialButton(
                 minWidth: 0,
                 //color: Colors.transparent,
                 child: const FaIcon(FontAwesomeIcons.addressBook),
-                onPressed: ()async {
-                  // Nav.toScreen(context,   ChatBot());
-              //  await  userController.getNotification();
-              await userController.getVirtualCard();
+                onPressed: () async {
+                  await userController.getNotification();
+                  Nav.toScreen(context,   TransactionHistory());
+                  //  await  userController.ification();
+                  // await userController.getVirtualCard();
                 },
               ),
               MaterialButton(
                 minWidth: 0,
                 //color: Colors.transparent,
                 child: const FaIcon(FontAwesomeIcons.solidChartBar),
-                onPressed: () async{
-                   SharedPreferences prefs = await SharedPreferences.getInstance();
- 
- await prefs.remove('LoginInfo');
+                onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+
+                  await prefs.remove('LoginInfo');
                 },
-              ),           
+              ),
               MaterialButton(
                 minWidth: 0,
                 //color: Colors.transparent,
@@ -59,9 +94,9 @@ AppBar buildAppBar(context) => AppBar(
               MaterialButton(
                 minWidth: 0,
                 //color: Colors.transparent,
-                child: const FaIcon(FontAwesomeIcons.solidStar),
+                child: const FaIcon(FontAwesomeIcons.gear),
                 onPressed: () {
-                  Nav.toScreen(context,  Settingss());
+                  Nav.toScreen(context, Settingss());
                   // Get.put(ExampleHomePage());
                 },
               ),
@@ -69,9 +104,9 @@ AppBar buildAppBar(context) => AppBar(
                 minWidth: 0,
                 //color: Colors.transparent,
                 child: const FaIcon(FontAwesomeIcons.solidBell),
-                onPressed: ()async {
-               await   userController.getNotification();
-               
+                onPressed: () async {
+                  await userController.getNotification();
+
                   Nav.toScreen(context, const InboxPage());
                 },
               ),
@@ -99,13 +134,13 @@ AppBar buildAppBar(context) => AppBar(
               text: 'Cards',
             ),
             Tab(
-              text: 'Stocks',
+              text: 'Exchange',
             ),
             Tab(
               text: 'Crypto',
             ),
             Tab(
-              text: 'Vaults',
+              text: 'Agencies',
             ),
           ],
         ),

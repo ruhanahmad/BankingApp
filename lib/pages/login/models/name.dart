@@ -15,6 +15,7 @@ class NameField extends StatefulWidget {
 
 class _NameFieldState extends State<NameField> {
     UserController userController = Get.put(UserController());
+    final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,136 +23,149 @@ class _NameFieldState extends State<NameField> {
         child: 
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                "Full Name",
-                style: kAppBarTextStyle.copyWith(fontSize: 25),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "As stated on your official ID. We need your name to verify your identity.",
-                style: kContentTextStyle,
-              ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding:
-                          const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
-                      filled: true,
-                      fillColor: kPrimaryColor.withOpacity(0.3),
-                      labelText: 'First Name',
-                      labelStyle: kFormTextStyle,
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(color: kPrimaryColor),
-                      )),
-                  keyboardType: TextInputType.text,
-                  obscureText: false,
-                  validator: (String? value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your First Name';
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                  userController.fullName =   value;
-                  },
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  "Full Name",
+                  style: kAppBarTextStyle.copyWith(fontSize: 25),
                 ),
-              ),
-              const SizedBox(height: 10),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding:
-                          const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
-                      filled: true,
-                      fillColor: kPrimaryColor.withOpacity(0.3),
-                      labelText: 'Last Name',
-                      labelStyle: kFormTextStyle,
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(color: kPrimaryColor),
-                      )),
-                  keyboardType: TextInputType.text,
-                  obscureText: false,
-                  validator: (String? value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your First Name';
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                  userController.lastNamess =   value;
-                  },
+                const SizedBox(height: 10),
+                const Text(
+                  "As stated on your official ID. We need your name to verify your identity.",
+                  style: kContentTextStyle,
                 ),
-              ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              //   child: TextFormField(
-              //     decoration: InputDecoration(
-              //         contentPadding:
-              //             const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
-              //         filled: true,
-              //         fillColor: kPrimaryColor.withOpacity(0.3),
-              //         labelText: 'Last Name',
-              //         labelStyle: kFormTextStyle,
-              //         border: InputBorder.none,
-              //         enabledBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(15.0),
-              //           borderSide: const BorderSide(color: Colors.white),
-              //         ),
-              //         focusedBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(15.0),
-              //           borderSide: const BorderSide(color: kPrimaryColor),
-              //         )),
-              //     keyboardType: TextInputType.text,
-              //     obscureText: false,
-              //     validator: (String? value) {
-              //       if (value!.isEmpty) {
-              //         return 'Please enter your Last Name';
-              //       }
-              //       return null;
-              //     },
-              //   ),
-              // ),
-              const SizedBox(height: 20),
-              const Spacer(),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+                        filled: true,
+                        fillColor: kPrimaryColor.withOpacity(0.3),
+                        labelText: 'First Name',
+                        labelStyle: kFormTextStyle,
+                        border: InputBorder.none,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: const BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: const BorderSide(color: kPrimaryColor),
+                        )),
+                    keyboardType: TextInputType.text,
+                    obscureText: false,
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your First Name';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                    userController.fullName =   value;
+                    },
+                  ),
+                ),
+                const SizedBox(height: 10),
           
-                   ElevatedButton
-                    
-                  (
-                    
-                                      style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 10.0, horizontal: 8.0),
-                                        elevation: 5.0,
-                                        primary: kPrimaryColor,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(50.0)),
-                                      ),
-                    onPressed: () async{
-                       print(userController.fullName );
-                       Get.to(DobField());
-                      // await userController.uploadData();
-                     }, child: Text("Next"))
-            ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+                        filled: true,
+                        fillColor: kPrimaryColor.withOpacity(0.3),
+                        labelText: 'Last Name',
+                        labelStyle: kFormTextStyle,
+                        border: InputBorder.none,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: const BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: const BorderSide(color: kPrimaryColor),
+                        )),
+                    keyboardType: TextInputType.text,
+                    obscureText: false,
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your First Name';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                    userController.lastNamess =   value;
+                    },
+                  ),
+                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                //   child: TextFormField(
+                //     decoration: InputDecoration(
+                //         contentPadding:
+                //             const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+                //         filled: true,
+                //         fillColor: kPrimaryColor.withOpacity(0.3),
+                //         labelText: 'Last Name',
+                //         labelStyle: kFormTextStyle,
+                //         border: InputBorder.none,
+                //         enabledBorder: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(15.0),
+                //           borderSide: const BorderSide(color: Colors.white),
+                //         ),
+                //         focusedBorder: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(15.0),
+                //           borderSide: const BorderSide(color: kPrimaryColor),
+                //         )),
+                //     keyboardType: TextInputType.text,
+                //     obscureText: false,
+                //     validator: (String? value) {
+                //       if (value!.isEmpty) {
+                //         return 'Please enter your Last Name';
+                //       }
+                //       return null;
+                //     },
+                //   ),
+                // ),
+                const SizedBox(height: 20),
+                const Spacer(),
+            
+                     ElevatedButton
+                      
+                    (
+                      
+                                        style: ElevatedButton.styleFrom(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 8.0),
+                                          elevation: 5.0,
+                                          primary: kPrimaryColor,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(50.0)),
+                                        ),
+                      onPressed: () async{
+                                if (_formKey.currentState!.validate()) {
+                // If the form is valid, display a snackbar. In the real world,
+                // you'd often call a server or save the information in a database.
+            //     ScaffoldMessenger.of(context).showSnackBar(
+            // const SnackBar(content: Text('Processing Data')),
+            
+            //     );
+                 Get.to(DobField());
+              }
+                  
+                         print(userController.fullName );
+                        
+                        // await userController.uploadData();
+                       }, child: Text("Next"))
+              ],
+            ),
           ),
         ),
       ),

@@ -204,8 +204,8 @@ class _CodeFieldState extends State<CodeField> {
               style: kAppBarTextStyle.copyWith(fontSize: 25),
             ),
             const SizedBox(height: 10),
-            const Text(
-              "Please enter the code sent to +216 ---------",
+            Text(
+              " Enter the code you received on number + ${phoneAuth.phoneNumbers}",
               style: kContentTextStyle,
             ),
             const SizedBox(height: 20),
@@ -235,11 +235,12 @@ phoneAuth.verifyPhoneAgain();
       // Sign the user in (or link) with the credential
       await auth.signInWithCredential(credential);
            userController.signUps == true?  
-   Get.to(CountryField())  :Get.to(HomePage()) ;
+   Get.to(CountryField())  :
+   Get.to(HomePage()) ;
       // await userController.checksIF();
      
                 } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("The number is incorrect")));
       
                 }
               

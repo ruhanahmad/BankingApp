@@ -65,7 +65,7 @@ class _SettingssState extends State<Settingss> {
                     keyboardType: TextInputType.number,
                     obscureText: false,
                     validator: (String? value) {
-             if (value!.length < 6 || value!.length > 6) {
+             if (value!.length < 6 || value.length > 6) {
                return 'Please Enter only  digits';
              }
              return null;

@@ -23,7 +23,7 @@ class PhoneAuth extends GetxController {
 Future  verifyPhone() async {
     Get.snackbar("Code sent","Code Sent Successfully");
     await FirebaseAuth.instance.verifyPhoneNumber(
-  phoneNumber:phoneNumbers!,
+  phoneNumber:"+" + phoneNumbers!,
   verificationCompleted: (PhoneAuthCredential credential) {},
   verificationFailed: (FirebaseAuthException e) {
     Get.snackbar("Error", "Verification Failed");

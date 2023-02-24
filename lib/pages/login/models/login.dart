@@ -123,9 +123,11 @@ class loginFeild extends StatelessWidget {
                 text: "Send Code",
                 onPressed: () async{
                 userController.signUps =  false;
+
                 userController.update();
-              await  
-              phoneAuth.verifyPhone();
+                await  userController.checksIFLogin( );
+              // await  
+              // phoneAuth.verifyPhone();
               // widget.moveToNext();
           
           

@@ -31,29 +31,38 @@ dependencies:
     sdk: flutter
   dialog_flowtter: ^0.3.3
   carousel_slider:
-  country_code_picker: 
-  country_currency_pickers: 
+  # country_code_picker: 
+  # country_currency_pickers: 
   flag: 
   flutter_launcher_icons: 
-  flutter_svg: 
-  fl_chart: 
+  flutter_svg:  
   font_awesome_flutter:
   google_fonts: 
   pin_code_fields:
   toggle_switch:
   get:
-  firebase_core: ^2.1.1
-  firebase_auth: ^4.1.0
-  cloud_firestore: ^4.0.4
+  firebase_core: 
+  firebase_auth: 
+  cloud_firestore: 
   pinput: ^2.2.16
   flutter_camera_overlay: ^0.1.1
-  firebase_storage: ^11.0.4
+  firebase_storage: 
   passcode_screen: ^2.0.1
-  mailer: ^5.2.0
+  mailer: ^6.0.0
   google_sign_in: ^5.4.2
   flutter_easyloading: ^3.0.5
   shared_preferences: ^2.0.15
-  
+  modal_bottom_sheet: ^3.0.0-pre
+  calendar_date_picker2: ^0.4.0
+  pdf: ^3.1.0
+  intl: ^0.18.0
+    # save file
+  path_provider: ^2.0.1
+
+  # open pdf document
+  open_file: ^3.1.0
+  table_calendar: ^3.0.9
+  scroll_date_picker: ^3.6.1
 
 
   # The following adds the Cupertino Icons font to your application.

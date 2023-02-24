@@ -214,6 +214,43 @@ Future  verificationChec() async {
 }
 
 
+//-----------------------------------------checks if logIn-----------------//
+
+
+
+           List <DocumentSnapshot> checksIFLogins = [];
+
+  Future  checksIFLogin( )async{
+              if(userId != null){
+                        var kilo =    await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid).get().then((DocumentSnapshot value) {
+     var checksIFSign  = value.data();
+      //  var id = whistle.first.id;
+        if(checksIFLogins != null) {
+         phoneAuth.verifyPhone();
+                // Get.to(CodeField());
+        }
+        else{
+          Get.snackbar("User need to sign up", "Moving to Sign up and Try loggin in",duration: Duration(seconds: 5));
+           Get.to( PhoneField());
+        }
+    
+        });
+              }
+
+
+
+              else {
+                  phoneAuth.verifyPhone();
+              }
+
+   
+
+
+}
+
+
+
   //----------------------------------------------checks if --------------------------------//
          
 
@@ -234,22 +271,8 @@ Future  verificationChec() async {
         }
     
         });
-   
-
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 //--------------------------------------------Terminate CArd ----------------------//
 
@@ -549,21 +572,6 @@ Account accountss = Account();
     return Future.value(uploadTask);
   }
 
-
-
-
-
-
-// try {
-//  final ref = firebase_storage
-// } on Exception catch (_) {
-//   print('never reached');
-// }
-// }
-
-
-
-
 String acc(){
   var rndnumber="";
   var rnd= new Random();
@@ -711,6 +719,30 @@ if (documents.length > 0) {
            
 
 Get.snackbar("Success","Money added");
+try{
+   await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").add(
+        {"dateTime":DateTime.now(),
+         "balance":balance,
+         "username":"prepaidCode",
+         "type":"prepaidCode"
+        }
+      //   {
+      //   "username":username,
+      //   "balance":beneBalance,
+      //   "DateTime":DateTime.now(),
+
+      // }
+      ).then(( value)async {
+              Get.snackbar("title","Value added successfully");
+
+           update()  ;  
+    //  Get.to(ReasonForUse());
+     });
+}
+catch(e){
+  Get.snackbar("Prepaid","${e.toString()}");
+}
+
   
  
       print("asas"+accountsList[0].accountB);
@@ -943,12 +975,6 @@ if (documents.length > 0) {
                 await FirebaseFirestore.instance.collection("exCard").doc(id).update({
                 "balance":newValeTwo.toString()
            }).then((value) => print(" updated two"));
-           
-
-
-  
- 
-
        Get.snackbar(
               "Success",
               "Money Added Successfully ${exCardB}",
@@ -956,6 +982,28 @@ if (documents.length > 0) {
                snackPosition: SnackPosition.BOTTOM,
                backgroundColor: Colors.blue,
                );
+               try{
+   await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").add(
+        {"dateTime":DateTime.now(),
+         "balance":exCardB.toString(),
+         "username":cardsNum,
+         "type":"CreditCard"
+        }
+      //   {
+      //   "username":username,
+      //   "balance":beneBalance,
+      //   "DateTime":DateTime.now(),
+      // }
+      ).then(( value)async {
+              Get.snackbar("title","Value added successfully");
+
+           update()  ;  
+    //  Get.to(ReasonForUse());
+     });
+}
+catch(e){
+  Get.snackbar("Prepaid","${e.toString()}");
+}
                // 03422831265
               //  documents.first[""]
     //     accountsList[0].accountB = "";
@@ -1064,7 +1112,7 @@ if (documents.length > 0) {
             //      print(valuess);
             //  update(); 
         });  
-         if(int.parse(bal.toString()) > int.parse(beneBalance.toString())){
+         if(int.parse(bal.toString()) > int.parse(beneBalance.toString()) ){
                     var newValeTwo = await subTwoStringsAsInt(first: bal, second: beneBalance)  ;
           
             await FirebaseFirestore.instance.collection("account").doc(userId!.uid).update({
@@ -1080,12 +1128,46 @@ if (documents.length > 0) {
            }).then((value) => print(" updated"));
 
    Get.snackbar("Success", "Money added Successfully");
+  
+                 try{
+   await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").add(
+        {"dateTime":DateTime.now(),
+         "balance":balanc,
+         "username":beneName,
+         "type":"sending"
+        }
+        
+      //   {
+      //   "username":username,
+      //   "balance":beneBalance,
+      //   "DateTime":DateTime.now(),
+      // }
+      ).then(( value)async {
+              Get.snackbar("title","Value added successfully");
+
+           update()  ;  
+    //  Get.to(ReasonForUse());
+     });
+}
+catch(e){
+  Get.snackbar("Prepaid","${e.toString()}");
+}
+
+
+
    Get.to(WhomToPay());
 
 
    notifications.dateTime =  DateTime.now();
    notifications.balance = beneBalance;
    notifications.username = username;
+   notifications.type = "receiving";
+
+update();
+
+
+
+
 
       var jjson= FirebaseFirestore.instance.collection("account").doc(ids).collection("notifications").add(
         notifications.toJson()
@@ -1095,13 +1177,18 @@ if (documents.length > 0) {
       //   "DateTime":DateTime.now(),
 
       // }
-      );
-     jjson.then(( value)async {
+      ).then(( value)async {
               Get.snackbar("title","Value added successfully");
 
            update()  ;  
     //  Get.to(ReasonForUse());
      });
+    //  jjson.then(( value)async {
+    //           Get.snackbar("title","Value added successfully");
+
+    //        update()  ;  
+    // //  Get.to(ReasonForUse());
+    //  });
 
          }
          else {
@@ -1182,9 +1269,12 @@ if (documents.length > 0) {
             //  update(); 
             
         });  
-          
+ if(int.parse(bal.toString()) > int.parse(sendMoneyBalance.toString()) ){
         var newValeTwo = await subTwoStringsAsInt(first: bal, second:sendMoneyBalance)  ;
-          
+          //  await FirebaseFirestore.instance.collection("account").doc(userId!.uid).update({
+          //       "accountB":newValeTwo.toString()
+          //  })
+          //  .then((value) => print(" updated"));
             await FirebaseFirestore.instance.collection("account").doc(userId!.uid).update({
                 "accountB":newValeTwo.toString()
            }).then((value) => print(" updated"));
@@ -1199,41 +1289,147 @@ if (documents.length > 0) {
             await FirebaseFirestore.instance.collection("account").doc(ids).update({
                 "accountB":newVale.toString()
            }).then((value) => print(" updated"));
+try{
+   await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").add(
+        {
+          "dateTime":DateTime.now(),
+         "balance":balanc,
+         "username":beneName,
+         "type":"sending",
+        }
+      
+      //   {
+      //   "username":username,
+      //   "balance":beneBalance,
+      //   "DateTime":DateTime.now(),
 
+      // }
+      ).then(( value)async {
+              Get.snackbar("title","Value added successfully");
+
+           update()  ;  
+    //  Get.to(ReasonForUse());
+     });
+}
+catch(e){
+  Get.snackbar("Prepaid","${e.toString()}");
+}
+
+ }
+ else{
+  Get.snackbar("Error", "Value must be greater");
+ }
        var firebaseId = userId!.uid.toString();
        
      contacts.email = beneEmail;
      contacts.iban = beneIban;
      contacts.id = firebaseId;
      contacts.name = beneName;
+    //  update();
+try{
+     
+      final snapshot = await FirebaseFirestore.instance.collection("account").doc(userId!.uid)
+   .collection("contacts").get();
 
-         await FirebaseFirestore.instance
-        .collection("account").doc(userId!.uid).collection("contacts").where("iban", isEqualTo: beneIban)
-        .get()
-
-        .then((QuerySnapshot value) {
-                 contactsGet = value.docs;
-                 print(valuess);
-                 if(contactsGet.length > 0){
-                        Get.snackbar("Contacts alreat", "contacts already in list");
-                 }
-                 else{
-                     var jjson= FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection(
-    "contacts"
-   ).add(
+ if ( snapshot.size == 0 ) {
+   Get.snackbar("Contacts ", "contacts not exsist ! Adding new one");
+               var jjson= FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection(
+      "contacts"
+      ).add(
     contacts.toJson()
     );
      jjson.then(( value)async {
           print("complted");
     //  Get.to(ReasonForUse());
-    Get.snackbar("title", "Completed yes it is");
+    Get.snackbar("Contact", "Contact added successfully");
+     });
+ }
+ else{
+
+   await  FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid).collection("contacts").where("iban",isEqualTo:beneIban)
+        .get().then((value) {
+             if(value.size == 1 ){
+                        Get.snackbar("Contacts already", "contacts already in list");
+                 }
+                else{
+                        var jjson= FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection(
+      "contacts"
+      ).add(
+    contacts.toJson()
+    );
+     jjson.then(( value)async {
+          print("complted");
+    //  Get.to(ReasonForUse());
+    Get.snackbar("Contact", "Contact added successfully");
      });
                  }
                   contactFetch  =  contactsGet.first['accountB'];
                 //  accountsList.add(Account.fromJson(value));
                  print(contactsGet);
              update(); 
-        });  
+        });
+
+
+ }
+
+    //       await  FirebaseFirestore.instance
+    //     .collection("account").doc(userId!.uid).collection("contacts").where("iban",isEqualTo:beneIban)
+    //     .get().then((value) {
+    //          if(value == false){
+    //                     Get.snackbar("Contacts already", "contacts already in list");
+    //              }
+    //             else{
+    //                  var jjson= FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection(
+    //   "contacts"
+    //   ).add(
+    // contacts.toJson()
+    // );
+    //  jjson.then(( value)async {
+    //       print("complted");
+    // //  Get.to(ReasonForUse());
+    // Get.snackbar("Contact", "Contact added successfully");
+    //  });
+    //              }
+    //               contactFetch  =  contactsGet.first['accountB'];
+    //             //  accountsList.add(Account.fromJson(value));
+    //              print(contactsGet);
+    //          update(); 
+    //     });
+
+   // -----------------------------------------------------------------------------------------//
+
+  //       .then((QuerySnapshot value) {
+  //                contactsGet = value.docs;
+
+  //                print(valuess);
+  //                if(value == false){
+  //                       Get.snackbar("Contacts alreat", "contacts already in list");
+  //                }
+  //                else{
+  //                    var jjson= FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection(
+  //   "contacts"
+  //  ).add(
+  //   contacts.toJson()
+  //   );
+  //    jjson.then(( value)async {
+  //         print("complted");
+  //   //  Get.to(ReasonForUse());
+  //   Get.snackbar("title", "Completed yes it is");
+  //    });
+  //                }
+  //                 contactFetch  =  contactsGet.first['accountB'];
+  //               //  accountsList.add(Account.fromJson(value));
+  //                print(contactsGet);
+  //            update(); 
+  //       });  
+}
+
+catch(e){
+  // Get.snackbar("error", "${e}");
+  print("Errorr");
+}
+
  }
 }
     
@@ -1359,6 +1555,51 @@ else{
      }
 
 
+//-----------------------------------------------transactions-------------------------------//
+
+ DateTime _selectedDate = DateTime.now();
+// Import the necessary packages
+  hanodi()async{
+CollectionReference transactionsRef =await  FirebaseFirestore.instance.collection("account").doc(userId!.uid)
+.collection("notifications");
+
+// Define the desired month and year
+int desiredMonth = 01; // February
+int desiredYear  = 2023;
+
+// Define the start and end timestamps for the desired month and year
+DateTime startDate = DateTime(desiredYear, desiredMonth, 1);
+DateTime endDate = DateTime(desiredYear, desiredMonth + 1, 1).subtract(Duration(days: 1));
+
+// Query the Firestore collection to get transactions for the desired month and year
+QuerySnapshot querySnapshot = await transactionsRef.where('dateTime', isGreaterThanOrEqualTo: Timestamp.fromDate(startDate))
+                                                  .where('dateTime', isLessThanOrEqualTo: Timestamp.fromDate(endDate))
+                                                  .get();
+
+// Loop through the documents in the query result and extract the transaction data
+List transactions = [];
+querySnapshot.docs.forEach((doc) {
+        print(doc["balance"]);
+  // Transaction transaction = Transaction.fromFirestore(doc);
+  transactions.add(doc["balance"]);
+  // transactions.add(transaction);
+});
+
+// Print the list of transactions for the desired month and year
+// print('Transactions for $desiredMonth/$desiredYear:');
+// transactions.forEach((transaction) {
+//   print('Amount: ${transaction.amount}, Category: ${transaction.category}');
+// });
+
+
+  }
+
+// Get a reference to the Firestore collection containing transactions
+
+ 
+
+
+
 
 
 // ---------------------------------------------Get notification-------------------------------
@@ -1366,32 +1607,32 @@ else{
  List notificationList = [];
 
 List bala = [];
-   Future<List<Notifications>?> getNotification() async{
+List dateTimess = [];
+List type = [];
 
+
+
+   Future<List<Notifications>?> getNotification() async{
     QuerySnapshot  kilo =    await FirebaseFirestore.instance
         .collection("account").doc(userId!.uid).collection("notifications")
         .get();
-
       notificationList.clear();
-
-
    bala.clear();
-
-
    kilo.docs.forEach((element) {
     // print(element.docs[0]["username"]) ;
     print(element["username"]) ;
+     print(element["dateTime"]) ;
+      print(element["username"]) ;
+      print(element["type"]) ;
+
     notificationList.add(element["username"]);
     bala.add(element["balance"]);
-
-
-
+    dateTimess.add(element["dateTime"]);
+    type.add(element["type"]);
+    
       print(element);
 print(element);
-
    });
-  
-  
    }
 
 //===================================Update passcode=======================================

@@ -2,11 +2,11 @@ import 'package:bnacash/Controller/userController.dart';
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/constant.dart';
 import 'package:bnacash/widgets/custom_textfeild.dart';
-import 'package:country_currency_pickers/country.dart';
-import 'package:country_currency_pickers/country_pickers.dart';
-import 'package:country_currency_pickers/currency_picker_dropdown.dart';
+// import 'package:country_currency_pickers/country.dart';
+// import 'package:country_currency_pickers/country_pickers.dart';
+// import 'package:country_currency_pickers/currency_picker_dropdown.dart';
 import 'package:flutter/material.dart';
-import 'package:country_code_picker/country_code_picker.dart';
+// import 'package:country_code_picker/country_code_picker.dart';
 import 'package:get/get.dart';
 
 import 'hi.dart';
@@ -18,7 +18,7 @@ class Individual extends StatefulWidget {
   _IndividualState createState() => _IndividualState();
 }
 
-var country = CountryCode();
+// var country = CountryCode();
 
 class _IndividualState extends State<Individual> {
   @override
@@ -35,23 +35,23 @@ class _IndividualState extends State<Individual> {
                   color: Colors.white, borderRadius: BorderRadius.circular(12)),
               child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 20, top: 10),
-                      child: const Text(
-                        "Country of recipient's bank",
-                        style: Constant.inputText,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 15, bottom: 5),
-                    child: CountryPickerDropdown(
-                      initialValue: 'TN',
-                      itemBuilder: _buildcountrypciker,
-                    ),
-                  ),
+                  // Align(
+                  //   alignment: Alignment.centerLeft,
+                  //   child: Container(
+                  //     padding: const EdgeInsets.only(left: 20, top: 10),
+                  //     child: const Text(
+                  //       "Country of recipient's bank",
+                  //       style: Constant.inputText,
+                  //     ),
+                  //   ),
+                  // ),
+                  // Container(
+                  //   padding: const EdgeInsets.only(left: 15, bottom: 5),
+                  //   child: CountryPickerDropdown(
+                  //     initialValue: 'TN',
+                  //     itemBuilder: _buildcountrypciker,
+                  //   ),
+                  // ),
                   // Container(
                   //   child: CountryCodePicker(
                   //     initialSelection: 'US',
@@ -73,23 +73,23 @@ class _IndividualState extends State<Individual> {
                   color: Colors.white, borderRadius: BorderRadius.circular(12)),
               child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 20, top: 10),
-                      child: const Text(
-                        "Currency",
-                        style: Constant.inputText,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15, bottom: 5),
-                    child: CurrencyPickerDropdown(
-                      initialValue: 'TND',
-                      itemBuilder: _buildDefaultMenuItem,
-                    ),
-                  ),
+                  // Align(
+                  //   alignment: Alignment.centerLeft,
+                  //   child: Container(
+                  //     padding: const EdgeInsets.only(left: 20, top: 10),
+                  //     child: const Text(
+                  //       "Currency",
+                  //       style: Constant.inputText,
+                  //     ),
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 15, bottom: 5),
+                  //   child: CurrencyPickerDropdown(
+                  //     initialValue: 'TND',
+                  //     itemBuilder: _buildDefaultMenuItem,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -193,34 +193,34 @@ class _IndividualState extends State<Individual> {
 }
 
 // for currency dropdown.
-Widget _buildDefaultMenuItem(Country country) {
-  return SizedBox(
-    width: 290,
-    child: Row(
-      children: <Widget>[
-        // CountryPickerUtils.getDefaultFlagImage(country),
-        const SizedBox(
-          width: 8.0,
-        ),
-        Text("${country.currencyName}"),
-      ],
-    ),
-  );
-}
+// Widget _buildDefaultMenuItem(Country country) {
+//   return SizedBox(
+//     width: 290,
+//     child: Row(
+//       children: <Widget>[
+//         // CountryPickerUtils.getDefaultFlagImage(country),
+//         const SizedBox(
+//           width: 8.0,
+//         ),
+//         Text("${country.currencyName}"),
+//       ],
+//     ),
+//   );
+// }
 
 // for country dropdown
-Widget _buildcountrypciker(Country country) {
-  return SizedBox(
-    width: 290,
-    child: Row(
-      children: <Widget>[
-        // CountryPickerUtils.getDefaultFlagImage(country),
+// Widget _buildcountrypciker(Country country) {
+//   return SizedBox(
+//     width: 290,
+//     child: Row(
+//       children: <Widget>[
+//         // CountryPickerUtils.getDefaultFlagImage(country),
 
-        const SizedBox(
-          width: 8.0,
-        ),
-        Text("${country.name}"),
-      ],
-    ),
-  );
-}
+//         const SizedBox(
+//           width: 8.0,
+//         ),
+//         Text("${country.name}"),
+//       ],
+//     ),
+//   );
+// }
