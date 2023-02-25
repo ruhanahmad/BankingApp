@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:bnacash/Controller/transaction_controller.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:bnacash/Controller/controller.dart';
@@ -16,6 +18,7 @@ import 'package:bnacash/pages/login/proof_of_residency.dart';
 import 'package:bnacash/pages/login/reason_for_use.dart';
 import 'package:bnacash/pages/verificationFailed.dart';
 import 'package:bnacash/pages/whom_to_pay.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -25,11 +28,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bnacash/models/contacts.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:kommunicate_flutter/kommunicate_flutter.dart';
-import 'dart:io' as io; 
+import 'dart:io' as io;
 import '../pages/login/find_friends.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:camera/camera.dart';
-import 'package:file/file.dart';
+
 import 'dart:math';
 
 import '../pages/Login/models/code_field.dart';
@@ -38,7 +41,62 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:path_provider/path_provider.dart';
+
 class UserController extends GetxController {
+  
+
+
+//-----------------------------------------------get transaction by year------------------//
+// Import the necessary packages
+// import 'package:cloud_firestore/cloud_firestore.dart';
+
+// // Get a reference to the Firestore collection containing transactions
+// CollectionReference transactionsRef = FirebaseFirestore.instance.collection('transactions');
+
+// // Define the desired year
+// int desiredYear = 2023;
+
+// // Define the start and end timestamps for the desired year
+// DateTime startDate = DateTime(desiredYear, 1, 1);
+// DateTime endDate = DateTime(desiredYear + 1, 1, 1).subtract(Duration(days: 1));
+
+// // Query the Firestore collection to get transactions for the desired year
+// QuerySnapshot querySnapshot = await transactionsRef.where('timestamp', isGreaterThanOrEqualTo: Timestamp.fromDate(startDate))
+//                                                   .where('timestamp', isLessThanOrEqualTo: Timestamp.fromDate(endDate))
+//                                                   .get();
+
+// // Loop through the documents in the query result and extract the transaction data
+// List<Transaction> transactions = [];
+// querySnapshot.docs.forEach((doc) {
+//   Transaction transaction = Transaction.fromFirestore(doc);
+//   transactions.add(transaction);
+// });
+
+// // Print the list of transactions for the desired year
+// print('Transactions for $desiredYear:');
+// transactions.forEach((transaction) {
+//   print('Amount: ${transaction.amount}, Category: ${transaction.category}');
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AikOr aikOr = Get.put(AikOr()); 
+
+
    XFile? filesPassport;
    XFile? files;
 //  static final _googleSignIn =
@@ -1557,15 +1615,20 @@ else{
 
 //-----------------------------------------------transactions-------------------------------//
 
- DateTime _selectedDate = DateTime.now();
+ DateTime selectedDate = DateTime.now();
+
+var pdftoOpen;
+ 
 // Import the necessary packages
-  hanodi()async{
-CollectionReference transactionsRef =await  FirebaseFirestore.instance.collection("account").doc(userId!.uid)
+Future hanodi() async{
+    int month = selectedDate.month;
+    int yeari = selectedDate.year;
+CollectionReference transactionsRef = await FirebaseFirestore.instance.collection("account").doc(userId!.uid)
 .collection("notifications");
 
 // Define the desired month and year
-int desiredMonth = 01; // February
-int desiredYear  = 2023;
+int desiredMonth = month; 
+int desiredYear  = yeari; 
 
 // Define the start and end timestamps for the desired month and year
 DateTime startDate = DateTime(desiredYear, desiredMonth, 1);
@@ -1575,6 +1638,36 @@ DateTime endDate = DateTime(desiredYear, desiredMonth + 1, 1).subtract(Duration(
 QuerySnapshot querySnapshot = await transactionsRef.where('dateTime', isGreaterThanOrEqualTo: Timestamp.fromDate(startDate))
                                                   .where('dateTime', isLessThanOrEqualTo: Timestamp.fromDate(endDate))
                                                   .get();
+
+
+final data = querySnapshot.docs.map((document) => document.data()).toList();
+print(data);
+
+
+
+//  Map<String,dynamic>? jhj;
+//    //querysnapshot to pdf
+//    print(querySnapshot);
+// for (final document in querySnapshot.docs) {
+//   print(document.data());
+//   jhj = document.data() as Map<String,dynamic>;
+//   update();
+
+
+// } 
+print( "---------------------------------------------------------");
+
+// print( jhj!);
+var pdfFile = await aikOr.saveQuerySnapshotToPdf(querySnapshot);
+print('PDF file saved at ${pdfFile.path}');
+
+    pdftoOpen = pdfFile.path;
+// update();
+  // Create a PDF document
+ 
+
+
+
 
 // Loop through the documents in the query result and extract the transaction data
 List transactions = [];

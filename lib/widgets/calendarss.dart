@@ -1,4 +1,9 @@
+import 'package:bnacash/Controller/userController.dart';
+import 'package:bnacash/pages/home_page.dart';
+import 'package:bnacash/widgets/app_bar.dart';
+import 'package:bnacash/widgets/transaction_container.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 
@@ -11,6 +16,7 @@ class nklo extends StatefulWidget {
 
 class _nkloState extends State<nklo> {
   DateTime _selectedDate = DateTime.now();
+  UserController userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +40,10 @@ class _nkloState extends State<nklo> {
             padding: const EdgeInsets.only(right: 48),
             child: TextButton(
               onPressed: () {
-                setState(() {
-                  _selectedDate = DateTime.now();
-                });
+                // setState(() {
+                //   _selectedDate = DateTime.now();
+                // });
+                Get.off(HomePage() );
               },
               child: Text(
                 "TODAY",
@@ -50,14 +57,32 @@ class _nkloState extends State<nklo> {
               selectedDate: _selectedDate,
               locale: Locale('en'),
               onDateTimeChanged: (DateTime value) {
-                setState(() {
-                  _selectedDate = value;
+     setState(() {
+        _selectedDate = value;
+     });
+                  userController.selectedDate = value;
+                  userController.update();
                     
                   print(value);
-                });
+                
               },
             ),
           ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.pop(context);
+                  //   },
+                  //   child: SizedBox(
+                  //             height: 50,
+                  //             child:Container(
+                  //               height: 40,
+                  //               width: 40,
+                  //               color: Colors.purple,
+                  //               child: Text("Button"),)
+                      
+                  //           ),
+                  // ),
+
         ],
       ),
     );

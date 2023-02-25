@@ -56,6 +56,7 @@ dependencies:
   calendar_date_picker2: ^0.4.0
   pdf: ^3.1.0
   intl: ^0.18.0
+  flutter_pdfview: ^1.0.0
     # save file
   path_provider: ^2.0.1
 

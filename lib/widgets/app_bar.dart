@@ -1,3 +1,4 @@
+import 'package:bnacash/Controller/transaction_controller.dart';
 import 'package:bnacash/Controller/userController.dart';
 import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/Settings.dart';
@@ -14,6 +15,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 UserController userController = Get.put(UserController());
+AikOr aikor = Get.put(AikOr());
 DateTime _selectedDate = DateTime.now();
 AppBar buildAppBar(context) => AppBar(
       backgroundColor: Colors.transparent,
@@ -37,19 +39,7 @@ AppBar buildAppBar(context) => AppBar(
                 //color: Colors.transparent,
                 child: const FaIcon(FontAwesomeIcons.airbnb),
                 onPressed: () async {
-                 SizedBox(
-            height: 250,
-            child: ScrollDatePicker(
-              selectedDate: _selectedDate,
-              locale: Locale('en'),
-              onDateTimeChanged: (DateTime value) {
-               
-                  _selectedDate = value;
-                  userController.update();
-              
-              },
-            ),
-          );
+
               //  await userController.hanodi();
                 },
               ),              
