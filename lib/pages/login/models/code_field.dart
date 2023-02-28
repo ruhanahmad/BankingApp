@@ -228,6 +228,7 @@ phoneAuth.verifyPhoneAgain();
             PrimaryButton(
               text: "Confirm",
               onPressed: () async {
+                
               // phoneAuth.verifyPhone();
                      try {
                  PhoneAuthCredential credential = await PhoneAuthProvider.credential(verificationId: phoneAuth.verify, smsCode:_pinPutController.text);

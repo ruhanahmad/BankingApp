@@ -32,9 +32,10 @@ Future  verifyPhone() async {
   codeSent: (String verificationId, int? resendToken) {
      verify = verificationId;
      update();
-   userController.signUps == true?
-    Get.to(CodeField()) 
-    :Get.to(CodeFieldLogin());
+  //  userController.signUps == true?
+  //   Get.to(CodeField()) 
+    // :
+    Get.to(CodeFieldLogin());
 
   },
   codeAutoRetrievalTimeout: (String verificationId) {});

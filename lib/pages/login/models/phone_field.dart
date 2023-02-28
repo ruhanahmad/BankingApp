@@ -126,7 +126,8 @@ class PhoneField extends StatelessWidget {
                   
                   userController.signUps = true;
                   userController.update();
-                await  userController.checksIFSignUp();
+                // await  userController.checksIFSignUp();
+                 phoneAuth.verifyPhone();
                 // phoneAuth.verifyPhone();
               // widget.moveToNext();
           

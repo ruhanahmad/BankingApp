@@ -342,7 +342,7 @@ Future  verificationChec() async {
 
 logOut() async {
   await FirebaseAuth.instance.signOut();
-  Get.to(LandingPage());
+  Get.to(PhoneField());
 
 }
 
@@ -357,7 +357,7 @@ logOut() async {
      
   await   FirebaseFirestore.instance
   .collection("users")
-  .where('phone', isEqualTo:phoneAuth.phoneNumbers.toString())
+  .where('phone', isEqualTo:"+" +phoneAuth.phoneNumbers.toString())
   .get()
   .then((QuerySnapshot querySnapshot) {
     if (querySnapshot.size > 0) {
@@ -366,7 +366,7 @@ logOut() async {
     } else {
      Get.snackbar("User Bot Signed Up Yet", "Moving to Sign Up Page ",duration: Duration(seconds: 5));
            Get.to( PhoneField());
-      // Data does not exist
+    
     }
   });
 

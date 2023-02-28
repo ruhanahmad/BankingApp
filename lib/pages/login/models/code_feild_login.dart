@@ -9,6 +9,7 @@ import 'package:bnacash/pages/home_page.dart';
 import 'package:bnacash/pages/login/models/country.dart';
 import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:bnacash/pages/login/personal_info.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -229,8 +230,13 @@ phoneAuth.verifyPhoneAgain();
             PrimaryButton(
               text: "Confirm",
               onPressed: () async {
-              // phoneAuth.verifyPhone();
-                     try {
+                  await   FirebaseFirestore.instance
+  .collection("users")
+  .where('phone', isEqualTo:phoneAuth.phoneNumbers.toString())
+  .get()
+  .then((QuerySnapshot querySnapshot)async {
+    if (querySnapshot.size > 0) {
+          try {
                  PhoneAuthCredential credential = await PhoneAuthProvider.credential(verificationId: phoneAuth.verify, smsCode:_pinPutController.text);
         
          SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -238,15 +244,42 @@ phoneAuth.verifyPhoneAgain();
       // Sign the user in (or link) with the credential
       await auth.signInWithCredential(credential);
       await userController.verificationChec();
-           userController.signUps == true?  
-   Get.to(CountryField())  
-   :Get.to(HomePage()) ;
+  //          userController.signUps == true?  
+  //  Get.to(CountryField())  
+  //  :
+   Get.to(HomePage()) ;
       // await userController.checksIF();
      
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
       
                 }
+      //  phoneAuth.verifyPhone();
+   
+    } else {
+
+          try {
+                 PhoneAuthCredential credential = await PhoneAuthProvider.credential(verificationId: phoneAuth.verify, smsCode:_pinPutController.text);
+    
+      // Sign the user in (or link) with the credential
+      await auth.signInWithCredential(credential);
+          //  userController.signUps == true?  
+   Get.to(CountryField())  ;
+  //  :
+  //  Get.to(HomePage()) ;
+      // await userController.checksIF();
+     
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("The number is incorrect")));
+      
+                }
+    //  Get.snackbar("User Bot Signed Up Yet", "Moving to Sign Up Page ",duration: Duration(seconds: 5));
+    //        Get.to( PhoneField());
+    
+    }
+  });
+              // phoneAuth.verifyPhone();
+
               
                 // Navigator.push(
                 //     context,
