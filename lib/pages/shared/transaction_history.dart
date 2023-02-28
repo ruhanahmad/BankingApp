@@ -1,3 +1,5 @@
+import 'package:bnacash/pages/shared/nkloTwo.dart';
+import 'package:bnacash/widgets/calendarss.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
@@ -31,9 +33,46 @@ class _TransactionHistoryState extends State<TransactionHistory> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                "Transaction History",
-                style: kAppBarTextStyle.copyWith(fontSize: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Transaction History",
+                    style: kAppBarTextStyle.copyWith(fontSize: 25),
+                  ),
+                 Row(children: [
+                  GestureDetector(
+                    onTap: () {
+                      Nav.toScreen(context, nklo());
+                    },
+                    child: Container(
+                     
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                       
+                      ),
+                      child: Text("Export monthly Transactions")),
+                  ),
+
+                    SizedBox(width: 20,),
+                                     GestureDetector(
+                                      onTap: () {
+                                       
+                                        Nav.toScreen(context,  nkloTwo());
+                                      },
+                                       child: Container(
+                                                        
+                                                         decoration: BoxDecoration(
+                                                           color: Colors.blue,
+                                                          
+                                                         ),
+                                                         child: Text("Export Yearly Transactions")),
+                                     ),
+
+                 ],)
+
+
+                ],
               ),
               const SizedBox(height: 20),
               // const Text(

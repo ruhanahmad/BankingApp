@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:bnacash/Controller/userController.dart';
+import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:awesome_card/awesome_card.dart';
 class Cards extends StatefulWidget {
   const Cards({Key? key}) : super(key: key);
 
@@ -27,6 +29,7 @@ class _CardsState extends State<Cards> {
   //   super.initState();
     
   // }
+
 
    Future<void>? alerts(){
     showDialog(context: context, builder: (context){
@@ -105,6 +108,7 @@ class _CardsState extends State<Cards> {
         
         init: UserController(),
         builder: (_){
+            // DateTime date = DateTime.fromMillisecondsSinceEpoch();
 
         return          Container(
           margin: const EdgeInsets.only(left: 5, right: 10, top: 20),
@@ -153,54 +157,72 @@ class _CardsState extends State<Cards> {
             //  userController.isChecked  == false ?
 
             // userController.virtualCardAcc !=  null ?
+            
             userController.virtualCardAcc.length > 0 ?
               Container(child: Column(children: [
+              
+
+CreditCard(
+    cardNumber: _.virtualCardAcc[0].toString(),
+    cardExpiry: _.montht.toString() + " /" + _.yeart.toString(),
+    cardHolderName: "",
+    cvv: _.virtualCardCvv[0].toString(),
+    bankName: "Credit Card",
+    // cardType: CardType.masterCard, // Optional if you want to override Card Type
+    showBackSide: false,
+    frontBackground: CardBackgrounds.black,
+    backBackground: CardBackgrounds.white,
+    showShadow: true,
+    textExpDate: 'Exp. Date',
+    textName: _.montht.toString() + " /" + _.yeart.toString(),
+    textExpiry:"_.yeart.toString()",
+),
                             //
-                    Stack(
-                      children: [
-                        Container(height: 200,width: 500,
-                        decoration: BoxDecoration(color: Colors.yellow,),
-                        child: 
+//                     Stack(
+//                       children: [
+//                         Container(height: 200,width: 500,
+//                         decoration: BoxDecoration(color: Colors.yellow,),
+//                         child: 
 
-                        // ListView(
-                        //   children: [
+//                         // ListView(
+//                         //   children: [
                             
-                        //     // users.map(buildUser).ToList
-                        //   ],
-                        // )
+//                         //     // users.map(buildUser).ToList
+//                         //   ],
+//                         // )
                         
-                        Column(
+//                         Column(
 
-children: [
+// children: [
 
   
 
-  //  var users =userController.getVirtualCard();
+//   //  var users =userController.getVirtualCard();
  
-  Text("Account number      " +  _.virtualCardAcc[0].toString()),
-  Text("Cvv        " + _.virtualCardCvv[0].toString() ),
-   Text("Status      " + _.virtualCardStatus[0].toString() ),
+//   Text("Account number      " +  _.virtualCardAcc[0].toString()),
+//   Text("Cvv        " + _.virtualCardCvv[0].toString() ),
+//    Text("Status      " + _.virtualCardStatus[0].toString() ),
 
 
 
 
 
 
-],
-                        )
-                        ),
-                        // Image.asset('assets/images/bloack-credit-card.png'),
-                        // for visible icon
-                        // const CircleAvatar(
-                        //     radius: 17,
-                        //     backgroundColor: Color(0xFFe8e9ee),
-                        //     child: Icon(
-                        //       Icons.visibility,
-                        //       color: Color(0xFF858c94),
-                        //       size: 19,
-                        //     ))
-                      ],
-                    ),
+// ],
+//                         )
+//                         ),
+//                         // Image.asset('assets/images/bloack-credit-card.png'),
+//                         // for visible icon
+//                         // const CircleAvatar(
+//                         //     radius: 17,
+//                         //     backgroundColor: Color(0xFFe8e9ee),
+//                         //     child: Icon(
+//                         //       Icons.visibility,
+//                         //       color: Color(0xFF858c94),
+//                         //       size: 19,
+//                         //     ))
+//                       ],
+//                     ),
             //  CarouselSlider(
             //       options: CarouselOptions(
             //         // height: 180.0,

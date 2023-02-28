@@ -7,14 +7,14 @@ import 'package:get/get.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 
-class nklo extends StatefulWidget {
-  const nklo({Key? key}) : super(key: key);
+class nkloTwo extends StatefulWidget {
+  const nkloTwo({Key? key}) : super(key: key);
 
   @override
-  _nkloState createState() => _nkloState();
+  _nkloTwoState createState() => _nkloTwoState();
 }
 
-class _nkloState extends State<nklo> {
+class _nkloTwoState extends State<nkloTwo> {
   DateTime _selectedDate = DateTime.now();
   UserController userController = Get.put(UserController());
 
@@ -43,7 +43,7 @@ class _nkloState extends State<nklo> {
                 // setState(() {
                 //   _selectedDate = DateTime.now();
                 // });
-              await userController.hanodi();
+              await userController.yearlyHanodi();
               },
               child: Text(
                 "Export PDF",
@@ -60,7 +60,7 @@ class _nkloState extends State<nklo> {
      setState(() {
         _selectedDate = value;
      });
-                  userController.selectedDate = value;
+                  userController.selectedDateYear = value;
                   userController.update();
                     
                   print(value);

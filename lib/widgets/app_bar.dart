@@ -34,15 +34,15 @@ AppBar buildAppBar(context) => AppBar(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-               MaterialButton(
-                minWidth: 0,
-                //color: Colors.transparent,
-                child: const FaIcon(FontAwesomeIcons.airbnb),
-                onPressed: () async {
+              //  MaterialButton(
+              //   minWidth: 0,
+              //   //color: Colors.transparent,
+              //   child: const FaIcon(FontAwesomeIcons.airbnb),
+              //   onPressed: () async {
 
-              //  await userController.hanodi();
-                },
-              ),              
+              // //  await userController.hanodi();
+              //   },
+              // ),              
                MaterialButton(
                 minWidth: 0,
                 //color: Colors.transparent,
@@ -62,17 +62,17 @@ AppBar buildAppBar(context) => AppBar(
                   // await userController.getVirtualCard();
                 },
               ),
-              MaterialButton(
-                minWidth: 0,
-                //color: Colors.transparent,
-                child: const FaIcon(FontAwesomeIcons.solidChartBar),
-                onPressed: () async {
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
+              // MaterialButton(
+              //   minWidth: 0,
+              //   //color: Colors.transparent,
+              //   child: const FaIcon(FontAwesomeIcons.solidChartBar),
+              //   onPressed: () async {
+              //     SharedPreferences prefs =
+              //         await SharedPreferences.getInstance();
 
-                  await prefs.remove('LoginInfo');
-                },
-              ),
+              //     await prefs.remove('LoginInfo');
+              //   },
+              // ),
               MaterialButton(
                 minWidth: 0,
                 //color: Colors.transparent,
@@ -85,7 +85,8 @@ AppBar buildAppBar(context) => AppBar(
                 minWidth: 0,
                 //color: Colors.transparent,
                 child: const FaIcon(FontAwesomeIcons.gear),
-                onPressed: () {
+                onPressed: () async {
+                  await userController.getDataForProfile();
                   Nav.toScreen(context, Settingss());
                   // Get.put(ExampleHomePage());
                 },

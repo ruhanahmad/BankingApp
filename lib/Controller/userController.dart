@@ -52,38 +52,47 @@ class UserController extends GetxController {
 //-----------------------------------------------get transaction by year------------------//
 // Import the necessary packages
 // import 'package:cloud_firestore/cloud_firestore.dart';
-
+ DateTime selectedDateYear = DateTime.now();
+   yearlyHanodi() async{
 // // Get a reference to the Firestore collection containing transactions
-// CollectionReference transactionsRef = FirebaseFirestore.instance.collection('transactions');
+
 
 // // Define the desired year
-// int desiredYear = 2023;
+int desiredYear = selectedDateYear.year;
+CollectionReference transactionsRefs = await FirebaseFirestore.instance.collection("account").doc(userId!.uid)
+.collection("notifications");
 
 // // Define the start and end timestamps for the desired year
-// DateTime startDate = DateTime(desiredYear, 1, 1);
-// DateTime endDate = DateTime(desiredYear + 1, 1, 1).subtract(Duration(days: 1));
+DateTime startDate = DateTime(desiredYear, 1, 1);
+DateTime endDate = DateTime(desiredYear + 1, 1, 1).subtract(Duration(days: 1));
 
 // // Query the Firestore collection to get transactions for the desired year
-// QuerySnapshot querySnapshot = await transactionsRef.where('timestamp', isGreaterThanOrEqualTo: Timestamp.fromDate(startDate))
-//                                                   .where('timestamp', isLessThanOrEqualTo: Timestamp.fromDate(endDate))
-//                                                   .get();
+QuerySnapshot querySnapshot = await transactionsRefs.where('dateTime', isGreaterThanOrEqualTo: Timestamp.fromDate(startDate))
+                                                  .where('dateTime', isLessThanOrEqualTo: Timestamp.fromDate(endDate))
+                                                  .get();
+var pdfFile = await aikOr.saveQuerySnapshotToPdf(querySnapshot);
+print('PDF file saved at ${pdfFile.path}');
 
-// // Loop through the documents in the query result and extract the transaction data
-// List<Transaction> transactions = [];
+    pdftoOpen = pdfFile.path;
+update();
+
+final data = querySnapshot.docs.map((document) => document.data()).toList();
+print(data);
+
+// Loop through the documents in the query result and extract the transaction data
+List<Transaction> transactions = [];
 // querySnapshot.docs.forEach((doc) {
-//   Transaction transaction = Transaction.fromFirestore(doc);
+
 //   transactions.add(transaction);
 // });
 
-// // Print the list of transactions for the desired year
-// print('Transactions for $desiredYear:');
-// transactions.forEach((transaction) {
-//   print('Amount: ${transaction.amount}, Category: ${transaction.category}');
-// });
+// Print the list of transactions for the desired year
+print('Transactions for $desiredYear:');
 
 
 
 
+   }
 
 
 
@@ -182,11 +191,59 @@ Future SendMailss()async{
 //  }
 
 
+//--------------------------------------------Detail Get For------------------------//
+   String? nameFor;
+   String? lastNameFor;
+Future  getDataForProfile() async {
+  await getIDo();
 
+       await FirebaseFirestore.instance
+        .collection("users").doc(userId!.uid)
+        .get()
+        .then((DocumentSnapshot value) {
+                 valuess = value.data();
+                //  print(valuess);
+                 nameFor  =  valuess['name'];
+                 lastNameFor = valuess["lastName"];
 
+ update();
 
+            
+                  
+                  
+                 print(valuess);
+            //  update(); 
+        });  
+await  getDataForProfileAccount();   
+  }
 
+ //-----------------------------for account -------------------------------//
+  
+   String? bicFor;
+   String? IbanFor;
+   String? limitFor;
+Future  getDataForProfileAccount() async {
+  await getIDo();
 
+       await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid)
+        .get()
+        .then((DocumentSnapshot value) {
+                 valuess = value.data();
+                //  print(valuess);
+                 bicFor  =  valuess['BIC'];
+                 IbanFor = valuess["IBAN"];
+                 limitFor = valuess["limit"];
+
+ update();
+                 
+                  
+                  
+                 print(valuess);
+            //  update(); 
+        });  
+
+  }
 
 
 //--------------------------------------------verificationCheck-------------------------//
@@ -195,8 +252,7 @@ Future SendMailss()async{
    bool? checkssss ;
 Future  verificationChec() async {
   await getIDo();
-    // welcome = Welcome();
-    // accountss  = Account();
+
        await FirebaseFirestore.instance
         .collection("users").doc(userId!.uid)
         .get()
@@ -213,15 +269,7 @@ Future  verificationChec() async {
                   }
                
                   
-                  //  print(checkss);
-                //  accountsList.add(Account.fromJson(value));
-                      // if(checkss == false){
-                      //     Get.to(VerificationFailed());
-                      // }
-                      // else{
-                      //  Get.to(HomePage());
-                      // }
-                      // return true;
+                  
                  print(valuess);
             //  update(); 
         });  
@@ -1621,6 +1669,7 @@ var pdftoOpen;
  
 // Import the necessary packages
 Future hanodi() async{
+  
     int month = selectedDate.month;
     int yeari = selectedDate.year;
 CollectionReference transactionsRef = await FirebaseFirestore.instance.collection("account").doc(userId!.uid)
@@ -1662,7 +1711,7 @@ var pdfFile = await aikOr.saveQuerySnapshotToPdf(querySnapshot);
 print('PDF file saved at ${pdfFile.path}');
 
     pdftoOpen = pdfFile.path;
-// update();
+update();
   // Create a PDF document
  
 
@@ -1877,6 +1926,11 @@ Get.snackbar("Success","Changed plan to Premium");
    List virtualCardAcc = [];
    List virtualCardCvv = []; 
    List virtualCardStatus = [];
+   List virtualCardDateTime = [];
+   int? millisecondsSinceEpoch ;
+   int? yeart;
+DateTime? date ;
+int? montht;
    Future<List<VirtualCard>?> getVirtualCard() async{
 
     QuerySnapshot  kilo =    await FirebaseFirestore.instance
@@ -1886,7 +1940,10 @@ Get.snackbar("Success","Changed plan to Premium");
       virtualCardAcc.clear();
       virtualCardCvv.clear();
       virtualCardStatus.clear();
-
+      virtualCardDateTime.clear();
+      // millisecondsSinceEpoch = null;
+      // date = null;
+      // yeart = null;
    print(kilo.docs);
           //  virtualCardGet  = kilo.docs;
 
@@ -1897,6 +1954,12 @@ Get.snackbar("Success","Changed plan to Premium");
     virtualCardAcc.add(element["accountNumber"]);
     virtualCardCvv.add(element["cvv"]);
     virtualCardStatus.add(element["freeze"]);
+    virtualCardDateTime.add(element["expiryDate"]);
+   millisecondsSinceEpoch = element["expiryDate"].toDate().millisecondsSinceEpoch;
+      date = DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch!);
+      yeart = date!.year;
+      montht = date!.month;
+     
     
     
 

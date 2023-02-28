@@ -179,6 +179,62 @@ class _SettingssState extends State<Settingss> {
 //           ),
 //                 ),
 //               ),
+Column(
+  children: [
+        Container(
+          height: 50,
+          width: Get.width,
+          color: Colors.blue,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+          Text("Name"),
+          Text(userController.nameFor.toString() + " " + userController.lastNameFor.toString()),
+          
+              
+            
+            
+            
+            ],),
+        ),
+        SizedBox(height: 30,),
+
+                Container(
+          height: 50,
+          width: Get.width,
+          color: Colors.blue,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+          Text("BIC"),
+          Text(userController.bicFor.toString()),
+          
+              
+            
+            
+            
+            ],),
+        ),
+          SizedBox(height: 30,),
+
+                Container(
+          height: 50,
+          width: Get.width,
+          color: Colors.blue,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+          Text("IBAN"),
+          Text(userController.IbanFor.toString()),
+          
+              
+            
+            
+            
+            ],),
+        ),
+  ],
+),
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
@@ -326,7 +382,24 @@ class _SettingssState extends State<Settingss> {
  
               ),
 
+  SizedBox(height: 30,),
 
+                Container(
+          height: 50,
+          width: Get.width,
+          color: Colors.blue,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+          Text("Limit"),
+          Text(userController.limitFor.toString()),
+          
+              
+            
+            
+            
+            ],),
+        ),
 
             ],
           ),
