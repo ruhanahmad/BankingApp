@@ -29,6 +29,7 @@ import 'package:bnacash/models/contacts.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:kommunicate_flutter/kommunicate_flutter.dart';
 import 'dart:io' as io;
+import '../pages/landing_page.dart';
 import '../pages/login/find_friends.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:camera/camera.dart';
@@ -289,33 +290,59 @@ Future  verificationChec() async {
            List <DocumentSnapshot> checksIFSign = [];
 
   Future  checksIFSignUp( )async{
-              if(userId != null){
-                        var kilo =    await FirebaseFirestore.instance
-        .collection("account").doc(userId!.uid).get().then((DocumentSnapshot value) {
-     var checksIFSign  = value.data();
-      //  var id = whistle.first.id;
-        if(checksIFSign == null) {
-         phoneAuth.verifyPhone();
-                // Get.to(CodeField());
-    
-        }
-
-        else{
-          Get.snackbar("User Already Signed up", "Moving to login page and Try loggin in",duration: Duration(seconds: 5));
+  await   FirebaseFirestore.instance
+  .collection("users")
+  .where('phone', isEqualTo:phoneAuth.phoneNumbers.toString())
+  .get()
+  .then((QuerySnapshot querySnapshot) {
+    if (querySnapshot.size > 0) {
+    Get.snackbar("User Already Signed up", "Moving to login page and Try loggin in",duration: Duration(seconds: 5));
            Get.to( loginFeild());
-        }
+    } else {
+     phoneAuth.verifyPhone();
+      // Data does not exist
+    }
+  });
+  }
+            // if (FirebaseAuth.instance.currentUser != null) {
+            //   print("user sugned up");
+              // Get.to( loginFeild());
+    //                     var kilo =    await FirebaseFirestore.instance
+    //     .collection("account").doc(userId!.uid).get().then((DocumentSnapshot value) {
+    //  var checksIFSign  = value.data();
+      //  var id = whistle.first.id;
+        // if(checksIFSign == null) {
+        //  phoneAuth.verifyPhone();
+        //         // Get.to(CodeField());
     
-        });
-              }
+        // }
 
+        // else{
+        //   Get.snackbar("User Already Signed up", "Moving to login page and Try loggin in",duration: Duration(seconds: 5));
+        //    Get.to( loginFeild());
+        // }
+    
+        // });
+              // }
 
+// else{
+// phoneAuth.verifyPhone();
+// }
 
-              else {
-                  phoneAuth.verifyPhone();
-              }
+              // else {
+              //     phoneAuth.verifyPhone();
+              // }
 
    
 
+
+
+
+//----------------------------Logout-----------------------//
+
+logOut() async {
+  await FirebaseAuth.instance.signOut();
+  Get.to(LandingPage());
 
 }
 
@@ -327,28 +354,44 @@ Future  verificationChec() async {
            List <DocumentSnapshot> checksIFLogins = [];
 
   Future  checksIFLogin( )async{
-              if(userId != null){
-                        var kilo =    await FirebaseFirestore.instance
-        .collection("account").doc(userId!.uid).get().then((DocumentSnapshot value) {
-     var checksIFSign  = value.data();
-      //  var id = whistle.first.id;
-        if(checksIFLogins != null) {
-         phoneAuth.verifyPhone();
-                // Get.to(CodeField());
-        }
-        else{
-          Get.snackbar("User need to sign up", "Moving to Sign up and Try loggin in",duration: Duration(seconds: 5));
+     
+  await   FirebaseFirestore.instance
+  .collection("users")
+  .where('phone', isEqualTo:phoneAuth.phoneNumbers.toString())
+  .get()
+  .then((QuerySnapshot querySnapshot) {
+    if (querySnapshot.size > 0) {
+       phoneAuth.verifyPhone();
+   
+    } else {
+     Get.snackbar("User Bot Signed Up Yet", "Moving to Sign Up Page ",duration: Duration(seconds: 5));
            Get.to( PhoneField());
-        }
+      // Data does not exist
+    }
+  });
+
+    //           if(userId != null){
+    //                     var kilo =    await FirebaseFirestore.instance
+    //     .collection("account").doc(userId!.uid).get().then((DocumentSnapshot value) {
+    //  var checksIFSign  = value.data();
+    //   //  var id = whistle.first.id;
+    //     if(checksIFLogins != null) {
+    //      phoneAuth.verifyPhone();
+    //             // Get.to(CodeField());
+    //     }
+    //     else{
+    //       Get.snackbar("User need to sign up", "Moving to Sign up and Try loggin in",duration: Duration(seconds: 5));
+    //        Get.to( PhoneField());
+    //     }
     
-        });
-              }
+    //     });
+    //           }
 
 
 
-              else {
-                  phoneAuth.verifyPhone();
-              }
+    //           else {
+    //               phoneAuth.verifyPhone();
+    //           }
 
    
 
@@ -718,6 +761,7 @@ getIDo()async{
    welcome.Passport = "";
    welcome.passcode ="" ;
    welcome.verified = false;
+   welcome.phone = phoneAuth.phoneNumbers;
    try{
    var jjson= FirebaseFirestore.instance.collection("users").doc(userId!.uid).set(welcome.toJson());
      jjson.then(( value)async {

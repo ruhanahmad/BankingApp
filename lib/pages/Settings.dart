@@ -400,7 +400,17 @@ Column(
             
             ],),
         ),
-
+  SizedBox(height: 30,),
+  GestureDetector(
+    onTap: () async{
+      await userController.logOut();
+    },
+    child: Container(
+      color: Colors.blueAccent,
+      height: 30,
+      width: 50,
+      child: Text("Logout"),),
+  )
             ],
           ),
         );

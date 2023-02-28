@@ -32,6 +32,7 @@ class Welcome {
        this.passcode,
        this.lastName,
        this.verified,
+       this.phone,
 
     });
     bool? verified;
@@ -51,6 +52,7 @@ class Welcome {
     String? city;
     String? region;
     String? zipcode;
+    String? phone;
     
     factory Welcome.fromJson(DocumentSnapshot json) => Welcome(
         passcode: json["passcode"],
@@ -69,7 +71,8 @@ class Welcome {
         AccountDetail: json["AccountDetail"],
         accountBalance: json["accountBalance"],
         lastName: json["lastName"],
-        verified:json["verified"]
+        verified:json["verified"],
+        phone: json["phone"]
 
 
    );
@@ -92,5 +95,6 @@ class Welcome {
         "passcode":passcode,
         "lastName":lastName,
         "verified":verified,
+        "phone":phone,
     };
 }
