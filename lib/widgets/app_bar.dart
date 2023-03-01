@@ -7,6 +7,7 @@ import 'package:bnacash/pages/hi.dart';
 import 'package:bnacash/pages/shared/analytics_page.dart';
 import 'package:bnacash/pages/shared/inbox_page.dart';
 import 'package:bnacash/pages/shared/transaction_history.dart';
+import 'package:bnacash/pages/verificationFailed.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -48,7 +49,9 @@ AppBar buildAppBar(context) => AppBar(
                 //color: Colors.transparent,
                 child: const FaIcon(FontAwesomeIcons.gasPump),
                 onPressed: () async {
-               await userController.hanodi();
+              //  await userController.hanodi();
+              Get.to(VerificationFailed());
+              
                 },
               ),
               MaterialButton(

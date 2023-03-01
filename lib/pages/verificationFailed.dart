@@ -30,13 +30,21 @@ class _VerificationFailedState extends State<VerificationFailed> {
       child: Column(
         children: [
           Text("It need to be verified first"),
+          SizedBox(height: 20,),
           GestureDetector(
             onTap: () async{
               print("object");
    bool? newone = await userController.verificationChec();
          Nav.toScreen(context, const HomePage());
             },
-            child: Text("Check again"))
+            
+            child: Container(
+              height: 30,
+              width: 80,
+              
+              color: Colors.green,
+              
+              child: Center(child: Text("Check again",))))
         ],
       ),
     )));
