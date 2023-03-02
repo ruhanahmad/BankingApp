@@ -132,7 +132,8 @@ class _DobFieldState extends State<DobField> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text("Date of Birth",style: kAppBarTextStyle.copyWith(fontSize: 25),),
+                  Text("Date of Birth" ,style: kAppBarTextStyle.copyWith(fontSize: 25),),
+                  SizedBox(height:10),
                   Center( 
                      child:TextField(
                       
@@ -148,7 +149,7 @@ class _DobFieldState extends State<DobField> {
                               context: context,
                                initialDate: DateTime.now(), //get today's date
                               firstDate: DateTime(1947), //DateTime.now() - not to allow to choose before today.
-                              lastDate: DateTime(2023)
+                              lastDate: DateTime(2101)
                           );
                           
                           if(pickedDate != null ){

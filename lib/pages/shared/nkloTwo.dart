@@ -22,7 +22,7 @@ class _nkloTwoState extends State<nkloTwo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Scroll Date Picker Example"),
+        title: Text("Scroll Date Picker"),
         centerTitle: true,
       ),
       body: Column(
@@ -31,7 +31,7 @@ class _nkloTwoState extends State<nkloTwo> {
             height: 100.0,
             alignment: Alignment.center,
             child: Text(
-              "$_selectedDate",
+              "${_selectedDate.year} "+" ${_selectedDate.month}",
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
             ),
           ),
@@ -43,6 +43,7 @@ class _nkloTwoState extends State<nkloTwo> {
                 // setState(() {
                 //   _selectedDate = DateTime.now();
                 // });
+                  await userController.getDataForProfile();
               await userController.yearlyHanodi();
               },
               child: Text(

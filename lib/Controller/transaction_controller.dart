@@ -13,6 +13,8 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 
+import '../pages/login/models/dob.dart';
+
 // import 'package:generate_pdf_invoice_example/api/pdf_api.dart';
 // import 'package:generate_pdf_invoice_example/api/pdf_invoice_api.dart';
  
@@ -58,21 +60,24 @@ Future<File> saveQuerySnapshotToPdf(QuerySnapshot snapshot) async {
 
 
 
+
   // Add a title to the PDF document
   pdf.addPage(pw.Page(
     build: (context) => pw.Center(
-      child: pw.Text('QuerySnapshot Data'),
+      child: pw.Text("Name  :" + userController.nameFor.toString() + " " + userController.lastNameFor.toString()+"\n"+"IBAN  :"+userController.IbanFor.toString() + "\n"+ "IBC  :"+userController.bicFor.toString() + "\n"+ "Month and Year  :"+ userController.selectedDateYear.month.toString() + " " + userController.selectedDateYear.year.toString() ),
     ),
   ));
+  
 
   // Add a table to the PDF document
   pdf.addPage(pw.Page(
     build: (context) => pw.Center(
       child: pw.Table.fromTextArray(
-        headers: ['Name', 'Age'],
+        headers: ['Balance', 'Date and Time'],
         data: 
         snapshot.docs.map((doc) => [
-          doc["balance"]  , doc['type'].toString()]).toList(),
+        
+          doc["balance"]  , doc['dateTime'].toDate()]).toList(),
 //         querySnapshot.docs.forEach((doc) {
 //         print(doc["balance"]);
 //   // Transaction transaction = Transaction.fromFirestore(doc);

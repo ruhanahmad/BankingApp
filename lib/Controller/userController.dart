@@ -47,10 +47,18 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 
 class UserController extends GetxController {
-  
+
+
+
+
+
 
 
 //-----------------------------------------------get transaction by year------------------//
+
+
+
+
 // Import the necessary packages
 // import 'package:cloud_firestore/cloud_firestore.dart';
  DateTime selectedDateYear = DateTime.now();
@@ -194,7 +202,9 @@ Future SendMailss()async{
 
 //--------------------------------------------Detail Get For------------------------//
    String? nameFor;
+   String? emailFor;
    String? lastNameFor;
+   String? phoneFor;
 Future  getDataForProfile() async {
   await getIDo();
 
@@ -206,6 +216,8 @@ Future  getDataForProfile() async {
                 //  print(valuess);
                  nameFor  =  valuess['name'];
                  lastNameFor = valuess["lastName"];
+                 emailFor = valuess["email"];
+                 phoneFor = valuess["phone"];
 
  update();
 
@@ -611,6 +623,9 @@ Account accountss = Account();
 
   /// The user selects a file, and the task is added to the list.
 
+
+
+
   Future<UploadTask?> uploadFiless(XFile? files,context) async {
     
  var uniqueKeys = firebaseRef.collection("users");
@@ -736,6 +751,38 @@ getIDo()async{
   update();
  print(userId);
 }
+
+
+
+
+
+//------------------------------------saveEditedForm------------------------//
+ TextEditingController textEditingForChange = TextEditingController();
+ TextEditingController textEditingForChangeTwo = TextEditingController();
+
+
+
+saveEditedThing() async {
+ await getIDo();
+ await FirebaseFirestore.instance.collection('users').doc(userId!.uid).update({
+                              'name': textEditingForChange.text,
+                            });
+
+
+}
+
+
+saveEditedThingEmail() async {
+ await getIDo();
+ await FirebaseFirestore.instance.collection('users').doc(userId!.uid).update({
+                              'email': textEditingForChangeTwo.text,
+                            });
+
+
+}
+
+
+//------------------------------------------uploadData----------------------//
 
  Future uploadData()async  {
   await getIDo();
@@ -906,6 +953,13 @@ catch(e){
       }
       else if(documents.first["status"] == "used"){
         errorMsg = true;
+   Get.snackbar(
+              "Zero Balanace",
+               "Card already used and have zero balance",
+               icon: Icon(Icons.person, color: Colors.white),
+               snackPosition: SnackPosition.BOTTOM,
+               backgroundColor: Colors.green,
+               );
         update();
       }
   // documents[0].status == "unused";
@@ -1713,6 +1767,10 @@ var pdftoOpen;
  
 // Import the necessary packages
 Future hanodi() async{
+     int? millis ;
+   int? yearts;
+DateTime? dates ;
+int? monthts;
   
     int month = selectedDate.month;
     int yeari = selectedDate.year;
@@ -1732,9 +1790,17 @@ QuerySnapshot querySnapshot = await transactionsRef.where('dateTime', isGreaterT
                                                   .where('dateTime', isLessThanOrEqualTo: Timestamp.fromDate(endDate))
                                                   .get();
 
+querySnapshot.docs.map((document) {
 
-final data = querySnapshot.docs.map((document) => document.data()).toList();
-print(data);
+
+  millis= document["dateTime "].toDate().millisecondsSinceEpoch;
+      dates = DateTime.fromMillisecondsSinceEpoch(millis!);
+      yearts = date!.year;
+      monthts = date!.month;
+}
+// document.data()).toList()
+);
+// print(data);
 
 
 
@@ -1751,6 +1817,7 @@ print(data);
 print( "---------------------------------------------------------");
 
 // print( jhj!);
+
 var pdfFile = await aikOr.saveQuerySnapshotToPdf(querySnapshot);
 print('PDF file saved at ${pdfFile.path}');
 
@@ -2003,9 +2070,6 @@ int? montht;
       date = DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch!);
       yeart = date!.year;
       montht = date!.month;
-     
-    
-    
 
     // bala.add(element["balance"]);
 

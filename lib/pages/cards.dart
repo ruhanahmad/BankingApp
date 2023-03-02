@@ -174,8 +174,8 @@ CreditCard(
     backBackground: CardBackgrounds.white,
     showShadow: true,
     textExpDate: 'Exp. Date',
-    textName: _.montht.toString() + " /" + _.yeart.toString(),
-    textExpiry:"_.yeart.toString()",
+    textName:"CVV" + " " + _.virtualCardCvv[0].toString(),
+    textExpiry: _.virtualCardCvv[0].toString(),
 ),
                             //
 //                     Stack(

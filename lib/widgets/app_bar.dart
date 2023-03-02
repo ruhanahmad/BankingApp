@@ -4,10 +4,12 @@ import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/Settings.dart';
 import 'package:bnacash/pages/chatbot.dart';
 import 'package:bnacash/pages/hi.dart';
+import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:bnacash/pages/shared/analytics_page.dart';
 import 'package:bnacash/pages/shared/inbox_page.dart';
 import 'package:bnacash/pages/shared/transaction_history.dart';
 import 'package:bnacash/pages/verificationFailed.dart';
+import 'package:bnacash/widgets/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -23,10 +25,16 @@ AppBar buildAppBar(context) => AppBar(
       iconTheme: const IconThemeData(color: Colors.black),
       centerTitle: false,
       elevation: 0,
-      title: const CircleAvatar(
-        child: Text('RA'),
-        backgroundColor: Colors.blueGrey,
-        foregroundColor: Colors.white,
+      title:  GestureDetector(
+        onTap: () async{
+         await userController.getDataForProfile(); 
+          Get.to(ProfilePage());
+        },
+        child: CircleAvatar(
+          child: Text('RA'),
+          backgroundColor: Colors.blueGrey,
+          foregroundColor: Colors.white,
+        ),
       ),
       actions: [
         
@@ -50,7 +58,8 @@ AppBar buildAppBar(context) => AppBar(
                 child: const FaIcon(FontAwesomeIcons.gasPump),
                 onPressed: () async {
               //  await userController.hanodi();
-              Get.to(VerificationFailed());
+              Get.to(DobField());
+              
               
                 },
               ),
