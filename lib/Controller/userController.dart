@@ -1078,7 +1078,9 @@ Get.snackbar(
 
 
  //-------------------------------Order physical Card ----------------------------------------------//
-   String? physicalAddress;
+   String? zipcodePhysicalCard;
+   String? cityPhysicalCard;
+   String? addressPhysicalCard;
     Future orderPhysicalCard() async{
          var accNo = await tenNumberGenerated();
        var cvv = await CVVGenerated();
@@ -1102,7 +1104,12 @@ Get.snackbar(
             Get.snackbar("Creating a Card", "No order for physical card before");
          
              
-   var jjson=  await FirebaseFirestore.instance.collection("physicalCard").doc(userId!.uid).set({"address":physicalAddress,"firebaseId":userId!.uid,
+   var jjson=  await FirebaseFirestore.instance.collection("physicalCard").doc(userId!.uid).set({
+    
+    "address":addressPhysicalCard,
+    "city":cityPhysicalCard,
+    "zipCode":zipcodePhysicalCard,
+    "firebaseId":userId!.uid,
    "CardNum":accNo,"CVV":cvv,"Date":DateTime.now()});
  
          
@@ -1694,9 +1701,9 @@ Future  checkVirtualCard() async {
       checkVirtual  =   value.docs;
 
         });
-        if(checkVirtual!.length > 0 ){
+        if(checkVirtual!.length > 3 ){
         
-      Get.snackbar("Already Exsist", "Card Already Exsist / Order for Virtual card already done");
+      Get.snackbar("Already Exsist", "Card  limit Exsist / Order for Virtual card already done/ Limit is only 3");
 
         }
    else {

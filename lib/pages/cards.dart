@@ -46,49 +46,201 @@ class _CardsState extends State<Cards> {
               ],
             ),
             SizedBox(height: 30,),
-            TextFormField(
-                    
-                    onChanged: (value) {
-             userController.physicalAddress = value;
-                    },
-                    decoration: InputDecoration(
-               contentPadding:
-                   const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
-               filled: true,
-               fillColor: kPrimaryColor.withOpacity(0.3),
-               labelText: 'Enter Address ',
-               labelStyle: kFormTextStyle,
-               border: InputBorder.none,
-               enabledBorder: OutlineInputBorder(
-                 borderRadius: BorderRadius.circular(15.0),
-                 borderSide: const BorderSide(color: Colors.white),
-               ),
-               focusedBorder: OutlineInputBorder(
-                 borderRadius: BorderRadius.circular(15.0),
-                 borderSide: const BorderSide(color: kPrimaryColor),
-               )),
-                    keyboardType: TextInputType.number,
-                    obscureText: false,
-            //         validator: (String? value) {
-            //  if (value!.length < 6 || value!.length > 6) {
-            //    return 'Please Enter only  digits';
-            //  }
-            //  return null;
-            //         },
-                  ),
 
-                  GestureDetector(
-                    onTap:   () async{
+                     Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                
+                      contentPadding:
+                          const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+                      filled: true,
+                      fillColor: kPrimaryColor.withOpacity(0.3),
+                      labelText: 'Address',
+                      labelStyle: kFormTextStyle,
+                      border: InputBorder.none,
+                      // prefixIcon: const Icon(Icons.search_rounded),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        borderSide: const BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        borderSide: const BorderSide(color: kPrimaryColor),
+                      )),
+                  keyboardType: TextInputType.text,
+                  obscureText: false,
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+                      return 'Please Enter an Address';
+                    }
+                    return null;
+                  },
+                  onChanged: (address) {
+                   
+                      userController.addressPhysicalCard= address;
+                      userController.update();
+                   
+                  },
+                ),
+              ),
+
+              SizedBox(height: 30,),
+
+                   Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                
+                      contentPadding:
+                          const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+                      filled: true,
+                      fillColor: kPrimaryColor.withOpacity(0.3),
+                      labelText: 'City',
+                      labelStyle: kFormTextStyle,
+                      border: InputBorder.none,
+                      // prefixIcon: const Icon(Icons.search_rounded),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        borderSide: const BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        borderSide: const BorderSide(color: kPrimaryColor),
+                      )),
+                  keyboardType: TextInputType.text,
+                  obscureText: false,
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+                      return 'Please Enter an City';
+                    }
+                    return null;
+                  },
+                  onChanged: (address) {
+                   
+                      userController.cityPhysicalCard= address;
+                      userController.update();
+                   
+                  },
+                ),
+              ),
+SizedBox(height: 30,),
+
+               Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                
+                      contentPadding:
+                          const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+                      filled: true,
+                      fillColor: kPrimaryColor.withOpacity(0.3),
+                      labelText: 'Zip code',
+                      labelStyle: kFormTextStyle,
+                      border: InputBorder.none,
+                      // prefixIcon: const Icon(Icons.search_rounded),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        borderSide: const BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        borderSide: const BorderSide(color: kPrimaryColor),
+                      )),
+                  keyboardType: TextInputType.text,
+                  obscureText: false,
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+                      return 'Zip Code';
+                    }
+                    return null;
+                  },
+                  onChanged: (address) {
+                   
+                      userController.zipcodePhysicalCard= address;
+                      userController.update();
+                   
+                  },
+                ),
+              ),
+
+              //-----------------------------//
+            // TextFormField(
+                    
+            //         onChanged: (value) {
+            //  userController.physicalAddress = value;
+            //         },
+            //         decoration: InputDecoration(
+            //    contentPadding:
+            //        const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+            //    filled: true,
+            //    fillColor: kPrimaryColor.withOpacity(0.3),
+            //    labelText: 'Enter Address ',
+            //    labelStyle: kFormTextStyle,
+            //    border: InputBorder.none,
+            //    enabledBorder: OutlineInputBorder(
+            //      borderRadius: BorderRadius.circular(15.0),
+            //      borderSide: const BorderSide(color: Colors.white),
+            //    ),
+            //    focusedBorder: OutlineInputBorder(
+            //      borderRadius: BorderRadius.circular(15.0),
+            //      borderSide: const BorderSide(color: kPrimaryColor),
+            //    )),
+            //         keyboardType: TextInputType.number,
+            //         obscureText: false,
+            // //         validator: (String? value) {
+            // //  if (value!.length < 6 || value!.length > 6) {
+            // //    return 'Please Enter only  digits';
+            // //  }
+            // //  return null;
+            // //         },
+            //       ),
+
+                  // GestureDetector(
+                  //   onTap:   () async{
 
                       
-                  await userController.orderPhysicalCard();
-                    },
-                    child: Container(
-                      height: 30,
-                      width: 50,
-                      decoration: BoxDecoration(color: Colors.blue,),
-                      child: Text("Submit"),),
-                  )
+                  // await userController.orderPhysicalCard();
+                  //   },
+                  //   child: Container(
+                  //     height: 30,
+                  //     width: 50,
+                  //     decoration: BoxDecoration(color: Colors.blue,),
+                  //     child: Text("Submit"),),
+                  // )
+
+                    const Spacer(),
+                            ElevatedButton
+                  
+                (
+                  
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10.0, horizontal: 8.0),
+                                      elevation: 5.0,
+                                      primary: kPrimaryColor,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50.0)),
+                                    ),
+                  onPressed: () async{
+                    await userController.orderPhysicalCard();
+          //               if (_formKey.currentState!.validate()) {
+          //     // If the form is valid, display a snackbar. In the real world,
+          //     // you'd often call a server or save the information in a database.
+          // //     ScaffoldMessenger.of(context).showSnackBar(
+          // // const SnackBar(content: Text('Processing Data')),
+          
+          // //     );
+          //      Get.to(NameField());
+          //   }
+        
+ print(userController.address);
+                    
+           
+                    
+                    // await userController.uploadData();
+                   }, child: Text("Next"))
           ],
         ),
       );
@@ -159,24 +311,57 @@ class _CardsState extends State<Cards> {
             // userController.virtualCardAcc !=  null ?
             
             userController.virtualCardAcc.length > 0 ?
-              Container(child: Column(children: [
-              
 
-CreditCard(
-    cardNumber: _.virtualCardAcc[0].toString(),
-    cardExpiry: _.montht.toString() + " /" + _.yeart.toString(),
-    cardHolderName: "",
-    cvv: _.virtualCardCvv[0].toString(),
-    bankName: "Credit Card",
-    // cardType: CardType.masterCard, // Optional if you want to override Card Type
-    showBackSide: false,
-    frontBackground: CardBackgrounds.black,
-    backBackground: CardBackgrounds.white,
-    showShadow: true,
-    textExpDate: 'Exp. Date',
-    textName:"CVV" + " " + _.virtualCardCvv[0].toString(),
-    textExpiry: _.virtualCardCvv[0].toString(),
+
+              Container(
+                child: Column(
+                  children: [
+
+Container(
+  height: 500,
+  width: Get.width,
+  child:   ListView.builder(
+  
+    itemCount: _.virtualCardAcc.length,
+    scrollDirection: Axis.horizontal,
+  
+    itemBuilder: (context,i){
+  
+    return CreditCard(
+  
+      cardNumber: _.virtualCardAcc[i].toString(),
+  
+      cardExpiry: _.montht.toString() + " /" + _.yeart.toString(),
+  
+      cardHolderName: "",
+  
+      cvv: _.virtualCardCvv[i].toString(),
+  
+      bankName: "Credit Card",
+  
+      // cardType: CardType.masterCard, // Optional if you want to override Card Type
+  
+      showBackSide: false,
+  
+      frontBackground: CardBackgrounds.black,
+  
+      backBackground: CardBackgrounds.white,
+  
+      showShadow: true,
+  
+      textExpDate: 'Exp. Date',
+  
+      textName:"CVV" + " " + _.virtualCardCvv[i].toString(),
+  
+      textExpiry: _.virtualCardCvv[i].toString(),
+  
+  );
+  
+  }),
 ),
+
+
+
                             //
 //                     Stack(
 //                       children: [
@@ -316,17 +501,17 @@ CreditCard(
                     ListTile(
                       leading: const CircleAvatar(
                         backgroundColor: Color(0xFF0356e0),
-                        child: Icon(Icons.settings, color: Colors.white),
+                        child: Icon(Icons.delete, color: Colors.white),
                       ),
                       title: const Text(
-                        "Settings",
+                        "Delete Card",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       subtitle:
                           const Text("Terminate or rename  card and more"),
-                      onTap: () {
-                        Nav.toScreen(context, const SettingsPage());
+                      onTap: ()async {
+                        await userController.terminatedCard();
                       },
                     ),
                     SizedBox(height: 10,),

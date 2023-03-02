@@ -73,11 +73,13 @@ Future<File> saveQuerySnapshotToPdf(QuerySnapshot snapshot) async {
   pdf.addPage(pw.Page(
     build: (context) => pw.Center(
       child: pw.Table.fromTextArray(
-        headers: ['Balance', 'Date and Time'],
+        headers: ['Balance', 'Date and Time','Type'],
         data: 
         snapshot.docs.map((doc) => [
         
-          doc["balance"]  , doc['dateTime'].toDate()]).toList(),
+          doc["balance"]  , doc['dateTime'].toDate(),
+          doc["type"]
+          ]).toList(),
 //         querySnapshot.docs.forEach((doc) {
 //         print(doc["balance"]);
 //   // Transaction transaction = Transaction.fromFirestore(doc);

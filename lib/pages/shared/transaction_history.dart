@@ -105,7 +105,7 @@ return   Column(
                       subtitle:
     
                         "${formatTransactionDate(userController.dateTimess[i].toDate())}",
-                        trailings:"To " + userController.bala[i].toString(),
+                        trailings:userController.bala[i].toString(),
     
                           ):
                             userController.type[i] == "sending" ?
@@ -118,7 +118,7 @@ return   Column(
                       subtitle:
     
                          "${formatTransactionDate(userController.dateTimess[i].toDate())}",
-                         trailings: "To " + userController.bala[i].toString(),
+                         trailings:  userController.bala[i].toString(),
     
                           ):
                            userController.type[i] == "receiving" ?
@@ -132,7 +132,7 @@ return   Column(
     
                        "${formatTransactionDate(userController.dateTimess[i].toDate())}",
 
-                        trailings: "To " + userController.bala[i].toString(),
+                        trailings:  userController.bala[i].toString(),
     
                           ): 
                            userController.type[i] == "CreditCard" ?
@@ -145,7 +145,7 @@ return   Column(
                       subtitle:
     
                         "${formatTransactionDate(userController.dateTimess[i].toDate())}",
-                         trailings: "To " + userController.bala[i].toString(),
+                         trailings:  userController.bala[i].toString(),
     
                           ):
         
@@ -160,7 +160,7 @@ return   Column(
     
                      "${formatTransactionDate(userController.dateTimess[i].toDate())}",
 
-                        trailings: "To " + userController.bala[i].toString(),
+                        trailings:  userController.bala[i].toString(),
     
                           ),
 
@@ -258,7 +258,8 @@ return   Column(
                 icon!,
               ),
             ),
-            trailing: Text("trailings!",
+            trailing: 
+            Text(trailings == null ? " zero" : trailings,
               style: kContentTextStyle,),
 
             title: Text(

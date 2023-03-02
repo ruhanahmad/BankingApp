@@ -209,7 +209,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
                     "${formatTransactionDate(userController.dateTimess[i].toDate())}",
             
-                    trailings:"To " + userController.bala[i].toString(),
+                    trailings:userController.bala[i].toString(),
             
                   
             
@@ -235,7 +235,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
                      "${formatTransactionDate(userController.dateTimess[i].toDate())}",
             
-                     trailings: "To " + userController.bala[i].toString(),
+                     trailings:userController.bala[i].toString(),
             
                   
             
@@ -263,7 +263,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
             
             
-                    trailings: "To " + userController.bala[i].toString(),
+                    trailings: userController.bala[i].toString(),
             
                   
             
@@ -289,7 +289,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
                     "${formatTransactionDate(userController.dateTimess[i].toDate())}",
             
-                     trailings: "To " + userController.bala[i].toString(),
+                     trailings:  userController.bala[i].toString(),
             
                   
             
@@ -319,7 +319,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
             
             
-                    trailings: "To " + userController.bala[i].toString(),
+                    trailings: userController.bala[i].toString(),
             
                   
             
@@ -394,7 +394,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
                 icon!,
               ),
             ),
-            trailing: Text("trailings!",
+            trailing: Text(trailings == null ?" zero ":trailings,
               style: kContentTextStyle,),
 
             title: Text(

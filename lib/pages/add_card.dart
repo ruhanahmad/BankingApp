@@ -1,4 +1,5 @@
 import 'package:bnacash/constants/constants.dart';
+import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math' as math;
@@ -141,39 +142,45 @@ class AddCard extends StatelessWidget {
                         )
                       ],
                     ),
-                    Row(
-                      children: [
-                        const CircleAvatar(
-                          child: Icon(Icons.settings),
-                          radius: 20,
-                        ),
-                        const SizedBox(
-                          width: 10.0,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
-                              'Settings',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                    GestureDetector(
+                      onTap: ()async {
+                        
+                         await userController.terminatedCard();
+                      },
+                      child: Row(
+                        children: [
+                          const CircleAvatar(
+                            child: Icon(Icons.settings),
+                            radius: 20,
+                          ),
+                          const SizedBox(
+                            width: 10.0,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text(
+                                'Delete Card',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Terminate or rename card and more',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12,
+                              SizedBox(
+                                height: 5,
                               ),
-                            )
-                          ],
-                        )
-                      ],
+                              Text(
+                                'Terminate or rename card and more',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
