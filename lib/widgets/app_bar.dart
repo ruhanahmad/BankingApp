@@ -4,6 +4,7 @@ import 'package:bnacash/constants/constants.dart';
 import 'package:bnacash/pages/Settings.dart';
 import 'package:bnacash/pages/chatbot.dart';
 import 'package:bnacash/pages/hi.dart';
+import 'package:bnacash/pages/login/dialog.dart';
 import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:bnacash/pages/shared/analytics_page.dart';
 import 'package:bnacash/pages/shared/inbox_page.dart';
@@ -55,10 +56,10 @@ AppBar buildAppBar(context) => AppBar(
                MaterialButton(
                 minWidth: 0,
                 //color: Colors.transparent,
-                child: const FaIcon(FontAwesomeIcons.gasPump),
+                child: const FaIcon(FontAwesomeIcons.message),
                 onPressed: () async {
               //  await userController.hanodi();
-              Get.to(DobField());
+              Get.to(DialogFlows());
               
               
                 },
