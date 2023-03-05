@@ -1,172 +1,132 @@
-// import 'package:bnacash/constants/constants.dart';
+import 'package:bnacash/Controller/userController.dart';
+import 'package:bnacash/constants/constants.dart';
+import 'package:bnacash/pages/login/models/dob.dart';
 // import 'package:fl_chart/fl_chart.dart';
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-// class BarChartSample1 extends StatefulWidget {
-//   final List<Color> availableColors = const [
-//     Colors.purpleAccent,
-//     Colors.yellow,
-//     Colors.lightBlue,
-//     Colors.orange,
-//     Colors.pink,
-//     Colors.redAccent,
-//   ];
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+import 'package:pie_chart/pie_chart.dart';
 
-//   const BarChartSample1({Key? key}) : super(key: key);
+  class SalesData {
+  SalesData(this.year, this.sales);
+  final String year;
+  final double sales;
+}
+class BarChartSample1 extends StatefulWidget {
 
-//   @override
-//   State<StatefulWidget> createState() => BarChartSample1State();
-// }
+  final List<Color> availableColors =  [
+    Colors.purpleAccent,
+    Colors.yellow,
+    Colors.lightBlue,
+    Colors.orange,
+    Colors.pink,
+    Colors.redAccent,
+  ];
 
-// class BarChartSample1State extends State<BarChartSample1> {
-//   final Color? barBackgroundColor = const Color(0xff72d8bf);
-//   final Duration animDuration = const Duration(milliseconds: 250);
+  BarChartSample1({Key? key}) : super(key: key);
 
-//   int touchedIndex = -1;
+  @override
+  State<StatefulWidget> createState() => BarChartSample1State();
+}
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return AspectRatio(
-//       aspectRatio: 1.2,
-//       child: Padding(
-//         padding: const EdgeInsets.symmetric(horizontal: 2.0),
-//         child: BarChart(
-//           mainBarData(),
-//           swapAnimationDuration: animDuration,
-//         ),
-//       ),
-//     );
-//   }
+class BarChartSample1State extends State<BarChartSample1> {
 
-//   BarChartGroupData makeGroupData(
-//     int x,
-//     double y, {
-//     bool isTouched = false,
-//     Color barColor = Colors.blue,
-//     double width = 16,
-//     List<int> showTooltips = const [],
-//   }) {
-//     return BarChartGroupData(
-//       x: x,
-//       barRods: [
-//         BarChartRodData(
-//           y: isTouched ? y + 1 : y,
-//           colors: isTouched ? [Colors.yellow] : [kTertiaryColor],
-//           width: width,
-//           borderSide: isTouched
-//               ? const BorderSide(color: Colors.yellow, width: 1)
-//               : const BorderSide(color: Colors.blue, width: 0),
-//           backDrawRodData: BackgroundBarChartRodData(
-//             show: true,
-//             y: 20,
-//             color: [barBackgroundColor!],
-//           ),
-//         ),
+  
+TooltipBehavior? _tooltipBehavior;
+
+@override
+void initState(){
+  _tooltipBehavior = TooltipBehavior(enable: true);
+  super.initState();
+}
+
+  final Color? barBackgroundColor = const Color(0xff72d8bf);
+  final Duration animDuration = const Duration(milliseconds: 250);
+
+  int touchedIndex = -1;
+Map<String, double> dataMap = {
+    "Limit": 6000,
+    "Spending": userController.jj,
+    // "Xamarin": 2,
+    // "Ionic": 2,
+  };
+  @override
+  Widget build(BuildContext context) {
+    UserController userController = Get.put(UserController());
+  return Scaffold(
+    body: 
+    Center(
+        child: Container(
+          child:
+          PieChart(
+          dataMap: dataMap,
+          chartType: ChartType.ring,
+          baseChartColor: Colors.grey[300]!,
+          colorList: widget.availableColors,
+        ),
+//           charts.PieChart(
+//   [
+//     charts.Series<MyData, String>(
+//       id: 'myData',
+//       domainFn: (MyData data, _) => data.category,
+//       measureFn: (MyData data, _) => data.value,
+//       data: [
+//         MyData('Category 1', 5),
+//         MyData('Category 2', 10),
+//         MyData('Category 3', 15),
 //       ],
-//       showingTooltipIndicators: showTooltips,
-//     );
-//   }
+//     ),
+//   ],
+// )
 
-//   List<BarChartGroupData> showingGroups() => List.generate(7, (i) {
-//         switch (i) {
-//           case 0:
-//             return makeGroupData(0, 5, isTouched: i == touchedIndex);
-//           case 1:
-//             return makeGroupData(1, 6.5, isTouched: i == touchedIndex);
-//           case 2:
-//             return makeGroupData(2, 5, isTouched: i == touchedIndex);
-//           case 3:
-//             return makeGroupData(3, 7.5, isTouched: i == touchedIndex);
-//           case 4:
-//             return makeGroupData(4, 9, isTouched: i == touchedIndex);
-//           case 5:
-//             return makeGroupData(5, 11.5, isTouched: i == touchedIndex);
-//           case 6:
-//             return makeGroupData(6, 6.5, isTouched: i == touchedIndex);
-//           default:
-//             return throw Error();
-//         }
-//       });
+          //  SfCartesianChart(
 
-//   BarChartData mainBarData() {
-//     return BarChartData(
-//       barTouchData: BarTouchData(
-//         touchTooltipData: BarTouchTooltipData(
-//             tooltipBgColor: Colors.blueGrey,
-//             getTooltipItem: (group, groupIndex, rod, rodIndex) {
-//               String weekDay;
-//               switch (group.x.toInt()) {
-//                 case 0:
-//                   weekDay = 'Monday';
-//                   break;
-//                 case 1:
-//                   weekDay = 'Tuesday';
-//                   break;
-//                 case 2:
-//                   weekDay = 'Wednesday';
-//                   break;
-//                 case 3:
-//                   weekDay = 'Thursday';
-//                   break;
-//                 case 4:
-//                   weekDay = 'Friday';
-//                   break;
-//                 case 5:
-//                   weekDay = 'Saturday';
-//                   break;
-//                 case 6:
-//                   weekDay = 'Sunday';
-//                   break;
-//                 default:
-//                   throw Error();
-//               }
-//               return BarTooltipItem(
-//                 weekDay + '\n',
-//                 const TextStyle(
-//                   color: Colors.white,
-//                   fontWeight: FontWeight.bold,
-//                   fontSize: 18,
-//                 ),
-//                 children: <TextSpan>[
-//                   TextSpan(
-//                     text: (rod.y - 1).toString(),
-//                     style: const TextStyle(
-//                       color: Colors.yellow,
-//                       fontSize: 16,
-//                       fontWeight: FontWeight.w500,
-//                     ),
-//                   ),
-//                 ],
-//               );
-//             }),
-//         touchCallback: (FlTouchEvent event, barTouchResponse) {
-//           setState(() {
-//             if (!event.isInterestedForInteractions ||
-//                 barTouchResponse == null ||
-//                 barTouchResponse.spot == null) {
-//               touchedIndex = -1;
-//               return;
-//             }
-//             touchedIndex = barTouchResponse.spot!.touchedBarGroupIndex;
-//           });
-//         },
-//       ),
-//       titlesData: FlTitlesData(
-//         show: true,
-//         rightTitles: SideTitles(showTitles: false),
-//         topTitles: SideTitles(showTitles: false),
-//         bottomTitles: SideTitles(
-//           showTitles: false,
-//         ),
-//         leftTitles: SideTitles(
-//           showTitles: false,
-//         ),
-//       ),
-//       borderData: FlBorderData(
-//         show: false,
-//       ),
-//       barGroups: showingGroups(),
-//       gridData: FlGridData(show: false),
-//     );
-//   }
-// }
+          //   primaryXAxis: CategoryAxis(),
+          //   // Chart title
+          //   title: ChartTitle(text: 'Half yearly sales analysis'),
+          //   // Enable legend
+          //   legend: Legend(isVisible: true),
+          //   // Enable tooltip
+          //   tooltipBehavior: _tooltipBehavior,
+
+          //   series: <LineSeries<SalesData, String>>[
+          //     LineSeries<SalesData, String>(
+          //       dataSource:  <SalesData>[
+          //         SalesData('Jan', 35),
+          //         SalesData('Feb', 28),
+          //         SalesData('Mar', 34),
+          //         SalesData('Apr', 32),
+          //         SalesData('May', 40)
+          //       ],
+          //       xValueMapper: (SalesData sales, _) => sales.year,
+          //       yValueMapper: (SalesData sales, _) => sales.sales,
+          //       // Enable data label
+          //       dataLabelSettings: DataLabelSettings(isVisible: true)
+          //     )
+          //   ]
+          // )
+        )
+      )
+  );
+
+
+    // AspectRatio(
+    //   aspectRatio: 1.2,
+    //   child: Padding(
+    //     padding: const EdgeInsets.symmetric(horizontal: 2.0),
+    //     child: 
+    //     BarChart(
+    //       mainBarData(),
+    //       swapAnimationDuration: animDuration,
+    //     ),
+    //   ),
+    // );
+  }
+
+
+
+ 
+  }
+

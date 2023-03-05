@@ -18,6 +18,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
+
+import '../models/graph.dart';
 UserController userController = Get.put(UserController());
 AikOr aikor = Get.put(AikOr());
 DateTime _selectedDate = DateTime.now();
@@ -90,10 +92,26 @@ AppBar buildAppBar(context) => AppBar(
                 minWidth: 0,
                 //color: Colors.transparent,
                 child: const FaIcon(FontAwesomeIcons.solidChartBar),
-                onPressed: () {
-                  Nav.toScreen(context, const AnalyticsPage());
+                onPressed: () async{
+                  // Nav.toScreen(context, const AnalyticsPage());
+                  await userController.addAllNumbers();
+                  Nav.toScreen(context,  BarChartSample1());
+                  
                 },
               ),
+              //    MaterialButton(
+              //   minWidth: 0,
+              //   //color: Colors.transparent,
+              //   child: const FaIcon(FontAwesomeIcons.carBattery),
+              //   onPressed: () {
+              //     // Nav.toScreen(context, const AnalyticsPage());
+              //     // Nav.toScreen(context,  BarChartSample1());
+              //     userController.addAllNumbers();
+                  
+              //   },
+              // ),
+
+              
               MaterialButton(
                 minWidth: 0,
                 //color: Colors.transparent,

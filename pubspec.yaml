@@ -54,9 +54,11 @@ dependencies:
   shared_preferences: ^2.0.15
   modal_bottom_sheet: ^3.0.0-pre
   calendar_date_picker2: ^0.4.0
+  syncfusion_flutter_charts: ^20.4.52 
   pdf: ^3.1.0
   intl: ^0.18.0
   flutter_pdfview: ^1.0.0
+  # fl_chart: ^0.61.0
     # save file
   path_provider: ^2.0.1
   flutter_credit_card: ^3.0.1
@@ -66,6 +68,7 @@ dependencies:
   open_file: ^3.1.0
   table_calendar: ^3.0.9
   scroll_date_picker: ^3.6.1
+  pie_chart: ^5.3.2
 
 
   # The following adds the Cupertino Icons font to your application.

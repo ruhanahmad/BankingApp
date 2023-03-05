@@ -36,7 +36,8 @@ class _OccupationFieldState extends State<OccupationField> {
               const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: TextFormField(
+                child:
+                 TextFormField(
                   onChanged: (value) {
                     userController.occupation = value;
                   },

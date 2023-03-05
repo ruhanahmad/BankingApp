@@ -1442,7 +1442,7 @@ update();
 
 var contactFetch;
 
-
+//asd//
 List <DocumentSnapshot> contactsGet = [];
 
 
@@ -1504,7 +1504,7 @@ try{
    await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").add(
         {
           "dateTime":DateTime.now(),
-         "balance":balanc,
+         "balance":sendMoneyBalance,
          "username":beneName,
          "type":"sending",
         }
@@ -1525,6 +1525,50 @@ try{
 catch(e){
   Get.snackbar("Prepaid","${e.toString()}");
 }
+
+
+//mio//
+try{
+//   final QuerySnapshot result =
+//     await FirebaseFirestore.instance.collection('account').where('IBAN', isEqualTo: 
+//     iban).get();
+//  documents = result.docs;
+//  update();
+// print(documents.length);
+// print(userId!.uid);
+   await FirebaseFirestore.instance.collection("account").doc(ids).collection("notifications").add(
+        {
+          "dateTime":DateTime.now(),
+         "balance":sendMoneyBalance,
+         "username":beneName,
+         "type":"sending",
+        }
+      
+      //   {
+      //   "username":username,
+      //   "balance":beneBalance,
+      //   "DateTime":DateTime.now(),
+
+      // }
+      ).then(( value)async {
+              Get.snackbar("title","Value added successfully");
+
+           update()  ;  
+    //  Get.to(ReasonForUse());
+     });
+}
+catch(e){
+  Get.snackbar("Prepaid","${e.toString()}");
+}
+
+
+
+
+
+
+
+
+
 
  }
  else{
@@ -1894,6 +1938,59 @@ List type = [];
 print(element);
    });
    }
+//------------------------------setLimit-------------------------------
+List spendings = [];
+int? sumss;
+double jj =0;
+  Future<List?> addAllNumbers() async{
+    jj = 0;
+    sumss = 0;
+    spendings.clear();
+    QuerySnapshot  kiloss =    await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid).collection("notifications").where('type', isEqualTo:"sending")
+        .get();
+      spendings.clear();
+  
+   kiloss.docs.forEach((element) {
+    // print(element.docs[0]["username"]) ;
+    print(element["username"]) ;
+     print(element["dateTime"]) ;
+      print(element["username"]) ;
+      print(element["type"]) ;
+
+    spendings.add(element["balance"]);
+    // bala.add(element["balance"]);
+    // dateTimess.add(element["dateTime"]);
+    // type.add(element["type"]);
+    
+      print(element);
+print(element);
+   });
+
+
+  print(spendings);
+List<int?> intList = spendings.map((e) => int.tryParse(e)).where((e) => e != null).toList();
+print("kchukhuma");
+print(intList); // Output: [1, 2, 3, 5]
+// var total;
+// for (var i = 0; i < intList.length; i++) {
+//   total +=  intList[i];
+  
+// }
+ sumss = intList.isEmpty ? 0 : intList.reduce((a, b) => a! + b!);
+
+ jj = sumss!.toDouble();
+print("kchukhuma part two");
+print(sumss);
+// List<int> hiloJulo = [];
+//    hiloJulo = spendings;
+// print(hiloJulo);
+   }
+
+
+
+
+
 
 //===================================Update passcode=======================================
 
