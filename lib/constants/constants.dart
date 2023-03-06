@@ -100,7 +100,8 @@ class MyTabBar {
 class TabSelection {
   static int isSelected = 0;
 }
-
+// waah mera putar fair getx use karn da ki faida ?
+// hehe getx bd mai lgay tha ya front end bnatywqt kia tha Get.to(); bas itna sa kaam hota hay
 class MyToDoList {
   final String imagePath, description;
   final Color color;

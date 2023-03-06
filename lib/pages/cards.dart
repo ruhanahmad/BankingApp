@@ -23,12 +23,13 @@ class _CardsState extends State<Cards> {
     UserController userController = Get.put(UserController());
  
 
-  // @override
-  // void initState() {
-  //   userController.getVirtualCard();
-  //   super.initState();
+  @override
+  void initState() {
+    userController.getVirtualCard();
+    userController.getPhysicalCard();
+    super.initState();
     
-  // }
+  }
 
 
    Future<void>? alerts(){
@@ -85,7 +86,7 @@ class _CardsState extends State<Cards> {
                 ),
               ),
 
-              SizedBox(height: 30,),
+              SizedBox(height: 5,),
 
                    Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -124,7 +125,7 @@ class _CardsState extends State<Cards> {
                   },
                 ),
               ),
-SizedBox(height: 30,),
+SizedBox(height: 5,),
 
                Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -252,17 +253,32 @@ SizedBox(height: 30,),
   Widget build(BuildContext context) {
      var users = userController.getVirtualCard();
   // UserController userController = Get.put(UserController());
-    return Scaffold(
-      backgroundColor: const Color(0xFFf3f4f6),
-      body: SingleChildScrollView(
-        child: 
-       GetBuilder<UserController>(
+    return 
+ GetBuilder<UserController>(
         
         init: UserController(),
         builder: (_){
             // DateTime date = DateTime.fromMillisecondsSinceEpoch();
 
-        return          Container(
+        return  
+    DefaultTabController(
+        length: 2, // number of tabs
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Card'),
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.card_giftcard), text: 'Virtual Card'),
+                Tab(icon: Icon(Icons.card_giftcard), text: 'Physical Card'),
+              
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              SingleChildScrollView(
+                child: 
+                    Container(
           margin: const EdgeInsets.only(left: 5, right: 10, top: 20),
           child: Column(
             children: [
@@ -282,8 +298,9 @@ SizedBox(height: 30,),
                       ),
                     ),
                     MaterialButton(
-                      onPressed: () {
-                      Get.to(CardDesign());
+                      onPressed: ()async {
+                        await    userController.checkVirtualCard();
+                      // Get.to(CardDesign());
                       },
                       color: const Color(0xFF006ee8),
                       textColor: Colors.white,
@@ -318,7 +335,7 @@ SizedBox(height: 30,),
                   children: [
 
 Container(
-  height: 500,
+  height: 200,
   width: Get.width,
   child:   ListView.builder(
   
@@ -551,13 +568,373 @@ Container(
               
             ],
           ),
-        );
-       })
+        ),
+
+                
+                
+                
+                ),
+
+                 userController.physicalCardAcc.length > 0 ?
+              Container(
+  height: 200,
+  width: Get.width,
+  child:   ListView.builder(
+  
+    itemCount: _.physicalCardAcc.length,
+    scrollDirection: Axis.horizontal,
+  
+    itemBuilder: (context,i){
+  
+    return CreditCard(
+  
+      cardNumber: _.physicalCardAcc.first.toString(),
+  
+      cardExpiry: _.physicalCardAddress[i].toString(),
+  
+      cardHolderName: "",
+  
+      cvv: _.physicalCardCvv[i].toString(),
+  
+      bankName: "Credit Card",
+  
+      // cardType: CardType.masterCard, // Optional if you want to override Card Type
+  
+      showBackSide: false,
+  
+      frontBackground: CardBackgrounds.black,
+  
+      backBackground: CardBackgrounds.white,
+  
+      showShadow: true,
+  
+      textExpDate: _.physicalCardZipCode[i].toString(),
+  
+      textName:_.physicalCardCity[i].toString(),
+  
+      textExpiry: _.physicalCardCvv[i].toString(),
+  
+  );
+  
+  }),
+):
+Text("Add Card")
+,
+             
+            ],
+          ),
+        ),
+      );
+        });
+//     Scaffold(
+//       backgroundColor: const Color(0xFFf3f4f6),
+//       body: 
+//       SingleChildScrollView(
+//         child: 
+//        GetBuilder<UserController>(
+        
+//         init: UserController(),
+//         builder: (_){
+//             // DateTime date = DateTime.fromMillisecondsSinceEpoch();
+
+//         return          
+//         Container(
+//           margin: const EdgeInsets.only(left: 5, right: 10, top: 20),
+//           child: Column(
+//             children: [
+//               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+//                 // to navigate screen
+//                 GestureDetector(child: const Icon(Icons.arrow_back)),
+//                 Row(
+//                   children: [
+//                     GestureDetector(
+//                       onTap: ()async {
+                        
+//                         await userController.getVirtualCard();
+//                       },
+//                       child: const Icon(
+//                         Icons.swap_vert,
+//                         size: 26,
+//                       ),
+//                     ),
+//                     MaterialButton(
+//                       onPressed: ()async {
+//                         await    userController.checkVirtualCard();
+//                       // Get.to(CardDesign());
+//                       },
+//                       color: const Color(0xFF006ee8),
+//                       textColor: Colors.white,
+//                       child: const Icon(
+//                         Icons.add,
+//                         size: 20,
+//                       ),
+//                       padding: const EdgeInsets.all(8.0),
+//                       shape:  CircleBorder(),
+//                     ),
+//                   ],
+//                 ),
+//               ]),
+//               // main heading
+//               const Padding(
+//                 padding: EdgeInsets.symmetric(vertical: 5),
+//                 child: TopHeading(
+//                   heading: "Cards",
+//                 ),
+//               ),
+//               //  for display CarouselSlider
+           
+//             //  userController.isChecked  == false ?
+
+//             // userController.virtualCardAcc !=  null ?
+            
+//             userController.virtualCardAcc.length > 0 ?
+
+
+//               Container(
+//                 child: Column(
+//                   children: [
+
+// Container(
+//   height: 200,
+//   width: Get.width,
+//   child:   ListView.builder(
+  
+//     itemCount: _.virtualCardAcc.length,
+//     scrollDirection: Axis.horizontal,
+  
+//     itemBuilder: (context,i){
+  
+//     return CreditCard(
+  
+//       cardNumber: _.virtualCardAcc[i].toString(),
+  
+//       cardExpiry: _.montht.toString() + " /" + _.yeart.toString(),
+  
+//       cardHolderName: "",
+  
+//       cvv: _.virtualCardCvv[i].toString(),
+  
+//       bankName: "Credit Card",
+  
+//       // cardType: CardType.masterCard, // Optional if you want to override Card Type
+  
+//       showBackSide: false,
+  
+//       frontBackground: CardBackgrounds.black,
+  
+//       backBackground: CardBackgrounds.white,
+  
+//       showShadow: true,
+  
+//       textExpDate: 'Exp. Date',
+  
+//       textName:"CVV" + " " + _.virtualCardCvv[i].toString(),
+  
+//       textExpiry: _.virtualCardCvv[i].toString(),
+  
+//   );
+  
+//   }),
+// ),
+
+
+
+//                             //
+// //                     Stack(
+// //                       children: [
+// //                         Container(height: 200,width: 500,
+// //                         decoration: BoxDecoration(color: Colors.yellow,),
+// //                         child: 
+
+// //                         // ListView(
+// //                         //   children: [
+                            
+// //                         //     // users.map(buildUser).ToList
+// //                         //   ],
+// //                         // )
+                        
+// //                         Column(
+
+// // children: [
+
+  
+
+// //   //  var users =userController.getVirtualCard();
+ 
+// //   Text("Account number      " +  _.virtualCardAcc[0].toString()),
+// //   Text("Cvv        " + _.virtualCardCvv[0].toString() ),
+// //    Text("Status      " + _.virtualCardStatus[0].toString() ),
+
+
+
+
+
+
+// // ],
+// //                         )
+// //                         ),
+// //                         // Image.asset('assets/images/bloack-credit-card.png'),
+// //                         // for visible icon
+// //                         // const CircleAvatar(
+// //                         //     radius: 17,
+// //                         //     backgroundColor: Color(0xFFe8e9ee),
+// //                         //     child: Icon(
+// //                         //       Icons.visibility,
+// //                         //       color: Color(0xFF858c94),
+// //                         //       size: 19,
+// //                         //     ))
+// //                       ],
+// //                     ),
+//             //  CarouselSlider(
+//             //       options: CarouselOptions(
+//             //         // height: 180.0,
+//             //         enlargeCenterPage: true,
+//             //         autoPlay: true,
+//             //         aspectRatio: 16 / 9,
+//             //         autoPlayCurve: Curves.fastOutSlowIn,
+//             //         enableInfiniteScroll: true,
+//             //         autoPlayAnimationDuration:
+//             //             const Duration(milliseconds: 800),
+//             //         viewportFraction: 0.8,
+//             //       ),
+//             //       items: [
+//             //         // don't have real pictures so i use this from internet
+        
+//             //         // Container(
+//             //         //   child: Image.network('assets/images/index.jpg'),
+//             //         // ),
+//             //       ]),
+
+//                         Container(
+//                 margin: const EdgeInsets.only(top: 20),
+//                 padding:
+//                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+//                 decoration: BoxDecoration(
+//                     color: Colors.white,
+//                     borderRadius: BorderRadius.circular(12.0)),
+//                 child: Column(
+//                   children: [
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: const [
+//                         Text(
+//                           "Start shopping online",
+//                           style: TextStyle(
+//                               color: Color(0xFF262626),
+//                               fontWeight: FontWeight.bold,
+//                               fontSize: 17.0),
+//                         ),
+//                         Icon(Icons.info_outline_rounded)
+//                       ],
+//                     ),
+//                     const Padding(
+//                       padding: EdgeInsets.symmetric(vertical: 6),
+//                       child: Text(
+//                         "Use this card to make more secure online transactions",
+//                         style: TextStyle(color: Color(0xFF9b9fa2)),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               const SizedBox(
+//                 height: 20,
+//               ),
+             
+//               Container(
+//                 decoration: BoxDecoration(
+//                     color: Colors.white,
+//                     borderRadius: BorderRadius.circular(12.0)),
+//                 child: Column(
+//                   children: [
+//                     GestureDetector(
+//                       onTap: () async{
+//                         await userController.FreezeCardUpdated();
+//                       },
+//                       child:  Padding(
+//                         padding: EdgeInsets.symmetric(vertical: 15),
+
+//                         child: ListTile(
+//                           leading: CircleAvatar(
+//                             backgroundColor: Color(0xFF0356e0),
+//                             child: Icon(
+//                               Icons.ac_unit,
+//                               color: Colors.white,
+//                             ),
+//                           ),
+                          
+//                           title:
+                     
+//                            Text(
+                             
+//                            _.freezeText.toString() ,
+                            
+//                             style: TextStyle(
+//                                 fontWeight: FontWeight.bold, fontSize: 18),
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                     ListTile(
+//                       leading: const CircleAvatar(
+//                         backgroundColor: Color(0xFF0356e0),
+//                         child: Icon(Icons.delete, color: Colors.white),
+//                       ),
+//                       title: const Text(
+//                         "Delete Card",
+//                         style: TextStyle(
+//                             fontWeight: FontWeight.bold, fontSize: 18),
+//                       ),
+//                       subtitle:
+//                           const Text("Terminate or rename  card and more"),
+//                       onTap: ()async {
+//                         await userController.terminatedCard();
+//                       },
+//                     ),
+//                     SizedBox(height: 10,),
+//                                         ListTile(
+//                       leading: const CircleAvatar(
+//                         backgroundColor: Color(0xFF0356e0),
+//                         child: Icon(Icons.settings, color: Colors.white),
+//                       ),
+//                       title: const Text(
+//                         "Order Physical Card",
+//                         style: TextStyle(
+//                             fontWeight: FontWeight.bold, fontSize: 18),
+//                       ),
+//                       subtitle:
+//                           const Text("Order Card by entering your address "),
+//                       onTap: () async{
+
+//                         await alerts();
+//                         // Nav.toScreen(context, const SettingsPage());
+//                       },
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               const SizedBox(
+//                 height: 50,
+//               )
+//               ],
+//               ),
+//               ) 
+//               // :Text("no new data")
+           
+              
+//               :Text("Add Card")
+ 
+        
+              
+//             ],
+//           ),
+//         );
+//        })
 
       
         
      
-      ),
-    );
+//       ),
+//     );
   }
 }

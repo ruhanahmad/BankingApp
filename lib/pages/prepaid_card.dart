@@ -71,35 +71,72 @@ class PrepaidCard extends StatelessWidget {
                 const SizedBox(
                   height: 30.0,
                 ),
-                TextFormField(
-                                 validator: (value) {
-                  if (value == null && value!.length > 10 ) {
-                   return "Value must not be null and range between 0 to 10";
-                  }
-                 
+                            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                
+                      contentPadding:
+                          const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+                      filled: true,
+                      fillColor: kPrimaryColor.withOpacity(0.3),
+                      labelText: 'Prepaid Code',
+                      labelStyle: kFormTextStyle,
+                      border: InputBorder.none,
+                      // prefixIcon: const Icon(Icons.search_rounded),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        borderSide: const BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        borderSide: const BorderSide(color: kPrimaryColor),
+                      )),
+                  keyboardType: TextInputType.text,
+                  obscureText: false,
+                  validator: (String? value) {
+                    if (value!.isEmpty  || value.length > 10 || value.length < 10 ) {
+                      return 'Value must not be null and range between 0 to 10';
+                    }
+                    return null;
                   },
                   onChanged: (value) {
-                    userController.codeEntered = value;
+                   
+                     userController.codeEntered = value;
                     userController.update();
+                   
                   },
-                  textAlign: TextAlign.left,
-                  decoration: InputDecoration(
-                    hintText: 'Enter Prepaid Code',
-                    hintStyle: const TextStyle(color: Colors.grey),
-                    suffix: IconButton(
-                      icon: const FaIcon(
-                        FontAwesomeIcons.camera,
-                        color: Colors.blue,
-                        size: 20,
-                      ),
-                      onPressed: () {},
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 5.0, horizontal: 8.0),
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
                 ),
+              ),
+                // TextFormField(
+                //                  validator: (value) {
+                //   if (value == null && value!.length > 10 ) {
+                //    return "Value must not be null and range between 0 to 10";
+                //   }
+                 
+                //   },
+                //   onChanged: (value) {
+                //     userController.codeEntered = value;
+                //     userController.update();
+                //   },
+                //   textAlign: TextAlign.left,
+                //   decoration: InputDecoration(
+                //     hintText: 'Enter Prepaid Code',
+                //     hintStyle: const TextStyle(color: Colors.grey),
+                //     suffix: IconButton(
+                //       icon: const FaIcon(
+                //         FontAwesomeIcons.camera,
+                //         color: Colors.blue,
+                //         size: 20,
+                //       ),
+                //       onPressed: () {},
+                //     ),
+                //     contentPadding: const EdgeInsets.symmetric(
+                //         vertical: 5.0, horizontal: 8.0),
+                //     filled: true,
+                //     fillColor: Colors.white,
+                //   ),
+                // ),
                 const SizedBox(
                   height: 30.0,
                 ),
@@ -245,10 +282,10 @@ class PrepaidCard extends StatelessWidget {
               fontWeight: FontWeight.bold
           ),
               ),
-              onPressed: (){
+              onPressed: ()async{
            if (_formKey.currentState!.validate()){
                    print("object");
-                    userController.prepaid();
+                   await userController.prepaid();
           
            }
            

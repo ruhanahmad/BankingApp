@@ -29,6 +29,7 @@ import 'package:bnacash/models/contacts.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:kommunicate_flutter/kommunicate_flutter.dart';
 import 'dart:io' as io;
+import '../models/graphtry.dart';
 import '../pages/landing_page.dart';
 import '../pages/login/find_friends.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -47,6 +48,32 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 
 class UserController extends GetxController {
+
+//-------------------------------graph
+
+
+List<ChartData> chartData = [];
+
+graphTry() async{
+  chartData.clear();
+  await getIDo();
+final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid).collection("notifications")
+        .get();
+final List<DocumentSnapshot> documentSnapshot = querySnapshot.docs;
+final List<Map<String, dynamic>> data = documentSnapshot.map((e ) => e.data() as Map<String, dynamic>).toList();
+
+print(chartData);
+
+
+for (var i = 0; i < data.length; i++) {
+  chartData.add(ChartData(DateFormat('dd-MM-yyyy').format(data[i]['dateTime'].toDate()) , double.parse(data[i]['balance'])));
+}
+//yar ye ho kya raha hay terminal mein kesi kesi batein print horain na
+//kn c kachukuma /lulu phir kuch random boys k name phir minority 
+//haha khucjum mz ny he rkha tha jo b zhn may lkh deti hu smjh nh ata us time kya rkhu
+// aise nai karte hamesha debug print or code k comments or variables or class k naam aise rakho k a
+}
 
 
 
@@ -1970,7 +1997,7 @@ print(element);
 
   print(spendings);
 List<int?> intList = spendings.map((e) => int.tryParse(e)).where((e) => e != null).toList();
-print("kchukhuma");
+print("popiuy");
 print(intList); // Output: [1, 2, 3, 5]
 // var total;
 // for (var i = 0; i < intList.length; i++) {
@@ -1980,7 +2007,7 @@ print(intList); // Output: [1, 2, 3, 5]
  sumss = intList.isEmpty ? 0 : intList.reduce((a, b) => a! + b!);
 
  jj = sumss!.toDouble();
-print("kchukhuma part two");
+print("part two");
 print(sumss);
 // List<int> hiloJulo = [];
 //    hiloJulo = spendings;
@@ -2130,6 +2157,62 @@ Get.snackbar("Success","Changed plan to Premium");
 
 
       }
+
+//--------------------------------------------GetPhysicalCard---------------------------
+
+
+
+ List physicalCardAcc = [];
+   List physicalCardCvv = []; 
+   List physicalCardAddress = [];
+   List physicalCardCity = [];
+   List physicalCardZipCode = [];
+
+   Future<List?> getPhysicalCard() async{
+
+    QuerySnapshot  kilo =    await FirebaseFirestore.instance
+        .collection("physicalCard")
+        .get();
+
+      physicalCardAcc.clear();
+      physicalCardCvv.clear();
+      physicalCardCity.clear();
+      physicalCardZipCode.clear();
+      physicalCardAddress.clear();
+      physicalCardAddress.clear();
+      // millisecondsSinceEpoch = null;
+      // date = null;
+      // yeart = null;
+   print(kilo.docs);
+          //  virtualCardGet  = kilo.docs;
+
+   
+   kilo.docs.forEach((element) {
+    // print(element.docs[0]["username"]) ;
+    // print(element["accountNumber"]) ;
+    physicalCardAcc.add(element["CardNum"]);
+    physicalCardAddress.add(element["address"]);
+    physicalCardCity.add(element["city"]);
+    physicalCardZipCode.add(element["zipCode"]);
+    physicalCardCvv.add(element["CVV"]);
+   
+
+    // bala.add(element["balance"]);
+
+
+
+      print(element);
+print(element);
+
+   });
+  
+  
+   }
+
+
+
+
+
 
 
 

@@ -1,6 +1,7 @@
 import 'package:bnacash/Controller/transaction_controller.dart';
 import 'package:bnacash/Controller/userController.dart';
 import 'package:bnacash/constants/constants.dart';
+import 'package:bnacash/models/graphtry.dart';
 import 'package:bnacash/pages/Settings.dart';
 import 'package:bnacash/pages/chatbot.dart';
 import 'package:bnacash/pages/hi.dart';
@@ -95,7 +96,10 @@ AppBar buildAppBar(context) => AppBar(
                 onPressed: () async{
                   // Nav.toScreen(context, const AnalyticsPage());
                   await userController.addAllNumbers();
-                  Nav.toScreen(context,  BarChartSample1());
+                 // Nav.toScreen(context,  Paga());
+                  await userController.graphTry();
+                  Get.to(()=>Paga());
+                  //ye konsi navigation use kar rahi ho 
                   
                 },
               ),
@@ -119,6 +123,17 @@ AppBar buildAppBar(context) => AppBar(
                 onPressed: () async {
                   await userController.getDataForProfile();
                   Nav.toScreen(context, Settingss());
+                  // Get.put(ExampleHomePage());
+                },
+              ),
+                      MaterialButton(
+                minWidth: 0,
+                //color: Colors.transparent,
+                child: const FaIcon(FontAwesomeIcons.gear),
+                onPressed: () async {
+                  // await userController.getDataForProfile();
+                  // Nav.toScreen(context, Settingss());
+
                   // Get.put(ExampleHomePage());
                 },
               ),

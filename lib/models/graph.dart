@@ -5,9 +5,18 @@ import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:syncfusion_flutter_charts/charts.dart';
+
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:pie_chart/pie_chart.dart';
+
+
+import 'package:d_chart/d_chart.dart';
+// import 'package:number_display/number_display.dart';
+
+// import 'liquid_script.dart' show liquidScript;
+// import 'gl_script.dart' show glScript;
+// import 'dark_theme_script.dart' show darkThemeScript;
+
 
   class SalesData {
   SalesData(this.year, this.sales);
@@ -34,13 +43,13 @@ class BarChartSample1 extends StatefulWidget {
 class BarChartSample1State extends State<BarChartSample1> {
 
   
-TooltipBehavior? _tooltipBehavior;
+// TooltipBehavior? _tooltipBehavior;
 
-@override
-void initState(){
-  _tooltipBehavior = TooltipBehavior(enable: true);
-  super.initState();
-}
+// @override
+// void initState(){
+//   _tooltipBehavior = TooltipBehavior(enable: true);
+//   super.initState();
+// }
 
   final Color? barBackgroundColor = const Color(0xff72d8bf);
   final Duration animDuration = const Duration(milliseconds: 250);
@@ -55,60 +64,88 @@ Map<String, double> dataMap = {
   @override
   Widget build(BuildContext context) {
     UserController userController = Get.put(UserController());
+    List hh = [
+      "domain",
+      "kkkl",
+      "dadad",
+      "asd2qw",
+      "asasazzz"
+    ];
+        List hhk = [
+      2,
+      2,
+      2,
+      3,
+      12
+    ];
   return Scaffold(
     body: 
-    Center(
-        child: Container(
-          child:
-          PieChart(
-          dataMap: dataMap,
-          chartType: ChartType.ring,
-          baseChartColor: Colors.grey[300]!,
-          colorList: widget.availableColors,
-        ),
-//           charts.PieChart(
-//   [
-//     charts.Series<MyData, String>(
-//       id: 'myData',
-//       domainFn: (MyData data, _) => data.category,
-//       measureFn: (MyData data, _) => data.value,
-//       data: [
-//         MyData('Category 1', 5),
-//         MyData('Category 2', 10),
-//         MyData('Category 3', 15),
-//       ],
-//     ),
-//   ],
-// )
-
-          //  SfCartesianChart(
-
-          //   primaryXAxis: CategoryAxis(),
-          //   // Chart title
-          //   title: ChartTitle(text: 'Half yearly sales analysis'),
-          //   // Enable legend
-          //   legend: Legend(isVisible: true),
-          //   // Enable tooltip
-          //   tooltipBehavior: _tooltipBehavior,
-
-          //   series: <LineSeries<SalesData, String>>[
-          //     LineSeries<SalesData, String>(
-          //       dataSource:  <SalesData>[
-          //         SalesData('Jan', 35),
-          //         SalesData('Feb', 28),
-          //         SalesData('Mar', 34),
-          //         SalesData('Apr', 32),
-          //         SalesData('May', 40)
+    SingleChildScrollView(
+      child: SafeArea(
+        child: Column(
+          children: [
+            //  for(var i=0;i<hh.length;i++)
+    
+                  Center(
+                      child: Container(
+                        height: 400,
+                        width: 400,
+                        child:
+                        PieChart(
+                        dataMap: dataMap,
+                        chartType: ChartType.ring,
+                        baseChartColor: Colors.grey[300]!,
+                        colorList: widget.availableColors,
+                      ),
+          //           charts.PieChart(
+          //   [
+          //     charts.Series<MyData, String>(
+          //       id: 'myData',
+          //       domainFn: (MyData data, _) => data.category,
+          //       measureFn: (MyData data, _) => data.value,
+          //       data: [
+          //         MyData('Category 1', 5),
+          //         MyData('Category 2', 10),
+          //         MyData('Category 3', 15),
           //       ],
-          //       xValueMapper: (SalesData sales, _) => sales.year,
-          //       yValueMapper: (SalesData sales, _) => sales.sales,
-          //       // Enable data label
-          //       dataLabelSettings: DataLabelSettings(isVisible: true)
-          //     )
-          //   ]
+          //     ),
+          //   ],
           // )
-        )
-      )
+          
+          //               //  SfCartesianChart(
+          
+          //               //   primaryXAxis: CategoryAxis(),
+          //               //   // Chart title
+          //               //   title: ChartTitle(text: 'Half yearly sales analysis'),
+          //               //   // Enable legend
+          //               //   legend: Legend(isVisible: true),
+          //               //   // Enable tooltip
+          //               //   tooltipBehavior: _tooltipBehavior,
+          
+          //               //   series: <LineSeries<SalesData, String>>[
+          //               //     LineSeries<SalesData, String>(
+          //               //       dataSource:  <SalesData>[
+          //               //         SalesData('Jan', 35),
+          //               //         SalesData('Feb', 28),
+          //               //         SalesData('Mar', 34),
+          //               //         SalesData('Apr', 32),
+          //               //         SalesData('May', 40)
+          //               //       ],
+          //               //       xValueMapper: (SalesData sales, _) => sales.year,
+          //               //       yValueMapper: (SalesData sales, _) => sales.sales,
+          //               //       // Enable data label
+          //               //       dataLabelSettings: DataLabelSettings(isVisible: true)
+          //               //     )
+          //               //   ]
+          //               // )
+                      )
+                    ),
+          
+          
+          ],
+        ),
+      ),
+    )
   );
 
 
