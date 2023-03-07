@@ -61,8 +61,8 @@ AppBar buildAppBar(context) => AppBar(
                 //color: Colors.transparent,
                 child: const FaIcon(FontAwesomeIcons.message),
                 onPressed: () async {
-              //  await userController.hanodi();
-              Get.to(DialogFlows());
+               await userController.tenNumberGenerated();
+              // Get.to(DialogFlows());
               
               
                 },
@@ -99,7 +99,7 @@ AppBar buildAppBar(context) => AppBar(
                  // Nav.toScreen(context,  Paga());
                   await userController.graphTry();
                   Get.to(()=>Paga());
-                  //ye konsi navigation use kar rahi ho 
+               
                   
                 },
               ),
@@ -126,17 +126,17 @@ AppBar buildAppBar(context) => AppBar(
                   // Get.put(ExampleHomePage());
                 },
               ),
-                      MaterialButton(
-                minWidth: 0,
-                //color: Colors.transparent,
-                child: const FaIcon(FontAwesomeIcons.gear),
-                onPressed: () async {
-                  // await userController.getDataForProfile();
-                  // Nav.toScreen(context, Settingss());
+              //         MaterialButton(
+              //   minWidth: 0,
+              //   //color: Colors.transparent,
+              //   child: const FaIcon(FontAwesomeIcons.gear),
+              //   onPressed: () async {
+              //     // await userController.getDataForProfile();
+              //     // Nav.toScreen(context, Settingss());
 
-                  // Get.put(ExampleHomePage());
-                },
-              ),
+              //     // Get.put(ExampleHomePage());
+              //   },
+              // ),
               MaterialButton(
                 minWidth: 0,
                 //color: Colors.transparent,

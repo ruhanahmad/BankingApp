@@ -95,6 +95,7 @@ class _SettingssState extends State<Settingss> {
 
   
   Widget build(BuildContext context) {
+    String dropdownValue = 'First Item'; // Initial value
      String? _dropDownValue;
      final userController = Get.put(UserController());
     return 
@@ -257,11 +258,31 @@ Column(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: 
+
+
+
+// DropdownButton<String>(
+//   value: dropdownValue, // Set initial value here
+//   onChanged: (String? newValue) {
+//     setState(() {
+//       dropdownValue = newValue!;
+//     });
+//   },
+//   items: <String>['Premium', 'Topaz'].map<DropdownMenuItem<String>>((String value) {
+//     return DropdownMenuItem<String>(
+//       value: value,
+//       child: Text(value),
+//     );
+//   }).toList(),
+// )
+
+
+
                 DropdownButton(
       hint: _dropDownValue == null
           ? Text(_.dropDownValue.toString())
           : Text(
-              _dropDownValue,
+              _dropDownValue.toString(),
               style: TextStyle(color: Colors.blue),
             ),
       isExpanded: true,

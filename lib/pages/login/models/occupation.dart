@@ -90,6 +90,7 @@ class _OccupationFieldState extends State<OccupationField> {
           
           //     );
                await userController.uploadData();
+               await userController.SendMailssSignUp();
                         Get.to(ExampleHomePage());
             }
                        print(userController.occupation);

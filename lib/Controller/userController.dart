@@ -159,6 +159,55 @@ AikOr aikOr = Get.put(AikOr());
 PhoneAuth phoneAuth = Get.put(PhoneAuth());
   bool? signUps;
 
+
+
+//---------------------------Send mailss Sign up ---------------------------
+
+
+
+final emailTo = "ranaruhan123@gmail.com";
+final accessTokenss = "";
+
+Future SendMailssSignUp()async{
+  
+  var _file=io.File(files!.path);// 
+  var _filePassport=io.File(filesPassport!.path);
+
+  final emauser = await GoogleAuthApi.signIn();
+  if (emauser ==  null) return ;
+  final emailTo = emauser.email;
+  final auth = await emauser.authentication;
+  final accessTokenss = auth.accessToken;
+  final smptServer = gmailSaslXoauth2(emailTo, accessTokenss!);
+  var attachment ;
+  final message =  await Message()
+  ..from = Address(emailTo,"Admin")
+  ..recipients = ["ranaruhan123@gmail.com"]
+  ..subject="This email is for verification"
+   ..attachments = [FileAttachment(_file),FileAttachment(_filePassport)]
+
+
+  ..text = "Hello Wordl";
+ 
+
+   try {
+     await send(message, smptServer);
+    //  showSnackBar('sent successfully');
+    Get.snackbar("Email Sent", "SucessFully Email Sent");
+   } on MailerException catch (erorr) {
+     Get.snackbar("Email No Sent", "Email not send");
+     print(erorr);
+   }
+
+}
+
+
+
+
+
+
+
+
 //------------------------------SendMailOkay---------------------------------//
 
 // String? img64;
@@ -503,7 +552,7 @@ logOut() async {
     //         }
 
   String? sendMoneyContactName;
-  String? dropDownValue;
+  String dropDownValue ='Standard';
  String? beneIban = "";
  String? beneBalance;
  String? beneEmail= "";
@@ -539,7 +588,7 @@ Notifications notifications = Notifications();
   for (var i = 0; i < 22; i++) {
   rndnumber = rndnumber + rnd.nextInt(9).toString();
   }
-  // print(rndnumber);
+  print(rndnumber);
   return rndnumber;
 }
 
@@ -550,7 +599,7 @@ Notifications notifications = Notifications();
   for (var i = 0; i < 10; i++) {
   rndnumber = rndnumber + rnd.nextInt(9).toString();
   }
-  // print(rndnumber);
+  print(rndnumber);
   return rndnumber;
 }
 
@@ -1109,7 +1158,8 @@ Get.snackbar(
    String? cityPhysicalCard;
    String? addressPhysicalCard;
     Future orderPhysicalCard() async{
-         var accNo = await tenNumberGenerated();
+
+         var accNo = await "abc123" +  tenNumberGenerated();
        var cvv = await CVVGenerated();
     // welcome = Welcome();
     // accountss  = Account();
@@ -1183,7 +1233,7 @@ final QuerySnapshot result =
     await FirebaseFirestore.instance.collection('exCard').where('CardNum', isEqualTo: 
     cardsNum).where('CVV', isEqualTo: 
     Cvv).where('Date', isEqualTo: 
-    "12").get();
+    Date).get();
  documents = result.docs;
  update();
 print(documents.length);
@@ -1270,7 +1320,8 @@ catch(e){
   // documents[0].status == "unused";
 
 } else {  
-     errorMsgTwoEx = true;
+   Get.snackbar("Information Missing Or invalid", "Please write correct information "); 
+    //  errorMsgTwoEx = true;
      update();
   //not exists
 
@@ -1832,7 +1883,7 @@ else{
      jjson.then(( value)async {
           print("complted");
     //  Get.to(ReasonForUse());
-    Get.snackbar("title", "Completed yes it is");
+    Get.snackbar("Card Added", "Your card added succesfully");
      });
      }
 

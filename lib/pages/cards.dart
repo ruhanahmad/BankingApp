@@ -249,6 +249,74 @@ SizedBox(height: 5,),
   }
 
    
+
+
+
+   Future<void>? alerting(){
+    showDialog(context: context, builder: (context){
+      return     AlertDialog(
+        content: new
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(width: 5),
+            Text('Are you sure you want to delete'),
+           
+           
+                   SizedBox(height: 20,),
+                            Row(
+                              children: [
+                                                             ElevatedButton
+                  
+                (
+                  
+                                        style: ElevatedButton.styleFrom(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 8.0),
+                                          elevation: 5.0,
+                                          primary: kPrimaryColor,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(50.0)),
+                                        ),
+                  onPressed: () async{
+                    // await userController.orderPhysicalCard();
+           await userController.terminatedCard();
+        
+//  print(userController.address);
+                   }, child: Text("Yes")),
+                   SizedBox(width: 30,),
+                                ElevatedButton
+                  
+                (
+                  
+                                        style: ElevatedButton.styleFrom(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 8.0),
+                                          elevation: 5.0,
+                                          primary: kPrimaryColor,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(50.0)),
+                                        ),
+                  onPressed: () async{
+                    Navigator.of(context);
+
+                   }, child: Text("No")),
+                              ],
+                            )
+          ],
+        ),
+      );
+    });
+  }
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
      var users = userController.getVirtualCard();
@@ -528,7 +596,8 @@ Container(
                       subtitle:
                           const Text("Terminate or rename  card and more"),
                       onTap: ()async {
-                        await userController.terminatedCard();
+                        // await userController.terminatedCard();
+                      await  alerting();
                       },
                     ),
                     SizedBox(height: 10,),
