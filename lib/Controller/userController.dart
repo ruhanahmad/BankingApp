@@ -172,8 +172,8 @@ final accessTokenss = "";
 
 Future SendMailssSignUp()async{
   
-  var _file=io.File(files!.path);// 
-  var _filePassport=io.File(filesPassport!.path);
+  // var _file=io.File(files!.path);// 
+  // var _filePassport=io.File(filesPassport!.path);
 
   final emauser = await GoogleAuthApi.signIn();
   if (emauser ==  null) return ;
@@ -186,7 +186,7 @@ Future SendMailssSignUp()async{
   ..from = Address(emailTo,"Admin")
   ..recipients = ["ranaruhan123@gmail.com"]
   ..subject="This email is for verification"
-   ..attachments = [FileAttachment(_file),FileAttachment(_filePassport)]
+  //  ..attachments = [FileAttachment(_file),FileAttachment(_filePassport)]
 
 
   ..text = "Hello Wordl";
