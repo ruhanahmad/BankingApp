@@ -1090,11 +1090,14 @@ int subTwoStringsAsInt({required var first,required var second})
 updateNotify()async{
   try {
   await getIDo();
-              QuerySnapshot<Map<String, dynamic>> snapshots = await FirebaseFirestore.instance.collection('account').doc(userId!.uid).collection("notifications").where('read', isEqualTo: false).get();
+              QuerySnapshot<Map<String, dynamic>> snapshots = await FirebaseFirestore.instance
+              .collection('account').doc(userId!.uid).collection("notifications")
+              .where('read', isEqualTo: false).get();
   WriteBatch batch = await FirebaseFirestore.instance.batch();
 
     snapshots.docs.forEach((doc)async {
-    DocumentReference ref = await FirebaseFirestore.instance.collection('account').doc(userId!.uid).collection("notifications").doc(doc.id);
+    DocumentReference ref = await FirebaseFirestore.instance.collection('account').doc(userId!.uid)
+    .collection("notifications").doc(doc.id);
     print(ref);
 
     batch.update( await ref, {'read': true});

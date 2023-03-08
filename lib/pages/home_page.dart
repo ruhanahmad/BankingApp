@@ -100,7 +100,7 @@ return
               return Text('Loading...');
             }
 
-            final unreadCount = snapshot.data!.docs.where((doc) => !doc['read']).length;
+            final unreadCount = snapshot.data!.docs.where((doc) => !doc['read']).length == null ? 0:snapshot.data!.docs.where((doc) => !doc['read']).length;
             // final unreadCounts = snapshot.data!.docs.where((doc) => !doc['read']).first.id;
 
               // print(unreadCounts);
