@@ -936,6 +936,32 @@ String? accB ="";
    
    
          await prefs.setBool("LoginInfo",true);
+
+
+         try{
+   await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").add(
+        {"dateTime":DateTime.now(),
+         "balance":"Your Account is Created",
+         "username":fullName,
+         "type":"New Account",
+         "read":false
+        }
+      //   {
+      //   "username":username,
+      //   "balance":beneBalance,
+      //   "DateTime":DateTime.now(),
+
+      // }
+      ).then(( value)async {
+              Get.snackbar("title","Value added successfully");
+
+           update()  ;  
+    //  Get.to(ReasonForUse());
+     });
+}
+catch(e){
+  Get.snackbar("Prepaid","${e.toString()}");
+}
      
   }
 
