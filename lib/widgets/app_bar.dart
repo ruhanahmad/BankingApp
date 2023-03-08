@@ -12,6 +12,7 @@ import 'package:bnacash/pages/shared/inbox_page.dart';
 import 'package:bnacash/pages/shared/transaction_history.dart';
 import 'package:bnacash/pages/verificationFailed.dart';
 import 'package:bnacash/widgets/profile_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -24,12 +25,16 @@ import '../models/graph.dart';
 UserController userController = Get.put(UserController());
 AikOr aikor = Get.put(AikOr());
 DateTime _selectedDate = DateTime.now();
-AppBar buildAppBar(context) => AppBar(
+AppBar buildAppBar(context) => 
+
+AppBar(
       backgroundColor: Colors.transparent,
       iconTheme: const IconThemeData(color: Colors.black),
       centerTitle: false,
       elevation: 0,
-      title:  GestureDetector(
+      title: 
+      
+       GestureDetector(
         onTap: () async{
          await userController.getDataForProfile(); 
           Get.to(ProfilePage());
@@ -42,114 +47,130 @@ AppBar buildAppBar(context) => AppBar(
       ),
       actions: [
         
-        SizedBox(
-          width: 300,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              //  MaterialButton(
-              //   minWidth: 0,
-              //   //color: Colors.transparent,
-              //   child: const FaIcon(FontAwesomeIcons.airbnb),
-              //   onPressed: () async {
+        // StreamBuilder(
+        //  stream: stream,
+        //   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+        //      if (snapshot.hasError) {
+        //       return Text('Error: ${snapshot.error}');
+        //     }
 
-              // //  await userController.hanodi();
-              //   },
-              // ),              
-               MaterialButton(
-                minWidth: 0,
-                //color: Colors.transparent,
-                child: const FaIcon(FontAwesomeIcons.message),
-                onPressed: () async {
-               await userController.tenNumberGenerated();
-              // Get.to(DialogFlows());
+        //     if (!snapshot.hasData) {
+        //       return Text('Loading...');
+        //     }
+
+        //     final unreadCount = snapshot.data!.docs.where((doc) => !doc['read']).length;
               
-              
-                },
-              ),
-              MaterialButton(
-                minWidth: 0,
-                //color: Colors.transparent,
-                child: const FaIcon(FontAwesomeIcons.addressBook),
-                onPressed: () async {
-                  await userController.getNotification();
-                  Nav.toScreen(context,   TransactionHistory());
-                  //  await  userController.ification();
-                  // await userController.getVirtualCard();
-                },
-              ),
-              // MaterialButton(
-              //   minWidth: 0,
-              //   //color: Colors.transparent,
-              //   child: const FaIcon(FontAwesomeIcons.solidChartBar),
-              //   onPressed: () async {
-              //     SharedPreferences prefs =
-              //         await SharedPreferences.getInstance();
-
-              //     await prefs.remove('LoginInfo');
-              //   },
-              // ),
-              MaterialButton(
-                minWidth: 0,
-                //color: Colors.transparent,
-                child: const FaIcon(FontAwesomeIcons.solidChartBar),
-                onPressed: () async{
-                  // Nav.toScreen(context, const AnalyticsPage());
-                  await userController.addAllNumbers();
-                 // Nav.toScreen(context,  Paga());
-                  await userController.graphTry();
-                  Get.to(()=>Paga());
-               
-                  
-                },
-              ),
-              //    MaterialButton(
-              //   minWidth: 0,
-              //   //color: Colors.transparent,
-              //   child: const FaIcon(FontAwesomeIcons.carBattery),
-              //   onPressed: () {
-              //     // Nav.toScreen(context, const AnalyticsPage());
-              //     // Nav.toScreen(context,  BarChartSample1());
-              //     userController.addAllNumbers();
-                  
-              //   },
-              // ),
-
-              
-              MaterialButton(
-                minWidth: 0,
-                //color: Colors.transparent,
-                child: const FaIcon(FontAwesomeIcons.gear),
-                onPressed: () async {
-                  await userController.getDataForProfile();
-                  Nav.toScreen(context, Settingss());
-                  // Get.put(ExampleHomePage());
-                },
-              ),
-              //         MaterialButton(
-              //   minWidth: 0,
-              //   //color: Colors.transparent,
-              //   child: const FaIcon(FontAwesomeIcons.gear),
-              //   onPressed: () async {
-              //     // await userController.getDataForProfile();
-              //     // Nav.toScreen(context, Settingss());
-
-              //     // Get.put(ExampleHomePage());
-              //   },
-              // ),
-              MaterialButton(
-                minWidth: 0,
-                //color: Colors.transparent,
-                child: const FaIcon(FontAwesomeIcons.solidBell),
-                onPressed: () async {
-                  await userController.getNotification();
-
-                  Nav.toScreen(context, const InboxPage());
-                },
-              ),
-            ],
-          ),
-        ),
+        //  return 
+         SizedBox(
+            width: 300,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                //  MaterialButton(
+                //   minWidth: 0,
+                //   //color: Colors.transparent,
+                //   child: const FaIcon(FontAwesomeIcons.airbnb),
+                //   onPressed: () async {
+        
+                // //  await userController.hanodi();
+                //   },
+                // ),              
+                 MaterialButton(
+                  minWidth: 0,
+                  //color: Colors.transparent,
+                  child: const FaIcon(FontAwesomeIcons.message),
+                  onPressed: () async {
+                //  await userController.tenNumberGenerated();
+                Get.to(DialogFlows());
+                
+                
+                  },
+                ),
+                MaterialButton(
+                  minWidth: 0,
+                  //color: Colors.transparent,
+                  child: const FaIcon(FontAwesomeIcons.addressBook),
+                  onPressed: () async {
+                    await userController.getNotification();
+                    Nav.toScreen(context,   TransactionHistory());
+                    //  await  userController.ification();
+                    // await userController.getVirtualCard();
+                  },
+                ),
+                // MaterialButton(
+                //   minWidth: 0,
+                //   //color: Colors.transparent,
+                //   child: const FaIcon(FontAwesomeIcons.solidChartBar),
+                //   onPressed: () async {
+                //     SharedPreferences prefs =
+                //         await SharedPreferences.getInstance();
+        
+                //     await prefs.remove('LoginInfo');
+                //   },
+                // ),
+                MaterialButton(
+                  minWidth: 0,
+                  //color: Colors.transparent,
+                  child: const FaIcon(FontAwesomeIcons.solidChartBar),
+                  onPressed: () async{
+                    // Nav.toScreen(context, const AnalyticsPage());
+                    await userController.addAllNumbers();
+                   // Nav.toScreen(context,  Paga());
+                    await userController.graphTry();
+                    Get.to(()=>Paga());
+                 
+                    
+                  },
+                ),
+                //    MaterialButton(
+                //   minWidth: 0,
+                //   //color: Colors.transparent,
+                //   child: const FaIcon(FontAwesomeIcons.carBattery),
+                //   onPressed: () {
+                //     // Nav.toScreen(context, const AnalyticsPage());
+                //     // Nav.toScreen(context,  BarChartSample1());
+                //     userController.addAllNumbers();
+                    
+                //   },
+                // ),
+        
+                
+                MaterialButton(
+                  minWidth: 0,
+                  //color: Colors.transparent,
+                  child: const FaIcon(FontAwesomeIcons.gear),
+                  onPressed: () async {
+                    await userController.getDataForProfile();
+                    Nav.toScreen(context, Settingss());
+                    // Get.put(ExampleHomePage());
+                  },
+                ),
+                //         MaterialButton(
+                //   minWidth: 0,
+                //   //color: Colors.transparent,
+                //   child: const FaIcon(FontAwesomeIcons.gear),
+                //   onPressed: () async {
+                //     // await userController.getDataForProfile();
+                //     // Nav.toScreen(context, Settingss());
+        
+                //     // Get.put(ExampleHomePage());
+                //   },
+                // ),
+                MaterialButton(
+                  minWidth: 0,
+                  //color: Colors.transparent,
+                  child:  FaIcon(FontAwesomeIcons.solidBell),
+                  onPressed: () async {
+                    await userController.getNotification();
+        
+                    Nav.toScreen(context, const InboxPage());
+                  },
+                ),
+              ],
+            ),
+          )
+        //   }
+        // ),
       ],
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bnacash/Controller/transaction_controller.dart';
+import 'package:bnacash/constants/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,6 +31,7 @@ import 'package:firebase_core/firebase_core.dart';
 // import 'package:kommunicate_flutter/kommunicate_flutter.dart';
 import 'dart:io' as io;
 import '../models/graphtry.dart';
+import '../pages/hi.dart';
 import '../pages/landing_page.dart';
 import '../pages/login/find_friends.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -997,7 +999,8 @@ try{
         {"dateTime":DateTime.now(),
          "balance":balance,
          "username":"prepaidCode",
-         "type":"prepaidCode"
+         "type":"prepaidCode",
+         "read":false
         }
       //   {
       //   "username":username,
@@ -1081,6 +1084,54 @@ int subTwoStringsAsInt({required var first,required var second})
       return 0;
     }
   }
+
+//--------------------------------------------------
+
+updateNotify()async{
+  try {
+  await getIDo();
+              QuerySnapshot<Map<String, dynamic>> snapshots = await FirebaseFirestore.instance.collection('account').doc(userId!.uid).collection("notifications").where('read', isEqualTo: false).get();
+  WriteBatch batch = await FirebaseFirestore.instance.batch();
+
+    snapshots.docs.forEach((doc)async {
+    DocumentReference ref = await FirebaseFirestore.instance.collection('account').doc(userId!.uid).collection("notifications").doc(doc.id);
+    print(ref);
+
+    batch.update( await ref, {'read': true});
+      try {
+    batch.commit().then((value) {
+  print('Batch update successful');
+}).catchError((error) {
+  print('Error updating batch: $error');
+});
+      }
+       catch(e){
+  // Get.snackbar("","${e.toString()}");
+  print("Notifications are true");
+}
+  });
+  }
+  catch(e){
+  // Get.snackbar("","${e.toString()}");
+  print("Notifications are true");
+}
+
+  // print(snapshots);
+//  await  
+//      FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").doc(unreadCounts).update({
+//                 "read":true
+//            }).then((value) => print(" updated"));
+
+}
+
+
+
+
+
+
+
+//------------------------------------
+
   var balances;
 Future  getAccountData() async {
    await getIDo();
@@ -1275,7 +1326,9 @@ if (documents.length > 0) {
         {"dateTime":DateTime.now(),
          "balance":exCardB.toString(),
          "username":cardsNum,
-         "type":"CreditCard"
+         "type":"CreditCard",
+         "read":false
+
         }
       //   {
       //   "username":username,
@@ -1417,13 +1470,14 @@ if (documents.length > 0) {
            }).then((value) => print(" updated"));
 
    Get.snackbar("Success", "Money added Successfully");
-  
+  Get.to(HomePage()) ;
                  try{
    await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").add(
         {"dateTime":DateTime.now(),
          "balance":balanc,
          "username":beneName,
-         "type":"sending"
+         "type":"sending",
+         "read":false,
         }
         
       //   {
@@ -1451,6 +1505,7 @@ catch(e){
    notifications.balance = beneBalance;
    notifications.username = username;
    notifications.type = "receiving";
+   notifications.read = false;
 
 update();
 
@@ -1492,6 +1547,7 @@ update();
  }
  else{
   Get.snackbar("Error", "no document found");
+
  }
 }
 
@@ -1512,10 +1568,28 @@ update();
 
 
 
+//-------------------------------
+  Future<dynamic> ibans(BuildContext context) async{
+  //   var bal ="";
+  // balance = "";
+  // documents.clear();
+final QuerySnapshot result =
+    await FirebaseFirestore.instance.collection('account').where('IBAN', isEqualTo: 
+    beneIban).get();
+ documents = result.docs;
+ update();
+print(documents.length);
+print(userId!.uid);
+if (documents.length > 0) { 
+   Nav.toScreen(context, ExampleHomePage(iban:"iban",check: true,));
+}
+else{
+  Get.snackbar("Error", "Iban not matched");
 
+}
 
-
-
+}
+//-------------------------
 
 
 var contactFetch;
@@ -1585,6 +1659,7 @@ try{
          "balance":sendMoneyBalance,
          "username":beneName,
          "type":"sending",
+         "read":false,
         }
       
       //   {
@@ -1594,7 +1669,10 @@ try{
 
       // }
       ).then(( value)async {
-              Get.snackbar("title","Value added successfully");
+              Get.snackbar("Successfull","Money added successfully");
+            //  Get.back();
+            //  Get.back();
+             Get.to(HomePage()) ;
 
            update()  ;  
     //  Get.to(ReasonForUse());
@@ -1620,6 +1698,7 @@ try{
          "balance":sendMoneyBalance,
          "username":beneName,
          "type":"sending",
+         "read":false
         }
       
       //   {
@@ -1628,8 +1707,8 @@ try{
       //   "DateTime":DateTime.now(),
 
       // }
-      ).then(( value)async {
-              Get.snackbar("title","Value added successfully");
+      ).then((value)async {
+              Get.snackbar("Notification Added","Value added successfully");
 
            update()  ;  
     //  Get.to(ReasonForUse());
@@ -1764,6 +1843,11 @@ catch(e){
 }
 
  }
+ else{
+  Get.snackbar("Error", "Iban not matchaed");
+ }
+
+
 }
     
      getContacts() async{
@@ -1986,17 +2070,17 @@ querySnapshot.docs.forEach((doc) {
 
 // ---------------------------------------------Get notification-------------------------------
 
- List notificationList = [];
 
+
+
+List notificationList = [];
 List bala = [];
 List dateTimess = [];
 List type = [];
-
-
-
    Future<List<Notifications>?> getNotification() async{
+    await getIDo();
     QuerySnapshot  kilo =    await FirebaseFirestore.instance
-        .collection("account").doc(userId!.uid).collection("notifications")
+        .collection("account").doc(userId!.uid).collection("notifications").orderBy('dateTime', descending: true)
         .get();
       notificationList.clear();
    bala.clear();
@@ -2152,45 +2236,51 @@ print(userId!.uid);
        print(news);
       print(balance.runtimeType);
          
-         
-        // accountsList[0].accountB = "";
-        // var ids = documents.first.id;
+
    
         var newValeTwo;
-        if(int.parse(balance) > 0){
-       newValeTwo = await subTwoStringsAsInt(first: balance, second:dropDownValue == "Premium" ? 7.toString():12.toString())  ;
-        // }
-//         else{
-//  Get.snackbar("Error", "Value must b greater than in account");
-//         }
-  //  var newVale =  await addTwoStringsAsInt(first: balances, second:balance)  ;
-  //    print(newVale);
+        if(int.parse(balance) > 0 ){
+          if(dropDownValue == "Premium" && int.parse(balance) > 7){
+       newValeTwo = await subTwoStringsAsInt(first: balance, second:7.toString()) ;
+
       
      await FirebaseFirestore.instance.collection("account").doc(userId!.uid).update({
                 "accountB":newValeTwo.toString()
            }).then((value) => print(" updated"));
 
-          //       await FirebaseFirestore.instance.collection("prepaidcode").doc(ids).update({
-          //       "balance":newValeTwo.toString()
-          //  }).then((value) => print(" updated two"));
 
 
-          //                await FirebaseFirestore.instance.collection("prepaidcode").doc(ids).update({
-          //       "status":"used"
-          //  }).then((value) => print(" updated two"));
+           
+
+Get.snackbar("Success","Changed plan to ${dropDownValue}");
+
+          }
+          else {
+            Get.snackbar("Error","Balance must be greater than 7");
+          }
+
+if(dropDownValue == "Topaz" &&  int.parse(balance) > 12){
+ newValeTwo = await subTwoStringsAsInt(first: balance, second:12.toString()) ;
+
+      
+     await FirebaseFirestore.instance.collection("account").doc(userId!.uid).update({
+                "accountB":newValeTwo.toString()
+           }).then((value) => print(" updated"));
 
 
 
            
 
-Get.snackbar("Success","Changed plan to Premium");
+Get.snackbar("Success","Changed plan to ${dropDownValue}");
+}
+else{
+Get.snackbar("Error","Balance must be greater than 12");
+}
+
   
- 
-      // print("asas"+accountsList[0].accountB);
-      // // getAccountData();
-      // errorMsg = false;
-      // update();
+
       }
+   
       else{
         Get.snackbar("Account", "account balance should be greatar than zero");
       }

@@ -174,13 +174,6 @@ class _IndividualState extends State<Individual> {
                     const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10)),
             style: Constant.hintText),
             ),
-            
-            
-            
-          
-              
-            
-              
               const Align(
                   alignment: Alignment.topLeft,
                   child: Text(
@@ -188,9 +181,10 @@ class _IndividualState extends State<Individual> {
                     style: TextStyle(fontSize: 13),
                   )),
               GestureDetector(
-                onTap: () {
+                onTap: () async{
                      if (_formKey.currentState!.validate()) {
-                   Nav.toScreen(context, ExampleHomePage(iban:"iban",check: true,));
+                    await  userController.ibans(context);
+                   
                   }
                    
                   // userController.accIbanCheck();

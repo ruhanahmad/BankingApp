@@ -111,7 +111,7 @@ return   Column(
                             userController.type[i] == "sending" ?
                           notificationField(
     
-                      text: "To ${userController.notificationList[i].toString()}",
+                      text: "Money sent To ${userController.notificationList[i].toString()}",
     
                       icon: "assets/images/send.png",
     
