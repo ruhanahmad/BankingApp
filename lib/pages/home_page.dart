@@ -206,7 +206,19 @@ return
                 MaterialButton(
                   minWidth: 0,
                   //color: Colors.transparent,
-                  child:  unreadCount > 0 ? FaIcon(FontAwesomeIcons.solidBellSlash):FaIcon(FontAwesomeIcons.solidBell),
+                  child:  unreadCount > 0 ? Container(
+  width: 30,
+  height: 30,
+  decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(10),
+  ),
+  child: Image(
+    image: AssetImage('assets/yu.png'),
+    fit: BoxFit.cover,
+  ),
+)
+:FaIcon(FontAwesomeIcons.solidBell),
                   onPressed: () async {
                     
                     await userController.getNotification();
