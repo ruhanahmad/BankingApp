@@ -92,19 +92,29 @@ return
         StreamBuilder(
          stream: stream,
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+            
              if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             }
-
-            if (!snapshot.hasData) {
-              return Text('Loading...');
+ var unreadCount;
+            if (snapshot.hasData ) {
+            
+                unreadCount = snapshot.data!.docs.where((doc) => !doc['read']).length == null ? 0:snapshot.data!.docs.where((doc) => !doc['read']).length;
+            
+                 
             }
+ if (!snapshot.hasData ) {
+                //  Get.snackbar("Error", message)
+                unreadCount = 0;
+            }
+       
+           
 
-            final unreadCount = snapshot.data!.docs.where((doc) => !doc['read']).length == null ? 0:snapshot.data!.docs.where((doc) => !doc['read']).length;
+         
             // final unreadCounts = snapshot.data!.docs.where((doc) => !doc['read']).first.id;
 
               // print(unreadCounts);
-              print(unreadCount);
+              // print(unreadCount);
          return 
          
      
@@ -230,7 +240,8 @@ return
             ),
           );
           }
-        ),
+            ),
+    
       ],
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
