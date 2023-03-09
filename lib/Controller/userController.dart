@@ -563,6 +563,9 @@ String? beneName  = "";
  ExCard exCard = ExCard();
 String? codeEntered = "";
 String? prepaidBalance = "";
+
+String? creditCardBalance = "";
+String? creditCard = "";
 String sendMoneyBalance = "";
 Contacts contacts = Contacts();
 String? region = "";
