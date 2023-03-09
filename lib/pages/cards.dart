@@ -30,6 +30,151 @@ class _CardsState extends State<Cards> {
     super.initState();
     
   }
+//=----------------------------PinCode change Alert--------------
+
+final _formKey = GlobalKey<FormState>();
+   Future<void>? alertsPhysical(){
+    showDialog(context: context, builder: (context){
+      return     AlertDialog(
+        content: Form(
+          key:_formKey,
+          child: new
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Row(
+                children: [
+                  // Icon(Icons.camera),
+                  SizedBox(width: 5),
+                  Text('Change Pin Code'),
+                ],
+              ),
+              SizedBox(height: 30,),
+        
+                       Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: userController.physicalCardPinCode.toString(),
+                  
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+                        filled: true,
+                        fillColor: kPrimaryColor.withOpacity(0.3),
+                        // labelText: 'Previous Pin Code',
+                        labelStyle: kFormTextStyle,
+                        border: InputBorder.none,
+                        // prefixIcon: const Icon(Icons.search_rounded),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: const BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: const BorderSide(color: kPrimaryColor),
+                        )),
+                    keyboardType: TextInputType.text,
+                    obscureText: false,
+                    // validator: (String? value) {
+                    //   if (value!.isEmpty) {
+                    //     return 'Please Enter an Address';
+                    //   }
+                    //   return null;
+                    // },
+                    // onChanged: (address) {
+                     
+                    //     userController.addressPhysicalCard= address;
+                    //     userController.update();
+                     
+                    // },
+                  ),
+                ),
+        
+                SizedBox(height: 5,),
+        
+                     Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                  
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(15.0, 0.0, 10.0, 0.0),
+                        filled: true,
+                        fillColor: kPrimaryColor.withOpacity(0.3),
+                        hintText: "Enter four digit pincode",
+                        labelText: 'Change PinCode',
+                        labelStyle: kFormTextStyle,
+                        border: InputBorder.none,
+                        // prefixIcon: const Icon(Icons.search_rounded),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: const BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: const BorderSide(color: kPrimaryColor),
+                        )),
+                    keyboardType: TextInputType.text,
+                    obscureText: false,
+                    validator: (String? value) {
+                      if (value!.isEmpty || value!.length > 4  || value!.length <4) {
+                        return 'Please Enter four digits and field should not empty';
+                      }
+                      return null;
+                    },
+                    onChanged: (address) {
+                     
+                        userController.newPinCode= address;
+                        userController.update();
+                     
+                    },
+                  ),
+                ),
+        
+        
+          
+        
+                      const Spacer(),
+                              ElevatedButton
+                    
+                  (
+                    
+                                      style: ElevatedButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10.0, horizontal: 8.0),
+                                        elevation: 5.0,
+                                        primary: kPrimaryColor,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50.0)),
+                                      ),
+                    onPressed: () async{
+                     
+                          if (_formKey.currentState!.validate()) {
+               await userController.getPhysicalCard();
+                      await userController.changePinCodePhysical();
+                
+              }
+          
+         print(userController.address);
+                      
+             
+                      
+                      // await userController.uploadData();
+                     }, child: Text("Next"))
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+
+
+
+
+
+  //----------------------------------------------
 
 
    Future<void>? alerts(){
@@ -282,6 +427,67 @@ SizedBox(height: 5,),
                   onPressed: () async{
                     // await userController.orderPhysicalCard();
            await userController.terminatedCard();
+        
+//  print(userController.address);
+                   }, child: Text("Yes")),
+                   SizedBox(width: 30,),
+                                ElevatedButton
+                  
+                (
+                  
+                                        style: ElevatedButton.styleFrom(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 8.0),
+                                          elevation: 5.0,
+                                          primary: kPrimaryColor,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(50.0)),
+                                        ),
+                  onPressed: () async{
+                    Navigator.of(context);
+
+                   }, child: Text("No")),
+                              ],
+                            )
+          ],
+        ),
+      );
+    });
+  }
+
+
+
+   Future<void>? alertingPhysical(){
+    showDialog(context: context, builder: (context){
+      return     AlertDialog(
+        content: new
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(width: 5),
+            Text('Are you sure you want to delete'),
+           
+           
+                   SizedBox(height: 20,),
+                            Row(
+                              children: [
+                                                             ElevatedButton
+                  
+                (
+                  
+                                        style: ElevatedButton.styleFrom(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 8.0),
+                                          elevation: 5.0,
+                                          primary: kPrimaryColor,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(50.0)),
+                                        ),
+                  onPressed: () async{
+                    // await userController.orderPhysicalCard();
+           await userController.terminatedCardPhysical();
         
 //  print(userController.address);
                    }, child: Text("Yes")),
@@ -645,50 +851,168 @@ Container(
                 ),
 
                  userController.physicalCardAcc.length > 0 ?
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                    height: 200,
+                    width: Get.width,
+                    child:   ListView.builder(
+                    
+                      itemCount: _.physicalCardAcc.length,
+                      scrollDirection: Axis.horizontal,
+                    
+                      itemBuilder: (context,i){
+                    
+                      return CreditCard(
+                    
+                        cardNumber: _.physicalCardAcc.first.toString(),
+                    
+                        cardExpiry: _.monthtPhysical.toString() + " /" + _.yeartPhysical.toString(),
+                    
+                        cardHolderName: "",
+                    
+                        cvv: _.physicalCardCvv[i].toString(),
+                    
+                        bankName: "Credit Card",
+                    
+                        // cardType: CardType.masterCard, // Optional if you want to override Card Type
+                    
+                        showBackSide: false,
+                    
+                        frontBackground: CardBackgrounds.black,
+                    
+                        backBackground: CardBackgrounds.white,
+                    
+                        showShadow: true,
+                    
+                        textExpDate: 'Exp. Date',
+                    
+                        textName:"CVV" + " " + _.physicalCardCvv[i].toString() ,
+                    
+                        textExpiry: _.physicalCardCvv[i].toString(),
+                    
+                    );
+                    
+                    }),
+              ),
+
+                          Container(
+                margin: const EdgeInsets.only(top: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12.0)),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text(
+                          "Start shopping online",
+                          style: TextStyle(
+                              color: Color(0xFF262626),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17.0),
+                        ),
+                        Icon(Icons.info_outline_rounded)
+                      ],
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 6),
+                      child: Text(
+                        "Use this card to make more secure online transactions",
+                        style: TextStyle(color: Color(0xFF9b9fa2)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+             
               Container(
-  height: 200,
-  width: Get.width,
-  child:   ListView.builder(
-  
-    itemCount: _.physicalCardAcc.length,
-    scrollDirection: Axis.horizontal,
-  
-    itemBuilder: (context,i){
-  
-    return CreditCard(
-  
-      cardNumber: _.physicalCardAcc.first.toString(),
-  
-      cardExpiry: _.physicalCardAddress[i].toString(),
-  
-      cardHolderName: "",
-  
-      cvv: _.physicalCardCvv[i].toString(),
-  
-      bankName: "Credit Card",
-  
-      // cardType: CardType.masterCard, // Optional if you want to override Card Type
-  
-      showBackSide: false,
-  
-      frontBackground: CardBackgrounds.black,
-  
-      backBackground: CardBackgrounds.white,
-  
-      showShadow: true,
-  
-      textExpDate: _.physicalCardZipCode[i].toString(),
-  
-      textName:_.physicalCardCity[i].toString(),
-  
-      textExpiry: _.physicalCardCvv[i].toString(),
-  
-  );
-  
-  }),
-):
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12.0)),
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () async{
+                        await userController.FreezeCardUpdatedPhysical();
+                      },
+                      child:  Padding(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: Color(0xFF0356e0),
+                            child: Icon(
+                              Icons.ac_unit,
+                              color: Colors.white,
+                            ),
+                          ),
+                          
+                          title:
+                     
+                           Text(
+                             
+                           _.freezeTextPhysical.toString() ,
+                            
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // ListTile(
+                    //   leading: const CircleAvatar(
+                    //     backgroundColor: Color(0xFF0356e0),
+                    //     child: Icon(Icons.delete, color: Colors.white),
+                    //   ),
+                    //   title: const Text(
+                    //     "Delete Card",
+                    //     style: TextStyle(
+                    //         fontWeight: FontWeight.bold, fontSize: 18),
+                    //   ),
+                    //   subtitle:
+                    //       const Text("Terminate or rename  card and more"),
+                    //   onTap: ()async {
+                    //     // await userController.terminatedCard();
+                    //   await  alertingPhysical();
+                    //   },
+                    // ),
+                    SizedBox(height: 10,),
+                                        ListTile(
+                      leading: const CircleAvatar(
+                        backgroundColor: Color(0xFF0356e0),
+                        child: Icon(Icons.settings, color: Colors.white),
+                      ),
+                      title: const Text(
+                        "Change Pin",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
+                      subtitle:
+                          const Text("Order Card by entering your address "),
+                      onTap: () async{
+                      await   userController.getPhysicalCard();
+                        await alertsPhysical();
+                        // Nav.toScreen(context, const SettingsPage());
+                      },
+                    ),
+                  ],
+                ),
+              ),
+                  ],
+                ),
+              ):
 Text("Add Card")
 ,
+
+
              
             ],
           ),
