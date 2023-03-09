@@ -2509,8 +2509,9 @@ var physicalId;
       // date = null;
       // yeart = null;
    print(kilo.docs);
+   
           //  virtualCardGet  = kilo.docs;
-    physicalId = kilo.docs.first.id;
+    physicalId = kilo.docs.first.id == null ? "12":kilo.docs.first.id;
     update();
    
    kilo.docs.forEach((element) {
