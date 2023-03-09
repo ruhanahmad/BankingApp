@@ -73,10 +73,7 @@ print(chartData);
 for (var i = 0; i < data.length; i++) {
   chartData.add(ChartData(DateFormat('dd-MM-yyyy').format(data[i]['dateTime'].toDate()) , double.parse(data[i]['balance'])));
 }
-//yar ye ho kya raha hay terminal mein kesi kesi batein print horain na
-//kn c kachukuma /lulu phir kuch random boys k name phir minority 
-//haha khucjum mz ny he rkha tha jo b zhn may lkh deti hu smjh nh ata us time kya rkhu
-// aise nai karte hamesha debug print or code k comments or variables or class k naam aise rakho k a
+
 }
 
 
@@ -944,9 +941,9 @@ String? accB ="";
          try{
    await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").add(
         {"dateTime":DateTime.now(),
-         "balance":"Your Account is Created",
+         "balance":0.toString(),
          "username":fullName,
-         "type":"New Account",
+         "type":"New Account Created",
          "read":false
         }
       //   {
@@ -1073,7 +1070,12 @@ catch(e){
   // documents[0].status == "unused";
 
 } else {  
-     errorMsgTwo = true;
+   Get.snackbar(
+              "Wrong Input",
+               "Code is wrong",
+              
+          
+               );
      update();
      //karo ki sochi jarai ho ya dykho n
   //not exists
@@ -2094,16 +2096,34 @@ querySnapshot.docs.forEach((doc) {
 
 // Get a reference to the Firestore collection containing transactions
 
- 
+//----------------------------------------------//
+
+
+List prepaidCode = [];
+
+   Future prepaidCodes() async{
+    await getIDo();
+    QuerySnapshot  kilo =    await FirebaseFirestore.instance
+        .collection("prepaidcode")
+        .get();
+      notificationList.clear();
+   bala.clear();
+   kilo.docs.forEach((element) {
+    // print(element.docs[0]["username"]) ;
+    print(element["code"]) ;
+
+
+    prepaidCode.add(element["code"]);
+   
+
+   });
+   }
 
 
 
 
 
 // ---------------------------------------------Get notification-------------------------------
-
-
-
 
 List notificationList = [];
 List bala = [];
