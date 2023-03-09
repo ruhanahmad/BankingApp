@@ -55,7 +55,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
 
      Container(
       padding: const EdgeInsets.all(15.0),
-      height: 700,
+      height: 1000,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
         color: Colors.white,
@@ -183,7 +183,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             child:  Column(
               children: [
                 Container(
-                  height: 400,
+                  height: 1000,
                   width: Get.width,
                   child:
                  

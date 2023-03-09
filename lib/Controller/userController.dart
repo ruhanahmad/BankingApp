@@ -1358,7 +1358,7 @@ if (documents.length > 0) {
                try{
    await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").add(
         {"dateTime":DateTime.now(),
-         "balance":exCardB.toString(),
+         "balance":prepaidBalance,
          "username":cardsNum,
          "type":"CreditCard",
          "read":false
@@ -1370,7 +1370,7 @@ if (documents.length > 0) {
       //   "DateTime":DateTime.now(),
       // }
       ).then(( value)async {
-              Get.snackbar("title","Value added successfully");
+              Get.snackbar("Success","Credit Card money Credited");
 
            update()  ;  
     //  Get.to(ReasonForUse());
