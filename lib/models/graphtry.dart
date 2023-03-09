@@ -1,9 +1,11 @@
 import 'package:bnacash/Controller/userController.dart';
+import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:d_chart/d_chart.dart';
 import 'package:get/get.dart';
+import 'package:pie_chart/pie_chart.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
@@ -21,26 +23,79 @@ import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 //     );
 //   }
 // }
-class Paga extends StatelessWidget {
+
+  class SalesData {
+  SalesData(this.year, this.sales);
+  final String year;
+  final double sales;
+}
+class Paga extends StatefulWidget {
+
+  @override
+  State<Paga> createState() => _PagaState();
+}
+
+class _PagaState extends State<Paga> {
+   
+    final Color? barBackgroundColor = const Color(0xff72d8bf);
+  final Duration animDuration = const Duration(milliseconds: 250);
+
+  int touchedIndex = -1;
+Map<String, double> dataMap = {
+    "Limit": 6000,
+    "Spending": userController.jj,
+    // "Xamarin": 2,
+    // "Ionic": 2,
+  };
+    final List<Color> availableColors =  [
+    Colors.purpleAccent,
+    Colors.yellow,
+    Colors.lightBlue,
+    Colors.orange,
+    Colors.pink,
+    Colors.redAccent,
+  ];
 
   @override
   Widget build(BuildContext context) {
-    UserController _ = Get.put(UserController());
+    UserController userController = Get.put(UserController());
+   
 
    return
 Scaffold(
-  body: Container(
-    height: 500,
-    width: 500,
-    child: SfCartesianChart(
-      series: <BarSeries>[
-        BarSeries<ChartData, String>(
-          dataSource: _.chartData,
-          xValueMapper: (ChartData data, _) => data.x,
-          yValueMapper: (ChartData data, _) => data.y,
-        )
+  body: SingleChildScrollView(
+    child: Column(
+      children: [
+        Container(
+          height: 500,
+          width: 500,
+          child: SfCartesianChart(
+            series: <BarSeries>[
+              BarSeries<ChartData, String>(
+                dataSource: userController.chartData,
+                xValueMapper: (ChartData data, _) => data.x,
+                yValueMapper: (ChartData data, _) => data.y,
+              )
+            ],
+            primaryXAxis: CategoryAxis(),
+          ),
+        ),
+              Center(
+                        child: Container(
+                          height: 400,
+                          width: 400,
+                          child:
+                          PieChart(
+                          dataMap: dataMap,
+                          chartType: ChartType.ring,
+                          baseChartColor: Colors.grey[300]!,
+                          colorList: availableColors,
+                        ),
+        
+                        )
+                      ),
+  
       ],
-      primaryXAxis: CategoryAxis(),
     ),
   ),
 );

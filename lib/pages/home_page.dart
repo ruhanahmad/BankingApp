@@ -1,5 +1,6 @@
 import 'package:bnacash/Controller/userController.dart';
 import 'package:bnacash/constants/constants.dart';
+import 'package:bnacash/models/graph.dart';
 import 'package:bnacash/models/graphtry.dart';
 import 'package:bnacash/pages/Settings.dart';
 import 'package:bnacash/pages/cards.dart';
@@ -29,7 +30,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
  late Stream<QuerySnapshot> stream;
-
+UserController userController = Get.put(UserController());
   @override
   void initState() {
     // TODO: implement initState
@@ -78,7 +79,7 @@ return
       
        GestureDetector(
         onTap: () async{
-         await userController.getDataForProfile(); 
+         await hj.getDataForProfile(); 
           Get.to(ProfilePage());
         },
         child: CircleAvatar(
@@ -148,7 +149,7 @@ return
                   //color: Colors.transparent,
                   child: const FaIcon(FontAwesomeIcons.addressBook),
                   onPressed: () async {
-                    await userController.getNotification();
+                    await hj.getNotification();
                     Nav.toScreen(context,   TransactionHistory());
                     //  await  userController.ification();
                     // await userController.getVirtualCard();
@@ -171,9 +172,9 @@ return
                   child: const FaIcon(FontAwesomeIcons.solidChartBar),
                   onPressed: () async{
                     // Nav.toScreen(context, const AnalyticsPage());
-                    await userController.addAllNumbers();
+                    await hj.addAllNumbers();
                    // Nav.toScreen(context,  Paga());
-                    await userController.graphTry();
+                    await hj.graphTry();
                     Get.to(()=>Paga());
                  
                     
@@ -183,10 +184,13 @@ return
                 //   minWidth: 0,
                 //   //color: Colors.transparent,
                 //   child: const FaIcon(FontAwesomeIcons.carBattery),
-                //   onPressed: () {
+                //   onPressed: ()async {
+                //      await hj.addAllNumbers();
+                //    // Nav.toScreen(context,  Paga());
+                //     await hj.graphTry();
                 //     // Nav.toScreen(context, const AnalyticsPage());
-                //     // Nav.toScreen(context,  BarChartSample1());
-                //     userController.addAllNumbers();
+                //     Nav.toScreen(context,  BarChartSample1());
+                //   //  hj.addAllNumbers();
                     
                 //   },
                 // ),
@@ -197,8 +201,9 @@ return
                   //color: Colors.transparent,
                   child: const FaIcon(FontAwesomeIcons.gear),
                   onPressed: () async {
-                    await userController.getDataForProfile();
-                    Nav.toScreen(context, Settingss());
+                    await hj.getDataForProfile();
+                    // Nav.toScreen(context, Settingss());
+                    Get.to(()=>Settingss());
                     // Get.put(ExampleHomePage());
                   },
                 ),

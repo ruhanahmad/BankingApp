@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:bnacash/Controller/transaction_controller.dart';
 import 'package:bnacash/constants/constants.dart';
+import 'package:bnacash/models/graph.dart';
+import 'package:bnacash/pages/Settings.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -327,8 +329,9 @@ Future  getDataForProfileAccount() async {
                  limitFor = valuess["limit"];
 
  update();
+                //  Get.to(Settingss());
+                  // Nav.toScreen(context, Settingss());
                  
-                  
                   
                  print(valuess);
             //  update(); 

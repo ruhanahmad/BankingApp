@@ -97,49 +97,11 @@ Map<String, double> dataMap = {
                         baseChartColor: Colors.grey[300]!,
                         colorList: widget.availableColors,
                       ),
-          //           charts.PieChart(
-          //   [
-          //     charts.Series<MyData, String>(
-          //       id: 'myData',
-          //       domainFn: (MyData data, _) => data.category,
-          //       measureFn: (MyData data, _) => data.value,
-          //       data: [
-          //         MyData('Category 1', 5),
-          //         MyData('Category 2', 10),
-          //         MyData('Category 3', 15),
-          //       ],
-          //     ),
-          //   ],
-          // )
-          
-          //               //  SfCartesianChart(
-          
-          //               //   primaryXAxis: CategoryAxis(),
-          //               //   // Chart title
-          //               //   title: ChartTitle(text: 'Half yearly sales analysis'),
-          //               //   // Enable legend
-          //               //   legend: Legend(isVisible: true),
-          //               //   // Enable tooltip
-          //               //   tooltipBehavior: _tooltipBehavior,
-          
-          //               //   series: <LineSeries<SalesData, String>>[
-          //               //     LineSeries<SalesData, String>(
-          //               //       dataSource:  <SalesData>[
-          //               //         SalesData('Jan', 35),
-          //               //         SalesData('Feb', 28),
-          //               //         SalesData('Mar', 34),
-          //               //         SalesData('Apr', 32),
-          //               //         SalesData('May', 40)
-          //               //       ],
-          //               //       xValueMapper: (SalesData sales, _) => sales.year,
-          //               //       yValueMapper: (SalesData sales, _) => sales.sales,
-          //               //       // Enable data label
-          //               //       dataLabelSettings: DataLabelSettings(isVisible: true)
-          //               //     )
-          //               //   ]
-          //               // )
+      
                       )
                     ),
+
+                    
           
           
           ],

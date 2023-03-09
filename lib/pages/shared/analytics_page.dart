@@ -19,7 +19,7 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
         length: 5,
         child: Scaffold(
           backgroundColor: scaffoldColor,
-          appBar: buildAppBar(context),
+          // appBar: buildAppBar(context),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(2.0),
