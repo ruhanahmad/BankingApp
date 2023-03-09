@@ -1353,10 +1353,8 @@ if (documents.length > 0) {
            }).then((value) => print(" updated two"));
        Get.snackbar(
               "Success",
-              "Money Added Successfully ${exCardB}",
-               icon: Icon(Icons.person, color: Colors.white),
-               snackPosition: SnackPosition.BOTTOM,
-               backgroundColor: Colors.blue,
+              "Money Added Successfully ${prepaidBalance}",
+              
                );
                try{
    await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").add(
@@ -1373,7 +1371,7 @@ if (documents.length > 0) {
       //   "DateTime":DateTime.now(),
       // }
       ).then(( value)async {
-              Get.snackbar("Success","Credit Card money Credited");
+              Get.snackbar("Success","Notification added");
 
            update()  ;  
     //  Get.to(ReasonForUse());
