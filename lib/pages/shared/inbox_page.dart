@@ -41,87 +41,89 @@ class _InboxPageState extends State<InboxPage> {
               ),
 
              
-             Container(
-              height: 10000,
-              width: Get.width,
-              child:
+             SingleChildScrollView(
+               child: Container(
+                height: 1000,
+                width: Get.width,
+                child:
+               
+                 ListView.builder(
+                  itemCount: userController.notificationList.length,
+                  itemBuilder: (context,i){
+             return   Column(
+               children: [
+                 Text("${formatTransactionDate(userController.dateTimess[i].toDate())}"),
+                     // Text("${userController.dateTimess[i]}"),
+                 // convertTimestamp( userController.dateTimess[i]),
+                     // formatTransactionDate(userController.dateTimess[i]),
              
-               ListView.builder(
-                itemCount: userController.notificationList.length,
-                itemBuilder: (context,i){
-return   Column(
-  children: [
-    Text("${formatTransactionDate(userController.dateTimess[i].toDate())}"),
-        // Text("${userController.dateTimess[i]}"),
-    // convertTimestamp( userController.dateTimess[i]),
-        // formatTransactionDate(userController.dateTimess[i]),
-
-        userController.type[i] == "prepaidCode" ?
-        notificationField(
-                      text: "Money Added",
-    
-                      icon: "assets/images/prepaidcode.png",
-    
-                      subtitle:
-    
-                        "You just added the amount of ${userController.bala[i].toString()} with a prepaid code"
-    
-                          ):
-                            userController.type[i] == "sending" ?
-                          notificationField(
-    
-                      text: "Money Sent",
-    
-                      icon: "assets/images/send.png",
-    
-                      subtitle:
-    
-                         "You just sent the amount of ${userController.bala[i]} to ${userController.notificationList[i].toString()}"
-    
-                          ):
-                           userController.type[i] == "receiving" ?
-                          notificationField(
-    
-                      text: "Money Received",
-    
-                      icon: "assets/images/send.png",
-    
-                      subtitle:
-    
-                        "You just received the amount of ${userController.bala[i]} from ${userController.notificationList[i]})"
-    
-                          ): 
-                           userController.type[i] == "CreditCard" ?
-                          notificationField(
-    
-                      text: "Money Added Through Credit Card",
-    
-                      icon: "assets/images/debitcard.png",
-    
-                      subtitle:
-    
-                         "You just add the amount of s with the debit card ending with ${userController.notificationList[i].toString()})"
-    
-                          ):
-        
-      
-         notificationField(
-    
-                      text: userController.notificationList.length != null ? userController.notificationList[i].toString() :"hi how are you",
-    
-                      icon: "assets/images/tunisia.png",
-    
-                      subtitle:
-    
-                         userController.bala[i].toString() + "amount received"
-    
-                          ),
-
-  ],
-);
-              })
-              
-              ),
+                     userController.type[i] == "prepaidCode" ?
+                     notificationField(
+                        text: "Money Added",
+                 
+                        icon: "assets/images/prepaidcode.png",
+                 
+                        subtitle:
+                 
+                          "You just added the amount of ${userController.bala[i].toString()} with a prepaid code"
+                 
+                            ):
+                              userController.type[i] == "sending" ?
+                            notificationField(
+                 
+                        text: "Money Sent",
+                 
+                        icon: "assets/images/send.png",
+                 
+                        subtitle:
+                 
+                           "You just sent the amount of ${userController.bala[i]} to ${userController.notificationList[i].toString()}"
+                 
+                            ):
+                             userController.type[i] == "receiving" ?
+                            notificationField(
+                 
+                        text: "Money Received",
+                 
+                        icon: "assets/images/send.png",
+                 
+                        subtitle:
+                 
+                          "You just received the amount of ${userController.bala[i]} from ${userController.notificationList[i]})"
+                 
+                            ): 
+                             userController.type[i] == "CreditCard" ?
+                            notificationField(
+                 
+                        text: "Money Added Through Credit Card",
+                 
+                        icon: "assets/images/debitcard.png",
+                 
+                        subtitle:
+                 
+                           "You just add the amount of s with the debit card ending with ${userController.notificationList[i].toString()})"
+                 
+                            ):
+                     
+                   
+                      notificationField(
+                 
+                        text: userController.notificationList.length != null ? userController.notificationList[i].toString() :"hi how are you",
+                 
+                        icon: "assets/images/tunisia.png",
+                 
+                        subtitle:
+                 
+                           userController.bala[i].toString() + "amount received"
+                 
+                            ),
+             
+               ],
+             );
+                })
+                
+                ),
+             ),
         
               
     

@@ -110,15 +110,12 @@ class _ProfilePageState extends State<ProfilePage> {
           init:UserController(),
           
           builder:(_){
-          return        Container(
-          padding: const EdgeInsets.only(
-            left: 5,
-            right: 10,
-            top: 16,
-          ),
+          return        
+          Container(
+ 
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // action bar
               Row(
