@@ -207,7 +207,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
                   
             
-                    "${formatTransactionDate(userController.dateTimess[i].toDate())}",
+                    "${builder.formatTransactionDate(userController.dateTimess[i].toDate())}",
             
                     trailings:userController.bala[i].toString(),
             
@@ -233,7 +233,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
                   
             
-                     "${formatTransactionDate(userController.dateTimess[i].toDate())}",
+                     "${builder.formatTransactionDate(userController.dateTimess[i].toDate())}",
             
                      trailings:userController.bala[i].toString(),
             
@@ -259,7 +259,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
                   
             
-                   "${formatTransactionDate(userController.dateTimess[i].toDate())}",
+                   "${builder.formatTransactionDate(userController.dateTimess[i].toDate())}",
             
             
             
@@ -287,7 +287,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
                   
             
-                    "${formatTransactionDate(userController.dateTimess[i].toDate())}",
+                    "${builder.formatTransactionDate(userController.dateTimess[i].toDate())}",
             
                      trailings:  userController.bala[i].toString(),
             
@@ -315,7 +315,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
                   
             
-                 "${formatTransactionDate(userController.dateTimess[i].toDate())}",
+                 "${builder.formatTransactionDate(userController.dateTimess[i].toDate())}",
             
             
             
@@ -358,22 +358,25 @@ class _TransactionContainerState extends State<TransactionContainer> {
     
    
   }
-    formatTransactionDate(DateTime date) {
-  final now = DateTime.now();
-  if (now.day == date.day && now.month == date.month && now.year == date.year) {
-    // transaction done during the current day
-    return DateFormat.jm().format(date); // format as "2:15 PM"
-  } else if (now.difference(date).inDays < 7) {
-    // transaction done during the current week
-    return DateFormat.E().format(date); // format as "Tuesday"
-  } else if (now.year == date.year) {
-    // transaction date is more than a week ago, but less than a year ago
-    return DateFormat('d MMM').format(date); // format as "15 Feb"
-  } else {
-    // transaction date is more than a year ago
-    return DateFormat.y().format(date); // format as "2022"
-  }
-}
+//     formatTransactionDate(DateTime date) {
+//   final now = DateTime.now();
+  
+//   // userController.update();
+//   if (now.day == date.day && now.month == date.month && now.year == date.year) {
+//     // transaction done during the current day
+//     return DateFormat.jm().format(date); // format as "2:15 PM"
+//   } else if (now.difference(date).inDays < 7) {
+//     // transaction done during the current week
+//     return DateFormat.E().format(date); // format as "Tuesday"
+//   } else if (now.year == date.year) {
+//     // transaction date is more than a week ago, but less than a year ago
+//     return DateFormat('d MMM').format(date); // format as "15 Feb"
+//   } else {
+//     // transaction date is more than a year ago
+//     return DateFormat.y().format(date); // format as "2022"
+//   }
+  
+// }
   Widget notificationField({String? text, String? icon, String? subtitle,String? trailings}) {
     return 
     Padding(

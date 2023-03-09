@@ -237,7 +237,7 @@ return
                   onPressed: () async {
                     
                     await userController.getNotification();
-                     await userController.updateNotify();
+                     await userController.updateNotify(unreadCount);
                     Nav.toScreen(context, const InboxPage());
                   },
                 ),

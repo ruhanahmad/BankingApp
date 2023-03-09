@@ -70,8 +70,8 @@ Scaffold(
           height: 500,
           width: 500,
           child: SfCartesianChart(
-            series: <BarSeries>[
-              BarSeries<ChartData, String>(
+            series: <ColumnSeries>[
+              ColumnSeries<ChartData, String>(
                 dataSource: userController.chartData,
                 xValueMapper: (ChartData data, _) => data.x,
                 yValueMapper: (ChartData data, _) => data.y,

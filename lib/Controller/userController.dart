@@ -1121,9 +1121,13 @@ int subTwoStringsAsInt({required var first,required var second})
 
 //--------------------------------------------------
 
-updateNotify()async{
+updateNotify(var unreadCount)async{
+  if (unreadCount > 0){
   try {
   await getIDo();
+  
+
+            
               QuerySnapshot<Map<String, dynamic>> snapshots = await FirebaseFirestore.instance
               .collection('account').doc(userId!.uid).collection("notifications")
               .where('read', isEqualTo: false).get();
@@ -1142,22 +1146,35 @@ updateNotify()async{
   print('Error updating batch: $error');
 });
       }
+    
+    
        catch(e){
   // Get.snackbar("","${e.toString()}");
   print("Notifications are true");
 }
+
+   
   });
   }
+  
   catch(e){
   // Get.snackbar("","${e.toString()}");
   print("Notifications are true");
 }
+
+  }
+  else{
+    print("haha");
+  }
+
+  
 
   // print(snapshots);
 //  await  
 //      FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").doc(unreadCounts).update({
 //                 "read":true
 //            }).then((value) => print(" updated"));
+
 
 }
 
@@ -2124,8 +2141,27 @@ List prepaidCode = [];
 
 
 
-// ---------------------------------------------Get notification-------------------------------
-
+// ---------------------------------------------Get notification-------------------------------//
+    formatTransactionDate(DateTime date) {
+  final now = DateTime.now();
+  // update();
+  // userController.update();
+  if (now.day == date.day && now.month == date.month && now.year == date.year) {
+    // transaction done during the current day
+    return DateFormat.jm().format(date); // format as "2:15 PM"
+  } else if (now.difference(date).inDays < 7) {
+    // transaction done during the current week
+    return DateFormat.E().format(date); // format as "Tuesday"
+  } else if (now.year == date.year) {
+    // transaction date is more than a week ago, but less than a year ago
+    return DateFormat('d MMM').format(date); // format as "15 Feb"
+  } else {
+    // transaction date is more than a year ago
+    return DateFormat.y().format(date); // format as "2022"
+  }
+  
+}
+//----------------------------------------------//
 List notificationList = [];
 List bala = [];
 List dateTimess = [];

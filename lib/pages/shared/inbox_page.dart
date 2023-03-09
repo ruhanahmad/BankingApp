@@ -101,7 +101,7 @@ class _InboxPageState extends State<InboxPage> {
                  
                         subtitle:
                  
-                           "You just add the amount of s with the debit card ending with ${userController.notificationList[i].toString()})"
+                           "You just add the amount of ${userController.bala[i].toString()} with the debit card ending with ${userController.notificationList[i].toString()} )"
                  
                             ):
                      
