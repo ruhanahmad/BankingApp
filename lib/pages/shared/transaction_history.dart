@@ -1,3 +1,5 @@
+import 'package:bnacash/constants/datepicker.dart';
+import 'package:bnacash/pages/shared/datePickerTwo.dart';
 import 'package:bnacash/pages/shared/nkloTwo.dart';
 import 'package:bnacash/widgets/calendarss.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,6 +22,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
   final userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
+      DateTime _selectedDate = DateTime.now();
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(
@@ -40,7 +43,24 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                  Row(children: [
               GestureDetector(
                 onTap: () {
-                  Nav.toScreen(context, nklo());
+                     Nav.toScreen(context, DatePicker(dateChangedCallback: (date){
+           _selectedDate      =  date;
+           var month = _selectedDate.month;
+             var year = _selectedDate.year;
+           print(year);
+           setState(() {
+             _selectedDate = date;
+                 
+           });
+              userController.selectedDate = date;
+                  userController.update();
+                    
+  }
+  
+  ,)
+  
+  );
+                  // Nav.toScreen(context, nklo());
                 },
                 child: Container(
                  
@@ -54,8 +74,24 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                 SizedBox(width: 20,),
                                  GestureDetector(
                                   onTap: () {
-                                   
-                                    Nav.toScreen(context,  nkloTwo());
+                                                      Nav.toScreen(context, DatePickerTwo(dateChangedCallback: (date){
+           _selectedDate      =  date;
+           var month = _selectedDate.month;
+             var year = _selectedDate.year;
+           print(year);
+           setState(() {
+             _selectedDate = date;
+              
+           });
+                    userController.selectedDateYear = date;
+                  userController.update();
+                    
+  }
+  
+  ,)
+  
+  );
+                                    // Nav.toScreen(context,  nkloTwo());
                                   },
                                    child: Container(
                                                     

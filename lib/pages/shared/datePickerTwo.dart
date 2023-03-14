@@ -6,26 +6,26 @@ import 'package:intl/intl.dart';
 
 enum PickerDateComponent { day, month, year }
 
-class DatePicker extends StatefulWidget {
+class DatePickerTwo extends StatefulWidget {
   DateTime? upperLimit;
   DateTime? lowerLimit;
 
   Function dateChangedCallback;
 
-  DatePicker({
+  DatePickerTwo({
     this.upperLimit,
     this.lowerLimit,
     required this.dateChangedCallback,
   });
 
-  DatePicker.upperLimit({this.upperLimit, required this.dateChangedCallback});
-  DatePicker.lowerLimit({this.lowerLimit, required this.dateChangedCallback});
+  DatePickerTwo.upperLimit({this.upperLimit, required this.dateChangedCallback});
+  DatePickerTwo.lowerLimit({this.lowerLimit, required this.dateChangedCallback});
 
   @override
-  State<DatePicker> createState() => _DatePickerState();
+  State<DatePickerTwo> createState() => _DatePickerTwoState();
 }
 
-class _DatePickerState extends State<DatePicker> {
+class _DatePickerTwoState extends State<DatePickerTwo> {
   DateTime currentDate = DateTime.now().toLocal();
   DateTime today = DateTime.now().toLocal();
 
@@ -107,7 +107,7 @@ class _DatePickerState extends State<DatePicker> {
         title: GestureDetector(
         onTap: () async{
               await userController.getDataForProfile();
-              await userController.hanodi();
+              await userController.yearlyHanodi();
         },
         child: Text("Export PDF",style: TextStyle(color: Colors.red),)),),
       body: datePickerContainer());
