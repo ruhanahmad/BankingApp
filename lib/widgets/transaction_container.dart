@@ -1,4 +1,5 @@
 import 'package:bnacash/constants/constants.dart';
+import 'package:bnacash/constants/datepicker.dart';
 import 'package:bnacash/pages/add_money.dart';
 import 'package:bnacash/pages/login/models/dob.dart';
 import 'package:bnacash/pages/login/proof_of_residency.dart';
@@ -148,7 +149,26 @@ class _TransactionContainerState extends State<TransactionContainer> {
                     size: 15,
                   ),
                   onPressed: () {
-  Nav.toScreen(context, nklo());
+  Nav.toScreen(context, DatePicker(dateChangedCallback: (date){
+           _selectedDate      =  date;
+           var month = _selectedDate.month;
+             var year = _selectedDate.year;
+           print(year);
+           setState(() {
+             _selectedDate = date;
+                 
+           });
+              userController.selectedDate = date;
+                  userController.update();
+                    
+  },));
+      //      DatePicker(
+      //   dateChangedCallback: (date) {
+      //     debugPrint("Selected date $date");
+      //   },
+      // );
+
+ 
           //                            SizedBox(
           //   height: 250,
           //   child: ScrollDatePicker(
@@ -183,7 +203,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             child:  Column(
               children: [
                 Container(
-                  height: 1000,
+                  height: 700,
                   width: Get.width,
                   child:
                  
@@ -199,7 +219,8 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
                   
             
-                  icon: "assets/images/prepaidcode.png",
+                  icon: FaIcon(FontAwesomeIcons.gift),
+                  // "assets/images/prepaidcode.png",
             
                   
             
@@ -224,8 +245,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
                   text: "To ${userController.notificationList[i].toString()}",
             
                   
-            
-                  icon: "assets/images/send.png",
+             icon:FaIcon(FontAwesomeIcons.arrowRight),
             
                   
             
@@ -251,7 +271,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
                   
             
-                  icon: "assets/images/send.png",
+                  icon: FaIcon(FontAwesomeIcons.arrowLeft),
             
                   
             
@@ -279,7 +299,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
                   
             
-                  icon: "assets/images/debitcard.png",
+                  icon: FaIcon(FontAwesomeIcons.creditCard),
             
                   
             
@@ -307,7 +327,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
             
                   
             
-                  icon: "assets/images/tunisia.png",
+                  icon: FaIcon(FontAwesomeIcons.hand),
             
                   
             
@@ -377,7 +397,7 @@ class _TransactionContainerState extends State<TransactionContainer> {
   }
   
 }
-  Widget notificationField({String? text, String? icon, String? subtitle,String? trailings}) {
+  Widget notificationField({String? text,  icon, String? subtitle,String? trailings}) {
     return 
     Padding(
       padding: const EdgeInsets.all(8.0),
@@ -391,12 +411,14 @@ class _TransactionContainerState extends State<TransactionContainer> {
           ListTile(
 
             leading: 
-            CircleAvatar(
-              radius: 25,
-              backgroundImage: AssetImage(
-                icon!,
-              ),
-            ),
+            icon
+            ,
+            // CircleAvatar(
+            //   radius: 25,
+            //   backgroundImage: AssetImage(
+            //     icon!,
+            //   ),
+            // ),
             trailing: Text(trailings == null ?" zero ":trailings,
               style: kContentTextStyle,),
 

@@ -5,7 +5,7 @@ import 'package:bnacash/models/graph.dart';
 import 'package:bnacash/pages/Settings.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:bnacash/Controller/controller.dart';
 import 'package:bnacash/Controller/google_auth.dart';
 import 'package:bnacash/models/account.dart';
@@ -276,6 +276,8 @@ Future SendMailss()async{
 //    }
 //  }
 
+//-------------------------------------Details Get for
+
 
 //--------------------------------------------Detail Get For------------------------//
    String? nameFor;
@@ -312,6 +314,7 @@ await  getDataForProfileAccount();
    String? bicFor;
    String? IbanFor;
    String? limitFor;
+   String? usernameFor;
 Future  getDataForProfileAccount() async {
   await getIDo();
 
@@ -324,6 +327,7 @@ Future  getDataForProfileAccount() async {
                  bicFor  =  valuess['BIC'];
                  IbanFor = valuess["IBAN"];
                  limitFor = valuess["limit"];
+                 usernameFor = valuess["username"];
 
  update();
                 //  Get.to(Settingss());
@@ -890,8 +894,8 @@ getIDo()async{
 
 saveEditedThing() async {
  await getIDo();
- await FirebaseFirestore.instance.collection('users').doc(userId!.uid).update({
-                              'name': textEditingForChange.text,
+ await FirebaseFirestore.instance.collection('account').doc(userId!.uid).update({
+                              'username': textEditingForChange.text,
                             });
 
 
@@ -1252,8 +1256,44 @@ Future  getAccountData() async {
   }
 
   //============================================================================//
+//======================================================Currency Changer------------------//
+  final _apiKey = "4036185fd69443228f0d20a667884d1f";
+  var base;
+  var amountss;
+  var convert;
+  Future<dynamic> convertCurrencies({
+    required  baseCurrency,
+    required  toCurrency,
+    required double amount,
+  }) async {
+    try {
+      final Uri url = Uri.parse(
+          'https://exchange-rates.abstractapi.com/v1/convert?api_key=$_apiKey&base=${toCurrency}&target=${baseCurrency}&base_amount=$amount');
+      final response = await http.Client().get(url);
+      // return CurrencyPair.fromJson(jsonDecode(response.body));
+      // print(response);
+      var result = jsonDecode(response.body);
+    base = result["base"];
+    amountss = amount * result["converted_amount"];
+    convert = result["converted_amount"];
 
-//External Card
+    print(amountss);
+     print(convert);
+    update();
+
+
+      // print(amountss);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+
+
+
+
+
+//============================================================================External Card=========================//
 
 
 
@@ -1446,6 +1486,7 @@ if (documents.length > 0) {
       // }
       ).then(( value)async {
               Get.snackbar("Success","Notification added");
+              Get.to(HomePage());
 
            update()  ;  
     //  Get.to(ReasonForUse());
@@ -2246,6 +2287,27 @@ List type = [];
 print(element);
    });
    }
+//------------------------get limit-----------------------//
+
+List getLimit = [];
+  dynamic cc;
+  var numz;
+  Future getLimits() async{
+    
+  var dociq =  await FirebaseFirestore.instance
+        .collection("account").doc(userId!.uid)
+        .get().then((DocumentSnapshot value) {
+          cc =value.data();
+        }
+        );
+
+         numz = double.parse(cc["limit"]);
+         update();
+
+      getLimit.clear();
+   }
+
+
 //------------------------------setLimit-------------------------------
 List spendings = [];
 int? sumss;
@@ -2309,7 +2371,8 @@ String? reset;
     try{
    var passcodes =      await   FirebaseFirestore.instance.collection("users").doc(userId!.uid).update({
                 " passcode":pass,
-           }).then((value) {
+           })
+           .then((value) {
             Get.snackbar("Updated", "Passcode updated successfully");
             Get.to(ProofPage());
            });
@@ -2482,7 +2545,7 @@ Get.snackbar("Error","Balance must be greater than 12");
 //--------------------------------------------GetPhysicalCard---------------------------
 
 
-
+ List <DocumentSnapshot> visPhysical = [];
  List physicalCardAcc = [];
    List physicalCardCvv = []; 
    List physicalCardAddress = [];
@@ -2498,7 +2561,10 @@ var physicalId;
     QuerySnapshot  kilo =    await FirebaseFirestore.instance
         .collection("account").doc(userId!.uid).collection("physicalCard")
         .get();
-      physicalCardAcc.clear();
+ visPhysical = kilo.docs;
+        
+if(visPhysical.length > 0){
+    physicalCardAcc.clear();
       physicalCardCvv.clear();
       physicalCardCity.clear();
       physicalCardZipCode.clear();
@@ -2536,6 +2602,8 @@ millisecondsSinceEpoch = element["Date"].toDate().millisecondsSinceEpoch;
 print(element);
 
    });
+}
+  
   
   
    }

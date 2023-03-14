@@ -205,7 +205,7 @@ Column(
                       return null;
                     },
                     decoration: InputDecoration(
-                      hintText: '${userController.nameFor.toString()}',
+                      hintText: '${userController.usernameFor.toString()}',
                     ),
                   ),
                 ),

@@ -85,15 +85,15 @@ class AddMoney extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    // FloatingActionButton(
-                    //   backgroundColor: Colors.blueGrey.withOpacity(0.2),
-                    //   child: const FaIcon(
-                    //     FontAwesomeIcons.solidCreditCard,
-                    //     color: Colors.blue,
-                    //   ),
-                    //   elevation: 0,
-                    //   onPressed: () {},
-                    // ),
+                    FloatingActionButton(
+                      backgroundColor: Colors.blueGrey.withOpacity(0.2),
+                      child: const FaIcon(
+                        FontAwesomeIcons.gift,
+                        color: Colors.blue,
+                      ),
+                      elevation: 0,
+                      onPressed: () {},
+                    ),
                            const SizedBox(
                       width: 12.0,
                     ),
@@ -158,20 +158,20 @@ class AddMoney extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    // FloatingActionButton(
-                    //   backgroundColor: Colors.blueGrey.withOpacity(0.2),
-                    //   child: const FaIcon(
-                    //     FontAwesomeIcons.solidCreditCard,
-                    //     color: Colors.blue,
-                    //   ),
-                    //   elevation: 0,
-                    //   onPressed: () {},
-                    // ),
+                    FloatingActionButton(
+                      backgroundColor: Colors.blueGrey.withOpacity(0.2),
+                      child: const FaIcon(
+                        FontAwesomeIcons.creditCard,
+                        color: Colors.blue,
+                      ),
+                      elevation: 0,
+                      onPressed: () {},
+                    ),
                            const SizedBox(
                       width: 12.0,
                     ),
                 
-               const Spacer(),
+              //  const Spacer(),
 
                                          const SizedBox(
                       height: 12.0,

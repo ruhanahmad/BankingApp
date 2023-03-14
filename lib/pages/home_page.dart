@@ -80,6 +80,7 @@ return
        GestureDetector(
         onTap: () async{
          await hj.getDataForProfile(); 
+         await hj.getDataForProfileAccount();
           Get.to(ProfilePage());
         },
         child: CircleAvatar(
@@ -175,6 +176,7 @@ return
                     await hj.addAllNumbers();
                    // Nav.toScreen(context,  Paga());
                     await hj.graphTry();
+                   await hj.getLimits();
                     Get.to(()=>Paga());
                  
                     

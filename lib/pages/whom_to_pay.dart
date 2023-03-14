@@ -6,6 +6,7 @@ import 'package:bnacash/pages/sendContactMoney.dart';
 import 'package:bnacash/widgets/custom_buttonn.dart';
 import 'package:bnacash/widgets/cutom_heading.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../Controller/userController.dart';
@@ -172,15 +173,15 @@ var iban = userController.contactListThings![i]["iban"];
                 ),
                 child: Row(
                   children: [
-                    // FloatingActionButton(
-                    //   backgroundColor: Colors.blueGrey.withOpacity(0.2),
-                    //   child: const FaIcon(
-                    //     FontAwesomeIcons.solidCreditCard,
-                    //     color: Colors.blue,
-                    //   ),
-                    //   elevation: 0,
-                    //   onPressed: () {},
-                    // ),
+                    FloatingActionButton(
+                      backgroundColor: Colors.blueGrey.withOpacity(0.2),
+                      child: const FaIcon(
+                        FontAwesomeIcons.buildingColumns,
+                        color: Colors.blue,
+                      ),
+                      elevation: 0,
+                      onPressed: () {},
+                    ),
                            const SizedBox(
                       width: 12.0,
                     ),

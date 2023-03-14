@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 
+
 class nklo extends StatefulWidget {
   const nklo({Key? key}) : super(key: key);
 
@@ -57,6 +58,7 @@ class _nkloState extends State<nklo> {
             child: ScrollDatePicker(
               selectedDate: _selectedDate,
               locale: Locale('en'),
+              scrollViewOptions: DatePickerScrollViewOptions(day: ScrollViewDetailOptions(label: "",)),
               onDateTimeChanged: (DateTime value) {
      setState(() {
         _selectedDate = value;

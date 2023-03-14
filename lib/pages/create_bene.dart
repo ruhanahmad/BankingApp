@@ -70,15 +70,15 @@ class _CreateBeneState extends State<CreateBene> {
                 ),
                 child: Row(
                   children: [
-                    // FloatingActionButton(
-                    //   backgroundColor: Colors.blueGrey.withOpacity(0.2),
-                    //   child: const FaIcon(
-                    //     FontAwesomeIcons.solidCreditCard,
-                    //     color: Colors.blue,
-                    //   ),
-                    //   elevation: 0,
-                    //   onPressed: () {},
-                    // ),
+                    FloatingActionButton(
+                      backgroundColor: Colors.blueGrey.withOpacity(0.2),
+                      child: const FaIcon(
+                        FontAwesomeIcons.userPlus,
+                        color: Colors.blue,
+                      ),
+                      elevation: 0,
+                      onPressed: () {},
+                    ),
                            const SizedBox(
                       width: 12.0,
                     ),

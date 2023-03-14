@@ -185,11 +185,11 @@ Column(
         Container(
           height: 50,
           width: Get.width,
-          color: Colors.blue,
+          color: Colors.white,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-          Text("Name"),
+          Text("Name",style: TextStyle(color: Colors.grey),),
           Text(userController.nameFor.toString() + " " + userController.lastNameFor.toString()),
           
               
@@ -203,11 +203,11 @@ Column(
                 Container(
           height: 50,
           width: Get.width,
-          color: Colors.blue,
+          color: Colors.white,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-          Text("BIC"),
+          Text("BIC",style: TextStyle(color: Colors.grey),),
           Text(userController.bicFor.toString()),
           
               
@@ -221,11 +221,11 @@ Column(
                 Container(
           height: 50,
           width: Get.width,
-          color: Colors.blue,
+          color: Colors.white,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-          Text("IBAN"),
+          Text("IBAN",style: TextStyle(color: Colors.grey),),
           Text(userController.IbanFor.toString()),
           
               
@@ -260,21 +260,6 @@ Column(
                 child: 
 
 
-
-// DropdownButton<String>(
-//   value: dropdownValue, // Set initial value here
-//   onChanged: (String? newValue) {
-//     setState(() {
-//       dropdownValue = newValue!;
-//     });
-//   },
-//   items: <String>['Premium', 'Topaz'].map<DropdownMenuItem<String>>((String value) {
-//     return DropdownMenuItem<String>(
-//       value: value,
-//       child: Text(value),
-//     );
-//   }).toList(),
-// )
 
 
 
@@ -408,11 +393,11 @@ Column(
                 Container(
           height: 50,
           width: Get.width,
-          color: Colors.blue,
+          color: Colors.white,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-          Text("Limit"),
+          Text("Limit",style: TextStyle(color: Colors.grey),),
           Text(userController.limitFor.toString()),
           
               
@@ -426,11 +411,16 @@ Column(
     onTap: () async{
       await userController.logOut();
     },
-    child: Container(
-      color: Colors.blueAccent,
-      height: 30,
-      width: 50,
-      child: Text("Logout"),),
+    child: Center(
+      child: Container(
+        decoration: BoxDecoration(
+              color: Colors.blueAccent,
+          borderRadius: BorderRadius.circular(12)),
+    
+        height: 40,
+        width: 70,
+        child: Center(child: Text("Logout")),),
+    ),
   )
             ],
           ),

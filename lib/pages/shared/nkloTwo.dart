@@ -55,12 +55,15 @@ class _nkloTwoState extends State<nkloTwo> {
           SizedBox(
             height: 250,
             child: ScrollDatePicker(
+              
               selectedDate: _selectedDate,
               locale: Locale('en'),
+              scrollViewOptions: DatePickerScrollViewOptions(day: ScrollViewDetailOptions(label: "",)),
               onDateTimeChanged: (DateTime value) {
      setState(() {
         _selectedDate = value;
      });
+     
                   userController.selectedDateYear = value;
                   userController.update();
                     

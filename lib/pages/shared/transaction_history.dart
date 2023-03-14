@@ -33,47 +33,40 @@ class _TransactionHistoryState extends State<TransactionHistory> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Transaction History",
-                    style: kAppBarTextStyle.copyWith(fontSize: 25),
-                  ),
-                 Row(children: [
-                  GestureDetector(
-                    onTap: () {
-                      Nav.toScreen(context, nklo());
-                    },
-                    child: Container(
-                     
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                       
-                      ),
-                      child: Text("Export monthly Transactions")),
-                  ),
-
-                    SizedBox(width: 20,),
-                                     GestureDetector(
-                                      onTap: () {
-                                       
-                                        Nav.toScreen(context,  nkloTwo());
-                                      },
-                                       child: Container(
-                                                        
-                                                         decoration: BoxDecoration(
-                                                           color: Colors.blue,
-                                                          
-                                                         ),
-                                                         child: Text("Export Yearly Transactions")),
-                                     ),
-
-                 ],)
-
-
-                ],
+              Text(
+                "Transaction History",
+                style: kAppBarTextStyle.copyWith(fontSize: 25),
               ),
+                 Row(children: [
+              GestureDetector(
+                onTap: () {
+                  Nav.toScreen(context, nklo());
+                },
+                child: Container(
+                 
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                   
+                  ),
+                  child: Text("Export monthly Transactions")),
+              ),
+
+                SizedBox(width: 20,),
+                                 GestureDetector(
+                                  onTap: () {
+                                   
+                                    Nav.toScreen(context,  nkloTwo());
+                                  },
+                                   child: Container(
+                                                    
+                                                     decoration: BoxDecoration(
+                                                       color: Colors.blue,
+                                                      
+                                                     ),
+                                                     child: Text("Export Yearly Transactions")),
+                                 ),
+
+                 ],),
               const SizedBox(height: 20),
               // const Text(
               //   "Yesterday",
@@ -91,7 +84,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                 itemBuilder: (context,i){
 return   Column(
   children: [
-    Text("${formatTransactionDate(userController.dateTimess[i].toDate())}"),
+    Text("${  formatTransactionDate(userController.dateTimess[i].toDate())}"),
         // Text("${userController.dateTimess[i]}"),
     // convertTimestamp( userController.dateTimess[i]),
         // formatTransactionDate(userController.dateTimess[i]),
@@ -224,7 +217,7 @@ return   Column(
   final now = DateTime.now();
   if (now.day == date.day && now.month == date.month && now.year == date.year) {
     // transaction done during the current day
-    return DateFormat.jm().format(date); // format as "2:15 PM"
+    return  DateFormat.jm().format(date); // format as "2:15 PM"
   } else if (now.difference(date).inDays < 7) {
     // transaction done during the current week
     return DateFormat.E().format(date); // format as "Tuesday"

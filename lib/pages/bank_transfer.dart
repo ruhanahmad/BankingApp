@@ -123,6 +123,7 @@ class _BankCardState extends State<BankCard> {
                     userController.sendMoneyBalance= value;
                     userController.update();
                   },
+                     keyboardType: TextInputType.number,
                   textAlign: TextAlign.left,
                   decoration: InputDecoration(
                     hintText: 'Enter Balance',

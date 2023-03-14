@@ -556,7 +556,9 @@ SizedBox(height: 5,),
           margin: const EdgeInsets.only(left: 5, right: 10, top: 20),
           child: Column(
             children: [
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                children: [
                 // to navigate screen
                 GestureDetector(child: const Icon(Icons.arrow_back)),
                 Row(
@@ -807,24 +809,24 @@ Container(
                       },
                     ),
                     SizedBox(height: 10,),
-                                        ListTile(
-                      leading: const CircleAvatar(
-                        backgroundColor: Color(0xFF0356e0),
-                        child: Icon(Icons.settings, color: Colors.white),
-                      ),
-                      title: const Text(
-                        "Order Physical Card",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                      subtitle:
-                          const Text("Order Card by entering your address "),
-                      onTap: () async{
+                    //                     ListTile(
+                    //   leading: const CircleAvatar(
+                    //     backgroundColor: Color(0xFF0356e0),
+                    //     child: Icon(Icons.settings, color: Colors.white),
+                    //   ),
+                    //   title: const Text(
+                    //     "Order Physical Card",
+                    //     style: TextStyle(
+                    //         fontWeight: FontWeight.bold, fontSize: 18),
+                    //   ),
+                    //   subtitle:
+                    //       const Text("Order Card by entering your address "),
+                    //   onTap: () async{
 
-                        await alerts();
-                        // Nav.toScreen(context, const SettingsPage());
-                      },
-                    ),
+                    //     await alerts();
+                    //     // Nav.toScreen(context, const SettingsPage());
+                    //   },
+                    // ),
                   ],
                 ),
               ),
@@ -854,6 +856,35 @@ Container(
               SingleChildScrollView(
                 child: Column(
                   children: [
+                    Container(
+                      height: 50,
+                      child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children:[
+                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                    // to navigate screen
+                                    GestureDetector(child: const Icon(Icons.arrow_back)),
+                                    MaterialButton(
+                                      onPressed: ()async {
+                                         await alerts();
+                                        // await    userController.checkVirtualCard();
+                                        // await userController.
+                                      // Get.to(CardDesign());
+                                      },
+                                      color: const Color(0xFF006ee8),
+                                      textColor: Colors.white,
+                                      child: const Icon(
+                                        Icons.add,
+                                        size: 20,
+                                      ),
+                                      padding: const EdgeInsets.all(8.0),
+                                      shape:  CircleBorder(),
+                                    ),
+                                  ]),
+                      ]),
+                    ),
                     Container(
                     height: 200,
                     width: Get.width,
@@ -996,7 +1027,7 @@ Container(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       subtitle:
-                          const Text("Order Card by entering your address "),
+                          const Text("Change pin of your Card"),
                       onTap: () async{
                       await   userController.getPhysicalCard();
                         await alertsPhysical();
@@ -1006,6 +1037,7 @@ Container(
                   ],
                 ),
               ),
+               SizedBox(height: 30,),
                   ],
                 ),
               ):

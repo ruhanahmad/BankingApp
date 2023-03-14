@@ -42,7 +42,7 @@ class _PagaState extends State<Paga> {
 
   int touchedIndex = -1;
 Map<String, double> dataMap = {
-    "Limit": 6000,
+    "Limit": userController.numz,
     "Spending": userController.jj,
     // "Xamarin": 2,
     // "Ionic": 2,
@@ -63,6 +63,15 @@ Map<String, double> dataMap = {
 
    return
 Scaffold(
+
+  appBar: AppBar(
+      iconTheme: IconThemeData(
+    color: Colors.black, //change your color here
+  ),
+    title: Text("Analysis",style: TextStyle(color: Colors.black)),
+
+
+  ),
   body: SingleChildScrollView(
     child: Column(
       children: [
@@ -87,7 +96,7 @@ Scaffold(
                           child:
                           PieChart(
                           dataMap: dataMap,
-                          chartType: ChartType.ring,
+                        chartType: ChartType.disc,
                           baseChartColor: Colors.grey[300]!,
                           colorList: availableColors,
                         ),

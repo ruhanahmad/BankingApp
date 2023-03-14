@@ -92,8 +92,9 @@ Map<String, double> dataMap = {
                         width: 400,
                         child:
                         PieChart(
+                         chartType: ChartType.disc,
                         dataMap: dataMap,
-                        chartType: ChartType.ring,
+                        // chartType: ChartType.ring,
                         baseChartColor: Colors.grey[300]!,
                         colorList: widget.availableColors,
                       ),
