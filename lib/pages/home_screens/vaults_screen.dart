@@ -32,7 +32,7 @@ class _VaultsScreenState extends State<VaultsScreen> {
   final int _maxClusterZoom = 19;
 
   /// [Fluster] instance used to manage the clusters
-   Fluster<MapMarker>? _clusterManager;
+  //  Fluster<MapMarker>? _clusterManager;
 
   /// Current map zoom. Initial zoom will be 15, street level
   double _currentZoom = 15;
@@ -252,62 +252,62 @@ class _VaultsScreenState extends State<VaultsScreen> {
     LatLng(36.85257413391662, 10.16512547871082),
   ];
 
-   void _onMapCreated(GoogleMapController controller) {
-    _mapController.complete(controller);
+  //  void _onMapCreated(GoogleMapController controller) {
+  //   _mapController.complete(controller);
 
-    setState(() {
-      _isMapLoading = false;
-    });
+  //   setState(() {
+  //     _isMapLoading = false;
+  //   });
 
-    _initMarkers();
-  }
+  //   _initMarkers();
+  // }
 
 
-    void _initMarkers() async {
-    final List<MapMarker> markers = [];
+  //   void _initMarkers() async {
+  //   final List<MapMarker> markers = [];
 
-    for (LatLng markerLocation in _markerLocations) {
-      final BitmapDescriptor markerImage =
-          await MapHelper.getMarkerImageFromUrl(_markerImageUrl);
+  //   for (LatLng markerLocation in _markerLocations) {
+  //     final BitmapDescriptor markerImage =
+  //         await MapHelper.getMarkerImageFromUrl(_markerImageUrl);
 
-      markers.add(
-        MapMarker(
-          id: _markerLocations.indexOf(markerLocation).toString(),
-          position: markerLocation,
-          icon: markerImage,
-        ),
-      );
-    }
+  //     markers.add(
+  //       MapMarker(
+  //         id: _markerLocations.indexOf(markerLocation).toString(),
+  //         position: markerLocation,
+  //         icon: markerImage,
+  //       ),
+  //     );
+  //   }
 
-    _clusterManager = await MapHelper.initClusterManager(
-      markers,
-      _minClusterZoom,
-      _maxClusterZoom,
-      _clusterImageUrl,
-    );
+  //   _clusterManager = await MapHelper.initClusterManager(
+  //     markers,
+  //     _minClusterZoom,
+  //     _maxClusterZoom,
+  //     _clusterImageUrl,
+  //   );
 
-    _updateMarkers();
-  }
+  //   _updateMarkers();
+  // }
 
-  void _updateMarkers([double? updatedZoom]) {
-    if (_clusterManager == null || updatedZoom == _currentZoom) return;
+  // void _updateMarkers([double? updatedZoom]) {
+  //   if (_clusterManager == null || updatedZoom == _currentZoom) return;
 
-    if (updatedZoom != null) {
-      _currentZoom = updatedZoom;
-    }
+  //   if (updatedZoom != null) {
+  //     _currentZoom = updatedZoom;
+  //   }
 
-    setState(() {
-      _areMarkersLoading = true;
-    });
+  //   setState(() {
+  //     _areMarkersLoading = true;
+  //   });
 
-    _markers
-      ..clear()
-      ..addAll(MapHelper.getClusterMarkers(_clusterManager!, _currentZoom));
+  //   _markers
+  //     ..clear()
+  //     ..addAll(MapHelper.getClusterMarkers(_clusterManager!, _currentZoom));
 
-    setState(() {
-      _areMarkersLoading = false;
-    });
-  }
+  //   setState(() {
+  //     _areMarkersLoading = false;
+  //   });
+  // }
   // Set<Marker> _markers = {};
   Marker marker = Marker(
   markerId: MarkerId('marker_id'),
@@ -370,8 +370,8 @@ class _VaultsScreenState extends State<VaultsScreen> {
  },
  
 //  _markers,
-  onMapCreated: (controller) => _onMapCreated(controller),
-              onCameraMove: (position) => _updateMarkers(position.zoom),
+  // onMapCreated: (controller) => _onMapCreated(controller),
+  //             onCameraMove: (position) => _updateMarkers(position.zoom),
 ),
           ],
         )

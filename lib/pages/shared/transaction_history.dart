@@ -3,6 +3,7 @@ import 'package:bnacash/pages/shared/datePickerTwo.dart';
 import 'package:bnacash/pages/shared/nkloTwo.dart';
 import 'package:bnacash/widgets/calendarss.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 import 'package:bnacash/Controller/userController.dart';
@@ -129,7 +130,7 @@ return   Column(
         notificationField(
                       text: "Money Added via ${userController.notificationList[i].toString()}",
     
-                      icon: "assets/images/prepaidcode.png",
+                      icon: FaIcon(FontAwesomeIcons.gift),
     
                       subtitle:
     
@@ -142,7 +143,7 @@ return   Column(
     
                       text: "Money sent To ${userController.notificationList[i].toString()}",
     
-                      icon: "assets/images/send.png",
+                      icon: FaIcon(FontAwesomeIcons.arrowRight),
     
                       subtitle:
     
@@ -155,7 +156,7 @@ return   Column(
     
                       text: "From ${userController.notificationList[i].toString()}",
     
-                      icon: "assets/images/send.png",
+                      icon: FaIcon(FontAwesomeIcons.arrowLeft),
     
                       subtitle:
     
@@ -169,7 +170,7 @@ return   Column(
     
                       text: "Money Added via ${userController.notificationList[i].toString()}",
     
-                      icon: "assets/images/debitcard.png",
+                      icon: FaIcon(FontAwesomeIcons.creditCard),
     
                       subtitle:
     
@@ -183,7 +184,7 @@ return   Column(
     
                       text: userController.notificationList.length != null ? userController.notificationList[i].toString() :"hi how are you",
     
-                      icon: "assets/images/tunisia.png",
+                      icon: FaIcon(FontAwesomeIcons.hand),
     
                       subtitle:
     
@@ -201,37 +202,9 @@ return   Column(
         
               
     
-             SizedBox(height: 10),
-             Text(
-                "userController.notificationList[0].DateTime.toString()"
-                ,
-                style: kContentTextStyle,
-              ),
-              notificationField(
-                  text: "Add money confidently",
-                  icon: "assets/images/visa.png",
-                  subtitle:
-                      "Data security and spend protection are our priorities.\nLearn more"),
-              const SizedBox(height: 10),
-              const Text(
-                "October 3",
-                style: kContentTextStyle,
-              ),
-              notificationField(
-                  text: "Keep your money with us.",
-                  icon: "assets/images/contacts.png",
-                  subtitle:
-                      "Our customers trust us with their money. Learn more"),
-              const SizedBox(height: 10),
-              const Text(
-                "October 1",
-                style: kContentTextStyle,
-              ),
-              notificationField(
-                  text: "Don't leave us hanging!",
-                  icon: "assets/icons/icon.png",
-                  subtitle:
-                      "Add money to start exploring the revolutionary features we have to offer."),
+          
+
+             
               const SizedBox(height: 10),
             ],
           ),
@@ -267,7 +240,7 @@ return   Column(
 }
 
 
-  Widget notificationField({String? text, String? icon, String? subtitle,String? trailings}) {
+  Widget notificationField({String? text,  icon, String? subtitle,String? trailings}) {
     return 
     Padding(
       padding: const EdgeInsets.all(8.0),
@@ -278,17 +251,18 @@ return   Column(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
           child: 
-          ListTile(
+     ListTile(
 
             leading: 
-            CircleAvatar(
-              radius: 25,
-              backgroundImage: AssetImage(
-                icon!,
-              ),
-            ),
-            trailing: 
-            Text(trailings == null ? " zero" : trailings,
+            icon
+            ,
+            // CircleAvatar(
+            //   radius: 25,
+            //   backgroundImage: AssetImage(
+            //     icon!,
+            //   ),
+            // ),
+            trailing: Text(trailings == null ?" zero ":trailings,
               style: kContentTextStyle,),
 
             title: Text(
