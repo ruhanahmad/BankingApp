@@ -76,19 +76,31 @@ return
       centerTitle: false,
       elevation: 0,
       title: 
-      
-       GestureDetector(
-        onTap: () async{
-         await hj.getDataForProfile(); 
+       MaterialButton(
+                  minWidth: 0,
+                  //color: Colors.transparent,
+                  child: const FaIcon(FontAwesomeIcons.user),
+                  onPressed: () async {
+                //  await userController.tenNumberGenerated();
+                 await hj.getDataForProfile(); 
          await hj.getDataForProfileAccount();
           Get.to(ProfilePage());
-        },
-        child: CircleAvatar(
-          child: Text('RA'),
-          backgroundColor: Colors.blueGrey,
-          foregroundColor: Colors.white,
-        ),
-      ),
+                
+                
+                  },
+                ),
+      //  GestureDetector(
+      //   onTap: () async{
+      //    await hj.getDataForProfile(); 
+      //    await hj.getDataForProfileAccount();
+      //     Get.to(ProfilePage());
+      //   },
+      //   child: CircleAvatar(
+      //     child: Text('RA'),
+      //     backgroundColor: Colors.blueGrey,
+      //     foregroundColor: Colors.white,
+      //   ),
+      // ),
       actions: [
         
         StreamBuilder(
@@ -121,7 +133,7 @@ return
          
      
          SizedBox(
-            width: 300,
+            width: 400,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -170,6 +182,21 @@ return
                 MaterialButton(
                   minWidth: 0,
                   //color: Colors.transparent,
+                  child: const FaIcon(FontAwesomeIcons.solidChartBar),
+                  onPressed: () async{
+                    // Nav.toScreen(context, const AnalyticsPage());
+                    await hj.addAllNumbers();
+                   // Nav.toScreen(context,  Paga());
+                    await hj.graphTry();
+                   await hj.getLimits();
+                    Get.to(()=>Paga());
+                 
+                    
+                  },
+                ),
+                MaterialButton(
+                  minWidth: 0,
+                  //color: Colors.transparent,
                   child: const FaIcon(FontAwesomeIcons.mapPin),
                   onPressed: () async{
                     // Nav.toScreen(context, const AnalyticsPage());
@@ -177,7 +204,7 @@ return
                   //  // Nav.toScreen(context,  Paga());
                   //   await hj.graphTry();
                   //  await hj.getLimits();
-                    Get.to(()=> VaultsScreen());
+                    Get.to(()=>VaultsScreen(),);
                  
                     
                   },
@@ -273,10 +300,10 @@ return
               text: 'Exchange',
             ),
             Tab(
-              text: 'Transaction History',
+              text: 'Crypto',
             ),
             Tab(
-              text: 'Analytics',
+              text: 'Agencies',
             ),
           ],
         ),
@@ -288,12 +315,9 @@ return
             AccountsScreen(),
             Cards(),
             StocksScreen(),
-            TransactionHistory(),
-            
-                   
+            CryptoScreen(),
             //  CryptoScreen(),
-             Paga(),
-            // VaultsScreen(),
+            VaultsScreen(),
           ],
         ),
         floatingActionButtonLocation:

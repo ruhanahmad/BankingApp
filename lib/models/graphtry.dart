@@ -37,17 +37,6 @@ class Paga extends StatefulWidget {
 
 class _PagaState extends State<Paga> {
    
-  
-   @override
-   void initState() {
-                       userController.addAllNumbers();
-                   // Nav.toScreen(context,  Paga());
-                     userController.graphTry();
-                   userController.getLimits();
-     super.initState();
-     
-   }
-   
     final Color? barBackgroundColor = const Color(0xff72d8bf);
   final Duration animDuration = const Duration(milliseconds: 250);
 
@@ -76,9 +65,9 @@ Map<String, double> dataMap = {
 Scaffold(
 
   appBar: AppBar(
-  //     iconTheme: IconThemeData(
-  //   color: Colors.black, //change your color here
-  // ),
+      iconTheme: IconThemeData(
+    color: Colors.black, //change your color here
+  ),
     title: Text("Analysis",style: TextStyle(color: Colors.black)),
 
 
@@ -101,7 +90,7 @@ Scaffold(
             primaryXAxis: CategoryAxis(),
           ),
         ),
-        Text("Spendings",style: TextStyle(color: Colors.black)),
+        Text("Analysis",style: TextStyle(color: Colors.black)),
               Center(
                         child: Container(
                           height: 400,
