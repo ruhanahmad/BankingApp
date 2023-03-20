@@ -75,6 +75,7 @@ Scaffold(
   body: SingleChildScrollView(
     child: Column(
       children: [
+        Text("Balance",style: TextStyle(color: Colors.black)),
         Container(
           height: 500,
           width: 500,
@@ -89,6 +90,7 @@ Scaffold(
             primaryXAxis: CategoryAxis(),
           ),
         ),
+        Text("Spendings",style: TextStyle(color: Colors.black)),
               Center(
                         child: Container(
                           height: 400,
