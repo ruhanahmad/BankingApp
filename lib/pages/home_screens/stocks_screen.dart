@@ -136,8 +136,9 @@ Padding(
                 child: Text('Convert'),
               ),
               SizedBox(height: 16.0),
+             
               Text(
-                '$_amount $_fromCurrency =  ${_.convert} $_toCurrency',
+                '$_amount $_fromCurrency =  ${_.convert == null? 0 :_.convert}  $_toCurrency',
                 style: TextStyle(fontSize: 20.0),
               ),
             ],

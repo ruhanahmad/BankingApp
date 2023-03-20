@@ -1260,7 +1260,7 @@ Future  getAccountData() async {
   final _apiKey = "4036185fd69443228f0d20a667884d1f";
   var base;
   var amountss;
-  var convert;
+  var convert ;
   Future<dynamic> convertCurrencies({
     required  baseCurrency,
     required  toCurrency,
