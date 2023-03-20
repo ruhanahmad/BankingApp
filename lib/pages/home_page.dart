@@ -170,14 +170,14 @@ return
                 MaterialButton(
                   minWidth: 0,
                   //color: Colors.transparent,
-                  child: const FaIcon(FontAwesomeIcons.solidChartBar),
+                  child: const FaIcon(FontAwesomeIcons.mapPin),
                   onPressed: () async{
                     // Nav.toScreen(context, const AnalyticsPage());
-                    await hj.addAllNumbers();
-                   // Nav.toScreen(context,  Paga());
-                    await hj.graphTry();
-                   await hj.getLimits();
-                    Get.to(()=>Paga());
+                  //   await hj.addAllNumbers();
+                  //  // Nav.toScreen(context,  Paga());
+                  //   await hj.graphTry();
+                  //  await hj.getLimits();
+                    Get.to(()=> VaultsScreen());
                  
                     
                   },
@@ -273,10 +273,10 @@ return
               text: 'Exchange',
             ),
             Tab(
-              text: 'Crypto',
+              text: 'Transaction History',
             ),
             Tab(
-              text: 'Agencies',
+              text: 'Analytics',
             ),
           ],
         ),
@@ -288,9 +288,12 @@ return
             AccountsScreen(),
             Cards(),
             StocksScreen(),
-            CryptoScreen(),
+            TransactionHistory(),
+            
+                   
             //  CryptoScreen(),
-            VaultsScreen(),
+             Paga(),
+            // VaultsScreen(),
           ],
         ),
         floatingActionButtonLocation:

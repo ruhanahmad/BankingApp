@@ -22,6 +22,12 @@ class TransactionHistory extends StatefulWidget {
 class _TransactionHistoryState extends State<TransactionHistory> {
   final userController = Get.put(UserController());
   @override
+  void initState() {
+      userController.getNotification();
+    super.initState();
+    
+  }
+  @override
   Widget build(BuildContext context) {
       DateTime _selectedDate = DateTime.now();
     return Scaffold(
