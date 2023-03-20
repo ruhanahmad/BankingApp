@@ -283,12 +283,13 @@ return
       ),
     ),
         // buildAppBar(context,stream),
-        body: const TabBarView(
+        body:TabBarView(
           children: [
             AccountsScreen(),
             Cards(),
             StocksScreen(),
             CryptoScreen(),
+            //  CryptoScreen(),
             VaultsScreen(),
           ],
         ),

@@ -72,6 +72,9 @@ dependencies:
   d_chart: ^2.2.11
   money_converter: ^2.0.2
   http: ^0.13.5
+  google_maps_flutter:
+  fluster:
+  flutter_cache_manager: 
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -108,6 +111,7 @@ flutter:
     - assets/euro2.png
     - assets/dialog_flow_auth.json
     - assets/yu.png
+    - assets/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
