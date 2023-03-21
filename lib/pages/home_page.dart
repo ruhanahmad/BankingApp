@@ -53,6 +53,7 @@ var userId = FirebaseAuth.instance.currentUser;
 //   superVerify()async{
 // await  userController.verificationChec();
 //   }
+var selectedItem = '';
   @override
   Widget build(BuildContext context) {
     
@@ -75,32 +76,21 @@ return
       iconTheme: const IconThemeData(color: Colors.black),
       centerTitle: false,
       elevation: 0,
-      title: 
-       MaterialButton(
-                  minWidth: 0,
-                  //color: Colors.transparent,
-                  child: const FaIcon(FontAwesomeIcons.user),
-                  onPressed: () async {
-                //  await userController.tenNumberGenerated();
-                 await hj.getDataForProfile(); 
-         await hj.getDataForProfileAccount();
-          Get.to(ProfilePage());
-                
-                
-                  },
-                ),
-      //  GestureDetector(
-      //   onTap: () async{
-      //    await hj.getDataForProfile(); 
+      // title: 
+      //  MaterialButton(
+      //             minWidth: 0,
+      //             //color: Colors.transparent,
+      //             child: const FaIcon(FontAwesomeIcons.user),
+      //             onPressed: () async {
+      //           //  await userController.tenNumberGenerated();
+      //            await hj.getDataForProfile(); 
       //    await hj.getDataForProfileAccount();
       //     Get.to(ProfilePage());
-      //   },
-      //   child: CircleAvatar(
-      //     child: Text('RA'),
-      //     backgroundColor: Colors.blueGrey,
-      //     foregroundColor: Colors.white,
-      //   ),
-      // ),
+                
+                
+      //             },
+      //           ),
+   
       actions: [
         
         StreamBuilder(
@@ -137,64 +127,73 @@ return
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                //  MaterialButton(
-                //   minWidth: 0,
-                //   //color: Colors.transparent,
-                //   child: const FaIcon(FontAwesomeIcons.airbnb),
-                //   onPressed: () async {
-        
-                // //  await userController.hanodi();
-                //   },
-                // ),              
-                 MaterialButton(
+
+
+                
+                
+
+                                      PopupMenuButton(onSelected: (value) {
+            // your logic
+            setState(() {
+              selectedItem = value.toString();
+            });
+            print(value);
+            Navigator.pushNamed(context, value.toString());
+          }, itemBuilder: (BuildContext bc) {
+            return  [
+
+                                   PopupMenuItem(
+                child: 
+                
+                             Row(
+                               children: [
+                                  Text("User"),
+        MaterialButton(
                   minWidth: 0,
                   //color: Colors.transparent,
-                  child: const FaIcon(FontAwesomeIcons.message),
+                  child: const FaIcon(FontAwesomeIcons.user),
                   onPressed: () async {
                 //  await userController.tenNumberGenerated();
-                Get.to(DialogFlows());
+                 await hj.getDataForProfile(); 
+         await hj.getDataForProfileAccount();
+          Get.to(ProfilePage());
                 
                 
                   },
                 ),
-                MaterialButton(
+                               ],
+                             ),
+                // value: 'user',
+              ),
+              
+                                          PopupMenuItem(
+                child: 
+                
+                             Row(
+                               children: [
+                                  Text("Settings"),
+                                      MaterialButton(
                   minWidth: 0,
                   //color: Colors.transparent,
-                  child: const FaIcon(FontAwesomeIcons.addressBook),
+                  child: const FaIcon(FontAwesomeIcons.gear),
                   onPressed: () async {
-                    await hj.getNotification();
-                    Nav.toScreen(context,   TransactionHistory());
-                    //  await  userController.ification();
-                    // await userController.getVirtualCard();
+                    await hj.getDataForProfile();
+                    // Nav.toScreen(context, Settingss());
+                    Get.to(()=>Settingss());
+                    // Get.put(ExampleHomePage());
                   },
                 ),
-                // MaterialButton(
-                //   minWidth: 0,
-                //   //color: Colors.transparent,
-                //   child: const FaIcon(FontAwesomeIcons.solidChartBar),
-                //   onPressed: () async {
-                //     SharedPreferences prefs =
-                //         await SharedPreferences.getInstance();
-        
-                //     await prefs.remove('LoginInfo');
-                //   },
-                // ),
-                MaterialButton(
-                  minWidth: 0,
-                  //color: Colors.transparent,
-                  child: const FaIcon(FontAwesomeIcons.solidChartBar),
-                  onPressed: () async{
-                    // Nav.toScreen(context, const AnalyticsPage());
-                    await hj.addAllNumbers();
-                   // Nav.toScreen(context,  Paga());
-                    await hj.graphTry();
-                   await hj.getLimits();
-                    Get.to(()=>Paga());
-                 
-                    
-                  },
-                ),
-                MaterialButton(
+                               ],
+                             ),
+                // value: '/hello',
+              ),
+                            PopupMenuItem(
+                child: 
+                
+                             Row(
+                               children: [
+                                  Text("Map"),
+                          MaterialButton(
                   minWidth: 0,
                   //color: Colors.transparent,
                   child: const FaIcon(FontAwesomeIcons.mapPin),
@@ -209,6 +208,151 @@ return
                     
                   },
                 ),
+                               ],
+                             ),
+                // value: '/hello',
+              ),
+              PopupMenuItem(
+                child: 
+                
+                             Row(
+                               children: [
+                                  Text("History"),
+                                 MaterialButton(
+                  minWidth: 0,
+                  //color: Colors.transparent,
+                  child: const FaIcon(FontAwesomeIcons.addressBook),
+                  onPressed: () async {
+                    await hj.getNotification();
+                    Nav.toScreen(context,   TransactionHistory());
+                    //  await  userController.ification();
+                    // await userController.getVirtualCard();
+                  },
+                ),
+                               ],
+                             ),
+                // value: '/hello',
+              ),
+              PopupMenuItem(
+                child: 
+                        Row(
+                          children: [
+                             Text("FAQ"),
+                            MaterialButton(
+                  minWidth: 0,
+                  //color: Colors.transparent,
+                  child: const FaIcon(FontAwesomeIcons.message),
+                  onPressed: () async {
+                //  await userController.tenNumberGenerated();
+                Get.to(DialogFlows());
+                
+                
+                  },
+                ),
+                          ],
+                        ),
+                // Text("About"),
+                // value: '/about',
+              ),
+              PopupMenuItem(
+                child: 
+                     Row(
+                       children: [
+                        Text("Analysis"),
+                         MaterialButton(
+                  minWidth: 0,
+                  //color: Colors.transparent,
+                  child: FaIcon(FontAwesomeIcons.solidChartBar),
+                  onPressed: () async{
+                    // Nav.toScreen(context, const AnalyticsPage());
+                    await hj.addAllNumbers();
+                   // Nav.toScreen(context,  Paga());
+                    await hj.graphTry();
+                   await hj.getLimits();
+                    Get.to(()=>Paga());
+                 
+                    
+                  },
+                ),
+                       ],
+                     ),
+                // value: '/contact',
+              )
+            ];
+          }),
+                //  MaterialButton(
+                //   minWidth: 0,
+                //   //color: Colors.transparent,
+                //   child: const FaIcon(FontAwesomeIcons.airbnb),
+                //   onPressed: () async {
+        
+                // //  await userController.hanodi();
+                //   },
+                // ),              
+                //  MaterialButton(
+                //   minWidth: 0,
+                //   //color: Colors.transparent,
+                //   child: const FaIcon(FontAwesomeIcons.message),
+                //   onPressed: () async {
+                // //  await userController.tenNumberGenerated();
+                // Get.to(DialogFlows());
+                
+                
+                //   },
+                // ),
+                // MaterialButton(
+                //   minWidth: 0,
+                //   //color: Colors.transparent,
+                //   child: const FaIcon(FontAwesomeIcons.addressBook),
+                //   onPressed: () async {
+                //     await hj.getNotification();
+                //     Nav.toScreen(context,   TransactionHistory());
+                //     //  await  userController.ification();
+                //     // await userController.getVirtualCard();
+                //   },
+                // ),
+                // MaterialButton(
+                //   minWidth: 0,
+                //   //color: Colors.transparent,
+                //   child: const FaIcon(FontAwesomeIcons.solidChartBar),
+                //   onPressed: () async {
+                //     SharedPreferences prefs =
+                //         await SharedPreferences.getInstance();
+        
+                //     await prefs.remove('LoginInfo');
+                //   },
+                // ),
+
+                // MaterialButton(
+                //   minWidth: 0,
+                //   //color: Colors.transparent,
+                //   child: const FaIcon(FontAwesomeIcons.solidChartBar),
+                //   onPressed: () async{
+                //     // Nav.toScreen(context, const AnalyticsPage());
+                //     await hj.addAllNumbers();
+                //    // Nav.toScreen(context,  Paga());
+                //     await hj.graphTry();
+                //    await hj.getLimits();
+                //     Get.to(()=>Paga());
+                 
+                    
+                //   },
+                // ),
+                // MaterialButton(
+                //   minWidth: 0,
+                //   //color: Colors.transparent,
+                //   child: const FaIcon(FontAwesomeIcons.mapPin),
+                //   onPressed: () async{
+                //     // Nav.toScreen(context, const AnalyticsPage());
+                //   //   await hj.addAllNumbers();
+                //   //  // Nav.toScreen(context,  Paga());
+                //   //   await hj.graphTry();
+                //   //  await hj.getLimits();
+                //     Get.to(()=>VaultsScreen(),);
+                 
+                    
+                //   },
+                // ),
                 //    MaterialButton(
                 //   minWidth: 0,
                 //   //color: Colors.transparent,
@@ -225,17 +369,17 @@ return
                 // ),
         
                 
-                MaterialButton(
-                  minWidth: 0,
-                  //color: Colors.transparent,
-                  child: const FaIcon(FontAwesomeIcons.gear),
-                  onPressed: () async {
-                    await hj.getDataForProfile();
-                    // Nav.toScreen(context, Settingss());
-                    Get.to(()=>Settingss());
-                    // Get.put(ExampleHomePage());
-                  },
-                ),
+                // MaterialButton(
+                //   minWidth: 0,
+                //   //color: Colors.transparent,
+                //   child: const FaIcon(FontAwesomeIcons.gear),
+                //   onPressed: () async {
+                //     await hj.getDataForProfile();
+                //     // Nav.toScreen(context, Settingss());
+                //     Get.to(()=>Settingss());
+                //     // Get.put(ExampleHomePage());
+                //   },
+                // ),
                 //         MaterialButton(
                 //   minWidth: 0,
                 //   //color: Colors.transparent,
