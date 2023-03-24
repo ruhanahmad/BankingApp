@@ -183,144 +183,129 @@ class _ProfilePageState extends State<ProfilePage> {
 
 
 
-Column(
-      children: [
-        Container(
-          
-          child: 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Form(
-                key: _formKey,
-                child: Container(
-                  width: Get.width/2 +140,
-                  child: TextFormField(
-                    controller: userController.textEditingForChange,
-                    enabled: _isEditable,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: '${userController.usernameFor.toString()}',
-                    ),
-                  ),
-                ),
+Container(
+  
+  child: 
+  Column(
+    children: [
+      Container(
+        child: Form(
+          key: _formKey,
+          child: Container(
+            width: Get.width/2 +140,
+            child: TextFormField(
+              controller: userController.textEditingForChange,
+              enabled: _isEditable,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              decoration: InputDecoration(
+                hintText: '${userController.usernameFor.toString()}',
               ),
-        
-                      Row(
-                        children: [
-                          ElevatedButton(
-                            child: Text('Edit'),
-                            onPressed: () {
-                              setState(() {
-                                _isEditable = true;
-                              });
-                            },
-                          ),
-                            ElevatedButton(
-                        child: Text('Save'),
-                        onPressed: () async{
-                          if (_formKey.currentState!.validate()) {
-                            setState(() {
-                              _isEditable = false;
-                            });
-
-                            await userController.saveEditedThing();
-                            // Save the form data to Firebase
-                            // FirebaseFirestore.instance.collection('my_collection').doc('my_document').update({
-                            //   'my_field': _textEditingController.text,
-                            // });
-                          }
-                        },
-                      ),
-                        ],
-                      ),
-                    
-            ],
+            ),
           ),
         ),
-        SizedBox(height: 30,),
+      ),
 
+SizedBox(height: 20,),
+              Row(
+                children: [
+                  ElevatedButton(
+                    child: Text('Edit'),
+                    onPressed: () {
+                      setState(() {
+                        _isEditable = true;
+                      });
+                    },
+                  ),
+                    ElevatedButton(
+                child: Text('Save'),
+                onPressed: () async{
+                  if (_formKey.currentState!.validate()) {
+                    setState(() {
+                      _isEditable = false;
+                    });
 
-
-      ],
-    ),
+                    await userController.saveEditedThing();
+                    // Save the form data to Firebase
+                    // FirebaseFirestore.instance.collection('my_collection').doc('my_document').update({
+                    //   'my_field': _textEditingController.text,
+                    // });
+                  }
+                },
+              ),
+                ],
+              ),
+    ],
+  ),
+),
+SizedBox(height: 30,),
 
 SizedBox(height: 30,),
 
-Column(
-      children: [
-        Container(
-          
-          child: 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Form(
-                key: _formKeyTwo,
-                child: Container(
-                  width: Get.width/2 +140,
-                  child: TextFormField(
-                    controller: userController.textEditingForChangeTwo,
-                    enabled: _isEditableTwo,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                            
-                        if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                      return "Please enter a valid email address";
-                    }
-                    },
-                    decoration: InputDecoration(
-                      hintText: '${userController.emailFor.toString()}',
-                    ),
-                  ),
-                ),
-              ),
-        
-                      Row(
-                        children: [
-                          ElevatedButton(
-                            child: Text('Edit'),
-                            onPressed: () {
-                              setState(() {
-                                _isEditableTwo = true;
-                              });
-                            },
-                          ),
-                            ElevatedButton(
-                        child: Text('Save'),
-                        onPressed: () async{
-                          if (_formKeyTwo.currentState!.validate()) {
-                            setState(() {
-                              _isEditableTwo = false;
-                            });
-
-                            await userController.saveEditedThingEmail();
-                            // Save the form data to Firebase
-                            // FirebaseFirestore.instance.collection('my_collection').doc('my_document').update({
-                            //   'my_field': _textEditingController.text,
-                            // });
-                          }
-                        },
-                      ),
-                        ],
-                      ),
+Container(
+  
+  child: 
+  Column(
+    children: [
+      Form(
+        key: _formKeyTwo,
+        child: Container(
+          width: Get.width/2 +140,
+          child: TextFormField(
+            controller: userController.textEditingForChangeTwo,
+            enabled: _isEditableTwo,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter some text';
+              }
                     
-            ],
+                if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+              return "Please enter a valid email address";
+            }
+            },
+            decoration: InputDecoration(
+              hintText: '${userController.emailFor.toString()}',
+            ),
           ),
         ),
-        SizedBox(height: 30,),
+      ),
 
+              Row(
+                children: [
+                  ElevatedButton(
+                    child: Text('Edit'),
+                    onPressed: () {
+                      setState(() {
+                        _isEditableTwo = true;
+                      });
+                    },
+                  ),
+                    ElevatedButton(
+                child: Text('Save'),
+                onPressed: () async{
+                  if (_formKeyTwo.currentState!.validate()) {
+                    setState(() {
+                      _isEditableTwo = false;
+                    });
 
-
-      ],
-    ),
+                    await userController.saveEditedThingEmail();
+                    // Save the form data to Firebase
+                    // FirebaseFirestore.instance.collection('my_collection').doc('my_document').update({
+                    //   'my_field': _textEditingController.text,
+                    // });
+                  }
+                },
+              ),
+                ],
+              ),
+    ],
+  ),
+),
+SizedBox(height: 30,),
 
 
 

@@ -127,7 +127,7 @@ class StandardPlan extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Get a free physical card with 0 monthly fee. Deliver\nfee may apply',
+                    'Get a free  with 0 monthly fee. Deliver\nfee may apply',
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 12,
