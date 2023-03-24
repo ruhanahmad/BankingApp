@@ -1487,7 +1487,7 @@ class UserController extends GetxController {
               .collection("notifications")
               .add({
             "dateTime": DateTime.now(),
-            "balance": balanc,
+            "balance": beneBalance,
             "username": sendMoneyContactName,
             "type": "sending",
             "read": false,
