@@ -25,7 +25,20 @@ class _InboxPageState extends State<InboxPage> {
       //   ),
       //   elevation: 0.0,
       // ),
-      body: SingleChildScrollView(
+      body: 
+      StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+        .collection("account").doc(userController.userId!.uid).collection("notifications").orderBy('dateTime', descending: true)
+        .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+  if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          final docs = snapshot.data!.docs;
+          return 
+             SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
@@ -48,16 +61,17 @@ class _InboxPageState extends State<InboxPage> {
               child:
              
                ListView.builder(
-                itemCount: userController.notificationList.length,
+                itemCount: docs.length,
                 itemBuilder: (context,i){
+                  final data = docs[i];
              return   Column(
              children: [
-               Text("${formatTransactionDate(userController.dateTimess[i].toDate())}"),
+               Text("${formatTransactionDate(data["dateTime"].toDate())}"),
                    // Text("${userController.dateTimess[i]}"),
                // convertTimestamp( userController.dateTimess[i]),
                    // formatTransactionDate(userController.dateTimess[i]),
              
-                   userController.type[i] == "prepaidCode" ?
+                   data["type"] == "prepaidCode" ?
                    notificationField(
                       text: "Money Added",
                
@@ -65,10 +79,10 @@ class _InboxPageState extends State<InboxPage> {
                
                       subtitle:
                
-                        "You just added the amount of ${userController.bala[i].toString()} with a prepaid code"
+                        "You just added the amount of ${data["balance"].toString()} with a prepaid code"
                
                           ):
-                            userController.type[i] == "sending" ?
+                            data["type"] == "sending" ?
                           notificationField(
                
                       text: "Money Sent",
@@ -78,10 +92,10 @@ class _InboxPageState extends State<InboxPage> {
                
                       subtitle:
                
-                         "You just sent the amount of ${userController.bala[i]} to ${userController.notificationList[i].toString()}"
+                         "You just sent the amount of ${data["balance"]} to ${data["username"].toString()}"
                
                           ):
-                           userController.type[i] == "receiving" ?
+                           data["type"] == "receiving" ?
                           notificationField(
                
                       text: "Money Received",
@@ -91,10 +105,10 @@ class _InboxPageState extends State<InboxPage> {
                
                       subtitle:
                
-                        "You just received the amount of ${userController.bala[i]} from ${userController.notificationList[i]})"
+                        "You just received the amount of ${data["balance"]} from ${data["username"]})"
                
                           ): 
-                           userController.type[i] == "CreditCard" ?
+                           data["type"] == "CreditCard" ?
                           notificationField(
                
                       text: "Money Added Through Credit Card",
@@ -104,21 +118,21 @@ class _InboxPageState extends State<InboxPage> {
                
                       subtitle:
                
-                         "You just add the amount of ${userController.bala[i].toString()} with the debit card ending with ${userController.notificationList[i].toString()} )"
+                         "You just add the amount of ${data["balance"]} with the debit card ending with ${data["username"]} )"
                
                           ):
                    
                  
                     notificationField(
                
-                      text: userController.notificationList.length != null ? userController.notificationList[i].toString() :"hi how are you",
+                      text: docs.length != null ? data["username"].toString() :"hi how are you",
                
                       icon: FaIcon(FontAwesomeIcons.hand),
                       //"assets/images/tunisia.png",
                
                       subtitle:
                
-                         userController.bala[i].toString() + "amount received"
+                         data["balance"].toString() + "amount received"
                
                           ),
              
@@ -165,7 +179,10 @@ class _InboxPageState extends State<InboxPage> {
             ],
           ),
         ),
-      ),
+      );
+
+        })
+   
     );
   }
  DateTime ?  convertTimestamp(Timestamp timestamp) {

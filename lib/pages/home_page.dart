@@ -29,497 +29,492 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
- late Stream<QuerySnapshot> stream;
-UserController userController = Get.put(UserController());
+  late Stream<QuerySnapshot> stream;
+  UserController userController = Get.put(UserController());
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     userController.getIDo();
-var userId = FirebaseAuth.instance.currentUser;
-     stream = FirebaseFirestore.instance
-        .collection("account").doc(userId!.uid).collection("notifications").snapshots();
-        print(stream);
+    var userId = FirebaseAuth.instance.currentUser;
+    stream = FirebaseFirestore.instance
+        .collection("account")
+        .doc(userId!.uid)
+        .collection("notifications")
+        .snapshots();
+    print(stream);
   }
-
 
   // @override
   // void initState() {
   //   super.initState();
   //   superVerify();
-   
+
   // }
 
 //   superVerify()async{
 // await  userController.verificationChec();
 //   }
-var selectedItem = '';
+  var selectedItem = '';
   @override
   Widget build(BuildContext context) {
-    
     UserController userController = UserController();
-return
-   Scaffold(body: GetBuilder<UserController>(
-    init: UserController(),
-    builder: (hj){
-  return 
-  
-          
-    hj.checkssss == true ?
-    DefaultTabController(
-      length: 5,
-      child: Scaffold(
-        backgroundColor: scaffoldColor,
-        appBar: 
-        AppBar(
-      backgroundColor: Colors.transparent,
-      iconTheme: const IconThemeData(color: Colors.black),
-      centerTitle: false,
-      elevation: 0,
-      // title: 
-      //  MaterialButton(
-      //             minWidth: 0,
-      //             //color: Colors.transparent,
-      //             child: const FaIcon(FontAwesomeIcons.user),
-      //             onPressed: () async {
-      //           //  await userController.tenNumberGenerated();
-      //            await hj.getDataForProfile(); 
-      //    await hj.getDataForProfileAccount();
-      //     Get.to(ProfilePage());
-                
-                
-      //             },
-      //           ),
-   
-      actions: [
-        
-        StreamBuilder(
-         stream: stream,
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
-            
-             if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            }
- var unreadCount;
-            if (snapshot.hasData ) {
-            
-                unreadCount = snapshot.data!.docs.where((doc) => !doc['read']).length == null ? 0:snapshot.data!.docs.where((doc) => !doc['read']).length;
-            
-                 
-            }
- if (!snapshot.hasData ) {
-                //  Get.snackbar("Error", message)
-                unreadCount = 0;
-            }
-       
-           
+    return Scaffold(
+        body: GetBuilder<UserController>(
+      init: UserController(),
+      builder: (hj) {
+        return hj.checkssss == true
+            ? DefaultTabController(
+                length: 5,
+                child: Scaffold(
+                  backgroundColor: scaffoldColor,
+                  appBar: AppBar(
+                    backgroundColor: Colors.transparent,
+                    iconTheme: const IconThemeData(color: Colors.black),
+                    centerTitle: false,
+                    elevation: 0,
+                    // title:
+                    //  MaterialButton(
+                    //             minWidth: 0,
+                    //             //color: Colors.transparent,
+                    //             child: const FaIcon(FontAwesomeIcons.user),
+                    //             onPressed: () async {
+                    //           //  await userController.tenNumberGenerated();
+                    //            await hj.getDataForProfile();
+                    //    await hj.getDataForProfileAccount();
+                    //     Get.to(ProfilePage());
 
-         
-            // final unreadCounts = snapshot.data!.docs.where((doc) => !doc['read']).first.id;
+                    //             },
+                    //           ),
 
-              // print(unreadCounts);
-              // print(unreadCount);
-         return 
-         
-     
-         SizedBox(
-            width: 400,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
+                    actions: [
+                      StreamBuilder(
+                          stream: stream,
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            }
+                            var unreadCount;
+                            if (snapshot.hasData) {
+                              unreadCount = snapshot.data!.docs
+                                          .where((doc) => !doc['read'])
+                                          .length ==
+                                      null
+                                  ? 0
+                                  : snapshot.data!.docs
+                                      .where((doc) => !doc['read'])
+                                      .length;
+                            }
+                            if (!snapshot.hasData) {
+                              //  Get.snackbar("Error", message)
+                              unreadCount = 0;
+                            }
 
+                            // final unreadCounts = snapshot.data!.docs.where((doc) => !doc['read']).first.id;
 
-                
-                
+                            // print(unreadCounts);
+                            // print(unreadCount);
+                            return SizedBox(
+                              width: 400,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  PopupMenuButton(onSelected: (value) {
+                                    // your logic
+                                    setState(() {
+                                      selectedItem = value.toString();
+                                    });
+                                    print(value);
+                                    Navigator.pushNamed(
+                                        context, value.toString());
+                                  }, itemBuilder: (BuildContext bc) {
+                                    return [
+                                      PopupMenuItem(
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            await hj.getDataForProfile();
+                                            await hj.getDataForProfileAccount();
+                                            Get.to(ProfilePage());
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                //color: Colors.transparent,
+                                                child: FaIcon(
+                                                    FontAwesomeIcons.user),
+                                              ),
+                                              SizedBox(
+                                                width: 20,
+                                              ),
+                                              Text("Profile"),
+                                            ],
+                                          ),
+                                        ),
+                                        // value: '/contact',
+                                      ),
+                                      PopupMenuItem(
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            await hj.getDataForProfile();
+                                            // Nav.toScreen(context, Settingss());
+                                            Get.to(() => Settingss());
+                                            // Get.put(ExampleHomePage());
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                //color: Colors.transparent,
+                                                child: FaIcon(
+                                                    FontAwesomeIcons.gear),
+                                              ),
+                                              SizedBox(
+                                                width: 18,
+                                              ),
+                                              Text("Settings"),
+                                            ],
+                                          ),
+                                        ),
+                                        // value: '/contact',
+                                      ),
+                                      PopupMenuItem(
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            await hj.getIDo();
+                                            // await hj.getNotification();
+                                          
+                                            Nav.toScreen(
+                                                context, TransactionHistory());
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                //color: Colors.transparent,
+                                                child: FaIcon(
+                                                    FontAwesomeIcons.book),
+                                              ),
+                                              SizedBox(
+                                                width: 20,
+                                              ),
+                                              Text("History"),
+                                            ],
+                                          ),
+                                        ),
+                                        // value: '/contact',
+                                      ),
+                                      PopupMenuItem(
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            Get.to(
+                                              () => VaultsScreen(),
+                                            );
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                //color: Colors.transparent,
+                                                child: FaIcon(
+                                                    FontAwesomeIcons.mapPin),
+                                              ),
+                                              SizedBox(
+                                                width: 25,
+                                              ),
+                                              Text("ATM"),
+                                            ],
+                                          ),
+                                        ),
+                                        // value: '/contact',
+                                      ),
+                                      PopupMenuItem(
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            await hj.addAllNumbers();
+                                            // Nav.toScreen(context,  Paga());
+                                            await hj.graphTry();
+                                            await hj.getLimits();
+                                            Get.to(() => Paga());
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                //color: Colors.transparent,
+                                                child: FaIcon(FontAwesomeIcons
+                                                    .chartSimple),
+                                              ),
+                                              SizedBox(
+                                                width: 20,
+                                              ),
+                                              Text("Analysis"),
+                                            ],
+                                          ),
+                                        ),
+                                        // value: '/contact',
+                                      ),
+                                      PopupMenuItem(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Get.to(DialogFlows());
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                //color: Colors.transparent,
+                                                child: const FaIcon(
+                                                    FontAwesomeIcons.message),
+                                              ),
+                                              SizedBox(
+                                                width: 20,
+                                              ),
+                                              Text("FAQ"),
+                                            ],
+                                          ),
+                                        ),
+                                        // Text("About"),
+                                        // value: '/about',
+                                      ),
+                                    ];
+                                  }),
+                                  //  MaterialButton(
+                                  //   minWidth: 0,
+                                  //   //color: Colors.transparent,
+                                  //   child: const FaIcon(FontAwesomeIcons.airbnb),
+                                  //   onPressed: () async {
 
-                                      PopupMenuButton(onSelected: (value) {
-            // your logic
-            setState(() {
-              selectedItem = value.toString();
-            });
-            print(value);
-            Navigator.pushNamed(context, value.toString());
-          }, itemBuilder: (BuildContext bc) {
-            return  [
+                                  // //  await userController.hanodi();
+                                  //   },
+                                  // ),
+                                  //  MaterialButton(
+                                  //   minWidth: 0,
+                                  //   //color: Colors.transparent,
+                                  //   child: const FaIcon(FontAwesomeIcons.message),
+                                  //   onPressed: () async {
+                                  // //  await userController.tenNumberGenerated();
+                                  // Get.to(DialogFlows());
 
-                                   PopupMenuItem(
-                child: 
-                
-                             Row(
-                               children: [
-                                  Text("User"),
-        MaterialButton(
-                  minWidth: 0,
-                  //color: Colors.transparent,
-                  child: const FaIcon(FontAwesomeIcons.user),
-                  onPressed: () async {
-                //  await userController.tenNumberGenerated();
-                 await hj.getDataForProfile(); 
-         await hj.getDataForProfileAccount();
-          Get.to(ProfilePage());
-                
-                
-                  },
-                ),
-                               ],
-                             ),
-                // value: 'user',
-              ),
-              
-                                          PopupMenuItem(
-                child: 
-                
-                             Row(
-                               children: [
-                                  Text("Settings"),
-                                      MaterialButton(
-                  minWidth: 0,
-                  //color: Colors.transparent,
-                  child: const FaIcon(FontAwesomeIcons.gear),
-                  onPressed: () async {
-                    await hj.getDataForProfile();
-                    // Nav.toScreen(context, Settingss());
-                    Get.to(()=>Settingss());
-                    // Get.put(ExampleHomePage());
-                  },
-                ),
-                               ],
-                             ),
-                // value: '/hello',
-              ),
-                            PopupMenuItem(
-                child: 
-                
-                             Row(
-                               children: [
-                                  Text("Map"),
-                          MaterialButton(
-                  minWidth: 0,
-                  //color: Colors.transparent,
-                  child: const FaIcon(FontAwesomeIcons.mapPin),
-                  onPressed: () async{
-                    // Nav.toScreen(context, const AnalyticsPage());
-                  //   await hj.addAllNumbers();
-                  //  // Nav.toScreen(context,  Paga());
-                  //   await hj.graphTry();
-                  //  await hj.getLimits();
-                    Get.to(()=>VaultsScreen(),);
-                 
-                    
-                  },
-                ),
-                               ],
-                             ),
-                // value: '/hello',
-              ),
-              PopupMenuItem(
-                child: 
-                
-                             Row(
-                               children: [
-                                  Text("History"),
-                                 MaterialButton(
-                  minWidth: 0,
-                  //color: Colors.transparent,
-                  child: const FaIcon(FontAwesomeIcons.addressBook),
-                  onPressed: () async {
-                    await hj.getNotification();
-                    Nav.toScreen(context,   TransactionHistory());
-                    //  await  userController.ification();
-                    // await userController.getVirtualCard();
-                  },
-                ),
-                               ],
-                             ),
-                // value: '/hello',
-              ),
-              PopupMenuItem(
-                child: 
-                        Row(
-                          children: [
-                             Text("FAQ"),
-                            MaterialButton(
-                  minWidth: 0,
-                  //color: Colors.transparent,
-                  child: const FaIcon(FontAwesomeIcons.message),
-                  onPressed: () async {
-                //  await userController.tenNumberGenerated();
-                Get.to(DialogFlows());
-                
-                
-                  },
-                ),
-                          ],
+                                  //   },
+                                  // ),
+                                  // MaterialButton(
+                                  //   minWidth: 0,
+                                  //   //color: Colors.transparent,
+                                  //   child: const FaIcon(FontAwesomeIcons.addressBook),
+                                  //   onPressed: () async {
+                                  //     await hj.getNotification();
+                                  //     Nav.toScreen(context,   TransactionHistory());
+                                  //     //  await  userController.ification();
+                                  //     // await userController.getVirtualCard();
+                                  //   },
+                                  // ),
+                                  // MaterialButton(
+                                  //   minWidth: 0,
+                                  //   //color: Colors.transparent,
+                                  //   child: const FaIcon(FontAwesomeIcons.solidChartBar),
+                                  //   onPressed: () async {
+                                  //     SharedPreferences prefs =
+                                  //         await SharedPreferences.getInstance();
+
+                                  //     await prefs.remove('LoginInfo');
+                                  //   },
+                                  // ),
+
+                                  // MaterialButton(
+                                  //   minWidth: 0,
+                                  //   //color: Colors.transparent,
+                                  //   child: const FaIcon(FontAwesomeIcons.solidChartBar),
+                                  //   onPressed: () async{
+                                  //     // Nav.toScreen(context, const AnalyticsPage());
+                                  //     await hj.addAllNumbers();
+                                  //    // Nav.toScreen(context,  Paga());
+                                  //     await hj.graphTry();
+                                  //    await hj.getLimits();
+                                  //     Get.to(()=>Paga());
+
+                                  //   },
+                                  // ),
+                                  // MaterialButton(
+                                  //   minWidth: 0,
+                                  //   //color: Colors.transparent,
+                                  //   child: const FaIcon(FontAwesomeIcons.mapPin),
+                                  //   onPressed: () async{
+                                  //     // Nav.toScreen(context, const AnalyticsPage());
+                                  //   //   await hj.addAllNumbers();
+                                  //   //  // Nav.toScreen(context,  Paga());
+                                  //   //   await hj.graphTry();
+                                  //   //  await hj.getLimits();
+                                  //     Get.to(()=>VaultsScreen(),);
+
+                                  //   },
+                                  // ),
+                                  //    MaterialButton(
+                                  //   minWidth: 0,
+                                  //   //color: Colors.transparent,
+                                  //   child: const FaIcon(FontAwesomeIcons.carBattery),
+                                  //   onPressed: ()async {
+                                  //      await hj.addAllNumbers();
+                                  //    // Nav.toScreen(context,  Paga());
+                                  //     await hj.graphTry();
+                                  //     // Nav.toScreen(context, const AnalyticsPage());
+                                  //     Nav.toScreen(context,  BarChartSample1());
+                                  //   //  hj.addAllNumbers();
+
+                                  //   },
+                                  // ),
+
+                                  // MaterialButton(
+                                  //   minWidth: 0,
+                                  //   //color: Colors.transparent,
+                                  //   child: const FaIcon(FontAwesomeIcons.gear),
+                                  //   onPressed: () async {
+                                  //     await hj.getDataForProfile();
+                                  //     // Nav.toScreen(context, Settingss());
+                                  //     Get.to(()=>Settingss());
+                                  //     // Get.put(ExampleHomePage());
+                                  //   },
+                                  // ),
+                                  //         MaterialButton(
+                                  //   minWidth: 0,
+                                  //   //color: Colors.transparent,
+                                  //   child: const FaIcon(FontAwesomeIcons.gear),
+                                  //   onPressed: () async {
+                                  //     // await userController.getDataForProfile();
+                                  //     // Nav.toScreen(context, Settingss());
+
+                                  //     // Get.put(ExampleHomePage());
+                                  //   },
+                                  // ),
+                                  MaterialButton(
+                                    minWidth: 0,
+                                    //color: Colors.transparent,
+                                    child: unreadCount > 0
+                                        ? Container(
+                                            width: 30,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: Image(
+                                              image:
+                                                  AssetImage('assets/yu.png'),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          )
+                                        : FaIcon(FontAwesomeIcons.solidBell),
+                                    onPressed: () async {
+                                      //  await userController.getNotification();
+                                      await userController
+                                          .updateNotify(unreadCount);
+                                      Nav.toScreen(context, const InboxPage());
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                    ],
+                    bottom: PreferredSize(
+                      preferredSize: const Size.fromHeight(80.0),
+                      child: TabBar(
+                        labelPadding:
+                            const EdgeInsets.symmetric(horizontal: 8.0),
+                        isScrollable: false,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        indicatorColor: Colors.black,
+                        labelColor: Colors.black,
+                        indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.white,
                         ),
-                // Text("About"),
-                // value: '/about',
-              ),
-              PopupMenuItem(
-                child: 
-                     Row(
-                       children: [
-                        Text("Analysis"),
-                         MaterialButton(
-                  minWidth: 0,
-                  //color: Colors.transparent,
-                  child: FaIcon(FontAwesomeIcons.solidChartBar),
-                  onPressed: () async{
-                    // Nav.toScreen(context, const AnalyticsPage());
-                    await hj.addAllNumbers();
-                   // Nav.toScreen(context,  Paga());
-                    await hj.graphTry();
-                   await hj.getLimits();
-                    Get.to(()=>Paga());
-                 
-                    
-                  },
+                        tabs: const [
+                          Tab(
+                            text: 'Accounts',
+                          ),
+                          Tab(
+                            text: 'Cards',
+                          ),
+                          Tab(
+                            text: 'Exchange',
+                          ),
+                          Tab(
+                            text: 'Crypto',
+                          ),
+                          Tab(
+                            text: 'Agencies',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  // buildAppBar(context,stream),
+                  body: TabBarView(
+                    children: [
+                      AccountsScreen(),
+                      Cards(),
+                      StocksScreen(),
+                      CryptoScreen(),
+                      //  CryptoScreen(),
+                      VaultsScreen(),
+                    ],
+                  ),
+                  floatingActionButtonLocation:
+                      FloatingActionButtonLocation.miniCenterDocked,
+                  floatingActionButton: FloatingActionButton.extended(
+                    onPressed: () {},
+                    foregroundColor: Colors.transparent,
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    label: Container(
+                      // width: size.width * 0.5,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15.0)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          InkWell(
+                            onTap: () =>
+                                Nav.toScreen(context, const HomePage()),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.home,
+                                size: 25,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () => Nav.toScreen(context, WhomToPay()),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.sync_alt_rounded,
+                                size: 25,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () =>
+                                Nav.toScreen(context, const HomePage()),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.space_dashboard_rounded,
+                                size: 25,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-                       ],
-                     ),
-                // value: '/contact',
               )
-            ];
-          }),
-                //  MaterialButton(
-                //   minWidth: 0,
-                //   //color: Colors.transparent,
-                //   child: const FaIcon(FontAwesomeIcons.airbnb),
-                //   onPressed: () async {
-        
-                // //  await userController.hanodi();
-                //   },
-                // ),              
-                //  MaterialButton(
-                //   minWidth: 0,
-                //   //color: Colors.transparent,
-                //   child: const FaIcon(FontAwesomeIcons.message),
-                //   onPressed: () async {
-                // //  await userController.tenNumberGenerated();
-                // Get.to(DialogFlows());
-                
-                
-                //   },
-                // ),
-                // MaterialButton(
-                //   minWidth: 0,
-                //   //color: Colors.transparent,
-                //   child: const FaIcon(FontAwesomeIcons.addressBook),
-                //   onPressed: () async {
-                //     await hj.getNotification();
-                //     Nav.toScreen(context,   TransactionHistory());
-                //     //  await  userController.ification();
-                //     // await userController.getVirtualCard();
-                //   },
-                // ),
-                // MaterialButton(
-                //   minWidth: 0,
-                //   //color: Colors.transparent,
-                //   child: const FaIcon(FontAwesomeIcons.solidChartBar),
-                //   onPressed: () async {
-                //     SharedPreferences prefs =
-                //         await SharedPreferences.getInstance();
-        
-                //     await prefs.remove('LoginInfo');
-                //   },
-                // ),
-
-                // MaterialButton(
-                //   minWidth: 0,
-                //   //color: Colors.transparent,
-                //   child: const FaIcon(FontAwesomeIcons.solidChartBar),
-                //   onPressed: () async{
-                //     // Nav.toScreen(context, const AnalyticsPage());
-                //     await hj.addAllNumbers();
-                //    // Nav.toScreen(context,  Paga());
-                //     await hj.graphTry();
-                //    await hj.getLimits();
-                //     Get.to(()=>Paga());
-                 
-                    
-                //   },
-                // ),
-                // MaterialButton(
-                //   minWidth: 0,
-                //   //color: Colors.transparent,
-                //   child: const FaIcon(FontAwesomeIcons.mapPin),
-                //   onPressed: () async{
-                //     // Nav.toScreen(context, const AnalyticsPage());
-                //   //   await hj.addAllNumbers();
-                //   //  // Nav.toScreen(context,  Paga());
-                //   //   await hj.graphTry();
-                //   //  await hj.getLimits();
-                //     Get.to(()=>VaultsScreen(),);
-                 
-                    
-                //   },
-                // ),
-                //    MaterialButton(
-                //   minWidth: 0,
-                //   //color: Colors.transparent,
-                //   child: const FaIcon(FontAwesomeIcons.carBattery),
-                //   onPressed: ()async {
-                //      await hj.addAllNumbers();
-                //    // Nav.toScreen(context,  Paga());
-                //     await hj.graphTry();
-                //     // Nav.toScreen(context, const AnalyticsPage());
-                //     Nav.toScreen(context,  BarChartSample1());
-                //   //  hj.addAllNumbers();
-                    
-                //   },
-                // ),
-        
-                
-                // MaterialButton(
-                //   minWidth: 0,
-                //   //color: Colors.transparent,
-                //   child: const FaIcon(FontAwesomeIcons.gear),
-                //   onPressed: () async {
-                //     await hj.getDataForProfile();
-                //     // Nav.toScreen(context, Settingss());
-                //     Get.to(()=>Settingss());
-                //     // Get.put(ExampleHomePage());
-                //   },
-                // ),
-                //         MaterialButton(
-                //   minWidth: 0,
-                //   //color: Colors.transparent,
-                //   child: const FaIcon(FontAwesomeIcons.gear),
-                //   onPressed: () async {
-                //     // await userController.getDataForProfile();
-                //     // Nav.toScreen(context, Settingss());
-        
-                //     // Get.put(ExampleHomePage());
-                //   },
-                // ),
-                MaterialButton(
-                  minWidth: 0,
-                  //color: Colors.transparent,
-                  child:  unreadCount > 0 ? Container(
-  width: 30,
-  height: 30,
-  decoration: BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(10),
-  ),
-  child: Image(
-    image: AssetImage('assets/yu.png'),
-    fit: BoxFit.cover,
-  ),
-)
-:FaIcon(FontAwesomeIcons.solidBell),
-                  onPressed: () async {
-                    
-                    await userController.getNotification();
-                     await userController.updateNotify(unreadCount);
-                    Nav.toScreen(context, const InboxPage());
-                  },
-                ),
-              ],
-            ),
-          );
-          }
-            ),
-    
-      ],
-      bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(80.0),
-        child: TabBar(
-          labelPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-          isScrollable: false,
-          indicatorSize: TabBarIndicatorSize.tab,
-          indicatorColor: Colors.black,
-          labelColor: Colors.black,
-          indicator: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            color: Colors.white,
-          ),
-          tabs: const [
-            Tab(
-              text: 'Accounts',
-            ),
-            Tab(
-              text: 'Cards',
-            ),
-            Tab(
-              text: 'Exchange',
-            ),
-            Tab(
-              text: 'Crypto',
-            ),
-            Tab(
-              text: 'Agencies',
-            ),
-          ],
-        ),
-      ),
-    ),
-        // buildAppBar(context,stream),
-        body:TabBarView(
-          children: [
-            AccountsScreen(),
-            Cards(),
-            StocksScreen(),
-            CryptoScreen(),
-            //  CryptoScreen(),
-            VaultsScreen(),
-          ],
-        ),
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.miniCenterDocked,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
-          foregroundColor: Colors.transparent,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          label: Container(
-            // width: size.width * 0.5,
-            height: 50,
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(15.0)),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                InkWell(
-                  onTap: () => Nav.toScreen(context, const HomePage()),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.home,
-                      size: 25,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () => Nav.toScreen(context, WhomToPay()),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.sync_alt_rounded,
-                      size: 25,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () => Nav.toScreen(context, const HomePage()),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.space_dashboard_rounded,
-                      size: 25,
-                      color: Colors.blue,
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    ):VerificationFailed();
-   },));
-    
-
+            : VerificationFailed();
+      },
+    ));
   }
 }

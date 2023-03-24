@@ -37,7 +37,27 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         ),
         elevation: 0.0,
       ),
-      body: SingleChildScrollView(
+      body: 
+      
+      StreamBuilder<QuerySnapshot>(
+         stream: FirebaseFirestore.instance
+        .collection("account")
+        .doc(userController.userId!.uid)
+        .collection("notifications")
+        .orderBy('dateTime', descending: true)
+        .snapshots(),
+        
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+
+            if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          final docs = snapshot.data!.docs;
+          return 
+
+        SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
@@ -125,78 +145,79 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                ListView.builder(
                 itemCount: userController.notificationList.length,
                 itemBuilder: (context,i){
+                  final data = docs[i];
 return   Column(
   children: [
-    Text("${  formatTransactionDate(userController.dateTimess[i].toDate())}"),
+    Text("${formatTransactionDate(data["dateTime"].toDate())}"),
         // Text("${userController.dateTimess[i]}"),
     // convertTimestamp( userController.dateTimess[i]),
         // formatTransactionDate(userController.dateTimess[i]),
 
-        userController.type[i] == "prepaidCode" ?
+        data["type"] == "prepaidCode" ?
         notificationField(
-                      text: "Money Added via ${userController.notificationList[i].toString()}",
+                      text: "Money Added via ${data["username"].toString()}",
     
                       icon: FaIcon(FontAwesomeIcons.gift),
     
                       subtitle:
     
-                        "${formatTransactionDate(userController.dateTimess[i].toDate())}",
-                        trailings:userController.bala[i].toString(),
+                        "${formatTransactionDate(data["dateTime"].toDate())}",
+                        trailings:data["balance"].toString(),
     
                           ):
-                            userController.type[i] == "sending" ?
+                            data["type"] == "sending" ?
                           notificationField(
     
-                      text: "Money sent To ${userController.notificationList[i].toString()}",
+                      text: "Money sent To ${data["username"].toString()}",
     
                       icon: FaIcon(FontAwesomeIcons.arrowRight),
     
                       subtitle:
     
-                         "${formatTransactionDate(userController.dateTimess[i].toDate())}",
-                         trailings:  userController.bala[i].toString(),
+                         "${formatTransactionDate(data["dateTime"].toDate())}",
+                         trailings:  data["balance"].toString(),
     
                           ):
-                           userController.type[i] == "receiving" ?
+                           data["type"] == "receiving" ?
                           notificationField(
     
-                      text: "From ${userController.notificationList[i].toString()}",
+                      text: "From ${data["username"].toString()}",
     
                       icon: FaIcon(FontAwesomeIcons.arrowLeft),
     
                       subtitle:
     
-                       "${formatTransactionDate(userController.dateTimess[i].toDate())}",
+                       "${formatTransactionDate(data["dateTime"].toDate())}",
 
-                        trailings:  userController.bala[i].toString(),
+                        trailings:  data["balance"].toString(),
     
                           ): 
-                           userController.type[i] == "CreditCard" ?
+                           data["type"] == "CreditCard" ?
                           notificationField(
     
-                      text: "Money Added via ${userController.notificationList[i].toString()}",
+                      text: "Money Added via ${data["username"].toString()}",
     
                       icon: FaIcon(FontAwesomeIcons.creditCard),
     
                       subtitle:
     
-                        "${formatTransactionDate(userController.dateTimess[i].toDate())}",
-                         trailings:  userController.bala[i].toString(),
+                        "${formatTransactionDate(data["dateTime"].toDate())}",
+                         trailings:  data["balance"].toString(),
     
                           ):
         
       
          notificationField(
     
-                      text: userController.notificationList.length != null ? userController.notificationList[i].toString() :"hi how are you",
+                      text: data["username"] != null ? data["username"].toString() :"hi how are you",
     
                       icon: FaIcon(FontAwesomeIcons.hand),
     
                       subtitle:
     
-                     "${formatTransactionDate(userController.dateTimess[i].toDate())}",
+                     "${formatTransactionDate(data["dateTime"].toDate())}",
 
-                        trailings:  userController.bala[i].toString(),
+                        trailings:  data["balance"].toString(),
     
                           ),
 
@@ -215,7 +236,13 @@ return   Column(
             ],
           ),
         ),
-      ),
+      );
+
+
+        }
+        
+        )
+
     );
   }
  DateTime ?  convertTimestamp(Timestamp timestamp) {

@@ -19,16 +19,13 @@ class _ProofPageState extends State<ProofPage> {
       appBar: AppBar(
         actions: [
           GestureDetector(
-              onTap: () {
-                Get.to(VerificationFailed());
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Text(
-                  "Skip",
-                  style: TextStyle(color: Colors.black),
-                ),
-              ))
+            onTap: (){
+              Get.to(VerificationFailed());
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(right:8.0),
+              child: Text("Skip",style: TextStyle(color: Colors.black),),
+            ))
         ],
         leading: const BackButton(
           color: kPrimaryColor,
@@ -100,18 +97,17 @@ class _ProofPageState extends State<ProofPage> {
             //   style: kContentTextStyle,
             // ),
             // const SizedBox(height: 20),
-            //   GestureDetector(
-            //   onTap: ( ) {
-
-            //   Get.to(ExampleCameraOverlay());
-            // },//you want driving liscene remove ? yess
-            //   child: choiceField(text: "Driving license", icon: Icons.car_rental)),
             GestureDetector(
-                onTap: () {
-                  Get.to(ExampleCameraOverlayPassport());
-                },
-                child: choiceField(
-                    text: "Identity Card", icon: Icons.perm_identity)),
+              onTap: ( ) {
+                Get.to(ExampleCameraOverlay());
+              },
+              child: choiceField(text: "Driving license", icon: Icons.car_rental)),
+            GestureDetector(
+                 onTap: ( ) {
+                Get.to(ExampleCameraOverlayPassport());
+              },
+              
+              child: choiceField(text: "Identity Card", icon: Icons.perm_identity)),
             // GestureDetector(
             //            onTap: ( ) {
             //     Get.to(ExampleCameraOverlayPassport());
