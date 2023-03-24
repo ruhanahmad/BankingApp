@@ -1488,7 +1488,7 @@ class UserController extends GetxController {
               .add({
             "dateTime": DateTime.now(),
             "balance": balanc,
-            "username": beneName,
+            "username": sendMoneyContactName,
             "type": "sending",
             "read": false,
           }

@@ -113,6 +113,7 @@ var name =userController.contactListThings![i]["name"];
 var email = userController.contactListThings![i]["Email"];
 var iban = userController.contactListThings![i]["iban"];
            userController.sendMoneyContactName = userController.contactListThings![i]["name"];
+           userController.update();
            Get.to(SendMoneyContact(name: name,email:email,iban:iban));
       //  Navigator.push(context,(MaterialPageRoute(builder: (context){
       //   return SendMoneyContact(name: userController.contactListThings![i]["name"]);
