@@ -121,6 +121,23 @@ class _InboxPageState extends State<InboxPage> {
                          "You just add the amount of ${data["balance"]} with the debit card ending with ${data["username"]} )"
                
                           ):
+                          
+                         data["type"] == "packageChange" ?
+
+                               notificationField(
+               
+                      text: "Money Deducted From your account",
+               
+                      icon: FaIcon(FontAwesomeIcons.creditCard),
+                      //"assets/images/debitcard.png",
+               
+                      subtitle:
+               
+                         "Money deducted from account "
+               
+                          )
+                          
+                          :
                    
                  
                     notificationField(

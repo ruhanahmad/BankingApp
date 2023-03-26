@@ -1632,12 +1632,7 @@ if (documents.length > 0) {
          "type":"sending",
          "read":false,
         }
-        
-      //   {
-      //   "username":username,
-      //   "balance":beneBalance,
-      //   "DateTime":DateTime.now(),
-      // }
+    
       ).then(( value)async {
               Get.snackbar("title","Value added successfully");
 

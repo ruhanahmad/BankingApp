@@ -1,5 +1,6 @@
 
 
+import 'package:bnacash/Controller/userController.dart';
 import 'package:bnacash/main.dart';
 import 'package:bnacash/pages/home_page.dart';
 import 'package:bnacash/pages/login/models/dob.dart';
@@ -18,6 +19,14 @@ class VerificationFailed extends StatefulWidget {
 }
 
 class _VerificationFailedState extends State<VerificationFailed> {
+  UserController userController = Get.put(UserController());
+   bool? newone ;
+  @override
+  void initState() {
+       userController.verificationChec();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,13 +38,20 @@ class _VerificationFailedState extends State<VerificationFailed> {
       body: Center(child: Container(
       child: Column(
         children: [
+          userController.firstScreen == true ?
+           Nav.toScreen(context, const HomePage()):
           Text("It need to be verified first"),
           SizedBox(height: 20,),
           GestureDetector(
             onTap: () async{
               print("object");
-   bool? newone = await userController.verificationChec();
-         Nav.toScreen(context, const HomePage());
+  await userController.verificationChec();
+     userController.firstScreen == false ?
+         Get.snackbar("Not Verified", "Ask admin to make Verified true")
+         
+         :
+          Nav.toScreen(context, const HomePage())
+         ;
             },
             
             child: Container(

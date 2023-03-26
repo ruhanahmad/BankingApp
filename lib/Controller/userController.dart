@@ -314,7 +314,8 @@ class UserController extends GetxController {
 
   List<DocumentSnapshot> verificationss = [];
   bool? checkssss;
-  Future verificationChec() async {
+  bool firstScreen = false;
+   verificationChec() async {
     await getIDo();
 
     await FirebaseFirestore.instance
@@ -327,9 +328,12 @@ class UserController extends GetxController {
       checkssss = valuess['verified'];
       update();
       if (checkssss == true) {
-        return true;
+        // return true;
+        firstScreen = true;
+        update();
       } else {
-        return false;
+       firstScreen = false;
+       update();
       }
 
       print(valuess);
@@ -2284,7 +2288,30 @@ class UserController extends GetxController {
               .update({"accountB": newValeTwo.toString()}).then(
                   (value) => print(" updated"));
 
+
           Get.snackbar("Success", "Changed plan to ${dropDownValue}");
+
+                 try{
+   await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").add(
+        {"dateTime":DateTime.now(),
+         "balance":7.toString(),
+         "username":"Money deducted",
+         "type":"packageChange",
+         "read":false,
+        }
+    
+      ).then(( value)async {
+              Get.snackbar("title","Value added successfully");
+
+           update()  ;  
+    //  Get.to(ReasonForUse());
+     });
+}
+catch(e){
+  Get.snackbar("Prepaid","${e.toString()}");
+}
+
+
         } else {
           Get.snackbar("Error", "Balance must be greater than 7");
         }
@@ -2298,6 +2325,29 @@ class UserController extends GetxController {
               .doc(userId!.uid)
               .update({"accountB": newValeTwo.toString()}).then(
                   (value) => print(" updated"));
+
+                 try{
+   await FirebaseFirestore.instance.collection("account").doc(userId!.uid).collection("notifications").add(
+        {"dateTime":DateTime.now(),
+         "balance":12.toString(),
+         "username":"Money deducted",
+         "type":"packageChange",
+         "read":false,
+        }
+    
+      ).then(( value)async {
+              Get.snackbar("title","Value added successfully");
+
+           update()  ;  
+    //  Get.to(ReasonForUse());
+     });
+}
+catch(e){
+  Get.snackbar("Prepaid","${e.toString()}");
+}
+
+
+
 
           Get.snackbar("Success", "Changed plan to ${dropDownValue}");
         } else {
